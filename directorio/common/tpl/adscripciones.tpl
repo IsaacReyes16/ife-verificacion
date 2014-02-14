@@ -77,6 +77,11 @@ function save(accion){
       }
     });
 }
+
+function cancelar(){    
+  confirmar=confirm("¿Esta seguro de cancelar? \nNo se guardara ningun cambio."); 
+  if (confirmar){location.href="index.php";}  
+}
 </script>
 <table border="0">
     <form name="f_datos" method="POST" action="">
@@ -148,7 +153,9 @@ function save(accion){
 	</tr>
     
     <tr>
-        <td class='table-center' colspan="4" ><input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'UPDATE');"/></td>		
+        <td class='table-center' colspan="4" >
+        <input type="button" name='btncancelar' id='btncancelar' value='Cancelar' class="boton" onclick="cancelar();"/>
+        <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'UPDATE');"/></td>		
 	</tr>
     </form>
 </table>

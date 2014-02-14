@@ -17,10 +17,11 @@ function select_activo($value=''){
 	return $options;
 }
 
-function select_cargo($value=''){
-	#$sel = (empty($value))?"selected":"";
-	#$options="<option value='' $sel>--Seleccionar--</option>";
-	$Sql="SELECT * FROM cat_cargos WHERE activo=1 ORDER BY cargo ASC";
+function select_cargo($value='', $id_area=''){
+	$area = (!empty($id_area))?"and id_area IN('0','$id_area')":"";
+	$sel = (empty($value))?"selected":"";
+	$options="<option value='' $sel>--Seleccionar--</option>";
+	$Sql="SELECT * FROM cat_cargos WHERE activo=1 $area ORDER BY cargo ASC";
 	$Row=SQLQuery($Sql);	
 	$Total=count($Row);
 	for($i=1; $i<=$Total; $i++){
@@ -38,9 +39,9 @@ function select_cargo($value=''){
 	return $options;
 }
 
-function select_tratamiento($value=1){
-	#$sel = (empty($value))?"selected":"";
-	#$options="<option value='' $sel>--Seleccionar--</option>";
+function select_tratamiento($value=''){
+	$sel = (empty($value))?"selected":"";
+	$options="<option value='' $sel>--Seleccionar--</option>";
 	$Sql="SELECT * FROM cat_tratamientos ORDER BY tratamiento ASC";
 	$Row=SQLQuery($Sql);	
 	$Total=count($Row);

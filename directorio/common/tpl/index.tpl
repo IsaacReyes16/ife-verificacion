@@ -36,6 +36,10 @@
         <th Colspan="4">FUNCIONARIOS&nbsp;</th>        
     </tr>
     [@funcionarios]
+    <tr>
+        <td class='table-label'><a href="personal_agregar.php?id=[@id_adscripcion]" class="">[Agregar]...</a></td> 
+        <td class='table-field' Colspan="3">&nbsp;</td>         
+    </tr>
     <!--
     <tr>
         <td class='table-label'>Activo:&nbsp;</td>  

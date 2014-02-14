@@ -5,10 +5,7 @@ include_once('common/php/header.php');
 #Sesiones
 if (!isset($_SESSION)) { session_start(); }
 //--Vars Temporales
-$Usuario['id']=2015;
-$_SESSION['nivel']=2;
-$_SESSION[id_vlc]=9;
-$_SESSION[id_vdi]=5;
+@include('testvars.php');
 //--FIN Vars Temporales
 $v_ent = $_SESSION[id_vlc];
 $v_dto = $_SESSION[id_vdi];

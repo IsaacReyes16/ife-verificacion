@@ -5,20 +5,16 @@ include_once('common/php/header.php');
 #Sesiones
 if (!isset($_SESSION)) { session_start(); }
 //--Vars Temporales
-$Usuario['id']=2015;
-$_SESSION['nivel']=2;
-$_SESSION[id_vlc]=9;
-$_SESSION[id_vdi]=5;
-$v_id_personal=180;
+@include('testvars.php');
 //--FIN Vars Temporales
 $v_ent = $_SESSION[id_vlc];
 $v_dto = $_SESSION[id_vdi];
 switch($_SESSION['nivel']){
 	case 1: //usuario de nivel central
-	 	$Filtro = "'";
+	 	$Filtro = "and a.ent=0 and a.dto=0";
 		break;	
 	case 2: //usuario de nivel local
-		$Filtro = "and a.ent='$v_ent'";	
+		$Filtro = "and a.ent='$v_ent' and a.dto=0";	
 		break;	
 	case 3: //usuario de nivel distrital
 		$Filtro = "and a.ent='$v_ent' and a.dto='$v_dto'";
@@ -95,6 +91,7 @@ $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('CSS_estilos', $Css);
 #--
+$html->set('id_adscripcion', $Row['id_adscripcion']);
 $html->set('adscripcion', $Row['adscripcion']);
 $html->set('corto', $Row['corto']);
 $html->set('id_ent', $Row['ent']);
