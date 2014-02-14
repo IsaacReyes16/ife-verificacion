@@ -1,0 +1,72 @@
+@charset "utf-8";
+table{
+	font-family:Arial, Helvetica, sans-serif;
+	color:#333;
+	font-size: 11px;
+	border: 1px solid #DDD;
+}
+th{
+	font-family:Arial, Helvetica, sans-serif;
+	background: #CC0099;	
+	color:#FFF;
+	font-weight:bold;
+	font-size: 1.2em;
+}
+input, textarea, select{
+	font-size:.9em;
+	border:#DDD solid 1px;
+	color:#333;
+	font-weight:bold;
+}
+input:focus, textarea:focus, select:focus{
+	border:#F500AB solid 1px;
+	/*font-size:1.3em;*/
+	background-color:#FBE6FA;	
+}
+.boton{	
+	font-size: .9em;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFF;
+	text-align: center;
+	vertical-align: middle;
+	background-color:#F500AB;
+}
+.boton:focus{
+	font-size: .9em;
+	font-style: normal;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	background-color:#F500AB;
+}
+.boton:hover {
+	font-size: .9em;
+	font-style: normal;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	background-color:#F280D0;
+}
+.table-label{
+	font-weight:bold;
+	text-align: right;
+	background-color:#BFBFBF;
+	color:#555;
+}
+.table-field{
+	font-weight:bold;
+	text-align: left;
+	background-color:#FAF3FA;
+}
+.table-center{
+	text-align: center;
+	background-color:#FAF3FA;
+}
+.label-required{
+	color:red;
+	font-weight:bold;
+}
+
