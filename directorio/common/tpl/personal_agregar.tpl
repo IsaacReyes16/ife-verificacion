@@ -2,6 +2,11 @@
 [@jQuery]
 <script>
 function validar(f,accion){
+    if($("#id_cargo").val()==''){
+        alert("Seleccione el cargo del funcionario.");
+        f.id_cargo.focus();
+        return false;
+    }
     if($("#nombre").val()==''){
         alert("Debe ingresar el nombre del funcionario.");
         f.nombre.focus();
@@ -12,9 +17,24 @@ function validar(f,accion){
         f.paterno.focus();
         return false;
     }
+    if($("#id_tratamiento").val()==''){
+        alert("Seleccione el tratamiento para el funcionario.");
+        f.id_tratamiento.focus();
+        return false;
+    }
+    if($('input:radio[name=sexo]:checked').length==''){
+        alert("Seleccione el sexo del funcionario.");
+        f.sexo.focus();
+        return false;
+    }
     if($("#telefono").val()==''){
         alert("Debe ingresar el número telefónico.");
         f.telefono.focus();
+        return false;
+    }
+    if($("#telefonoip").val()==''){
+        alert("Debe ingresar el número IP de la red telefónica.");
+        f.telefonoip.focus();
         return false;
     }
     if($("#correo").val()==''){
@@ -22,7 +42,7 @@ function validar(f,accion){
         f.correo.focus();
         return false;
     }
-    if($("#firma").val()==''){
+    if($('input:radio[name=firma]:checked').length==''){
         alert("Seleccione si el funcionario firma oficios.");
         f.firma.focus();
         return false;
@@ -47,6 +67,7 @@ function save(accion){
     var lada = $("#lada").val();
     var telefono = $("#telefono").val();
     var telefono2 = $("#telefono2").val();
+    var telefonoip = $("#telefonoip").val();
     var correo = $("#correo").val();
     var firma = $('input:radio[name=firma]:checked').val();
     $.ajax({
@@ -69,6 +90,7 @@ function save(accion){
       lada : lada,
       telefono : telefono,
       telefono2 : telefono2,
+      telefonoip : telefonoip,
       correo : correo,
       firma : firma
       },
@@ -118,7 +140,7 @@ function cancelar(){
     </tr>
     <!-- Form -->
     <tr>
-        <td class='table-label'>Puesto:&nbsp;</td>  
+        <td class='table-label'><span class="label-required">*</span>Puesto:&nbsp;</td>  
         <td class='table-field' colspan="3">
         <select id="id_cargo" name="id_cargo">[@select_cargo]</select>
         <input type='hidden' name='cargo' id='cargo' value='[@cargo]' /> 
@@ -139,14 +161,14 @@ function cancelar(){
         <td class='table-field' colspan="3"><input type="text" name='materno' id='materno' size='32' maxlength='32' value='[@materno]' /></td>        
     </tr>
     <tr>
-        <td class='table-label'>Tratamiento:&nbsp;</td>  
+        <td class='table-label'><span class="label-required">*</span>Tratamiento:&nbsp;</td>  
         <td class='table-field' colspan="3">
         <select id="id_tratamiento" name="id_tratamiento">[@select_tratamiento]</select>
         <input type='hidden' name='tratamiento' id='tratamiento' value='[@tratamiento]' />  
         </td>       
     </tr>
     <tr>
-        <td class='table-label'>Sexo:&nbsp;</td>  
+        <td class='table-label'><span class="label-required">*</span>Sexo:&nbsp;</td>  
         <td class='table-field' colspan="3">[@radio_sexo]
         </td>       
     </tr>    
@@ -158,8 +180,12 @@ function cancelar(){
     <tr>
         <td class='table-label'>Teléfono2:&nbsp;</td>    
         <td class='table-field' ><input type="text" name='telefono2' id='telefono2' size='20' maxlength='20' value='[@telefono2]' /></td>      
+        <td class='table-label'><span class="label-required">*</span>Teléfono IP:&nbsp;</td>    
+        <td class='table-field' ><input type="text" name='telefonoip' id='telefonoip' size='20' maxlength='20' value='[@telefonoip]' /></td>
+    </tr>
+    <tr>
         <td class='table-label'><span class="label-required">*</span>Correo:&nbsp;</td> 
-        <td class='table-field' ><input type="text" name='correo' id='correo' size='20' maxlength='80' value='[@correo]' /></td>     
+        <td class='table-field' colspan="3"><input type="text" name='correo' id='correo' size='40' maxlength='80' value='[@correo]' /></td>  
     </tr>
     <tr>
         <td class='table-label'><span class="label-required">*</span>Firma Oficios:&nbsp;</td>    
@@ -183,7 +209,7 @@ function cancelar(){
     <tr>
         <td class='table-center' colspan="4" >
         <input type="button" name='btncancelar' id='btncancelar' value='Cancelar' class="boton" onclick="cancelar();"/>
-        <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'UPDATE');"/></td>        
+        <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'INSERT');"/></td>        
     </tr>
     </form>
 </table>

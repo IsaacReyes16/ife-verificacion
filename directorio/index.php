@@ -92,20 +92,20 @@ $html->set('jQuery', $jQueryPlugins);
 $html->set('CSS_estilos', $Css);
 #--
 $html->set('id_adscripcion', $Row['id_adscripcion']);
-$html->set('adscripcion', $Row['adscripcion']);
+$html->set('adscripcion', utf8_encode($Row['adscripcion']));
 $html->set('corto', $Row['corto']);
 $html->set('id_ent', $Row['ent']);
-$html->set('entidad', $Row['entidad']);
+$html->set('entidad', utf8_encode($Row['entidad']));
 $html->set('id_dto', $Row['dto']);
 $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
 //-- Form
-$html->set('direccion', $direccion);
-$html->set('funcionarios', $Funcionarios);
+$html->set('direccion', utf8_encode($direccion));
+$html->set('funcionarios', utf8_encode($Funcionarios));
 $html->set('actualizado', $Row['actualizado']);
-$html->set('id_usuario', $UsuarioNombre);
+$html->set('id_usuario', utf8_encode($UsuarioNombre));
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo $html;

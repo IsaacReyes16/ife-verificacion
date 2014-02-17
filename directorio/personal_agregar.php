@@ -99,6 +99,7 @@ $html->set('radio_sexo', $radio_sexo);
 $html->set('lada', $Row['lada']);
 $html->set('telefono', $Row['telefono']);
 $html->set('telefono2', $Row['telefono2']);
+$html->set('telefonoip', $Row['telefonoip']);
 $html->set('correo', $Row['correo']);
 $html->set('radio_firma', $radio_firma);
 $html->set('activo', $Row[1]);
