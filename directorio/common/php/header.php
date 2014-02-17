@@ -13,6 +13,7 @@ $db_domirreg="ife_dom_irre";
 $Path['js']=$Raiz['url'].'common/js/';
 $Path['css']=$Raiz['url'].'common/css/';
 $Path['tpl']='common/tpl/';
+$Path['img']='common/img/';
 parse_form_sanitizer($_GET, $_POST);
 parse_form($_GET, $_POST);
 ##Variables de usuario
@@ -37,4 +38,6 @@ $jQueryPlugins = '
 	<script src="'.$Path['js'].'jquery/msgBox/Scripts/jquery.msgBox.js"></script>
 	<!--jQuery-->
 	<script type="text/javascript" src="'.$Path['js'].'jquery/jquery-1.9.1.min.js"></script>';
+$Javascript='<!--jQuery-->
+	<script type="text/javascript" src="'.$Path['js'].'o3m_functions.js"></script>';
 ?>

@@ -67,6 +67,7 @@ $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsua
 $htmlTpl = 'adscripciones.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('jQuery', $jQueryPlugins);
+$html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
 $html->set('id_adscripcion', $Row['id_adscripcion']);

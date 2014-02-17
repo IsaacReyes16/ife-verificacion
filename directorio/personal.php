@@ -83,8 +83,10 @@ $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsua
 $htmlTpl = 'personal.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('jQuery', $jQueryPlugins);
+$html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
+$html->set('btnDo', 'UPDATE');
 $html->set('id_adscripcion', $Row['id_adscripcion']);
 $html->set('adscripcion', $Row['adscripcion']);
 $html->set('corto', $Row['corto']);

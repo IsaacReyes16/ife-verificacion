@@ -74,21 +74,29 @@ $direccion = $Row['calle'].' '.$Row['num_ext'].' '.$Row['num_int'].', <br/>'.$Ro
 #Usuario
 $vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
+#Icono OK & Not OK
+$iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Revisado'>";
+$iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Revisar'>";
+#Direccion
+$direccionOk = (!empty($Row['actualizado']))?$iOk:$iNotOk;
 #Personas
 $Total=count($Row_personal);
 for($i=1; $i<=$Total-1; $i++){
-	$Nombre = $Row_personal[$i][1].' '.$Row_personal[$i][2].' '.$Row_personal[$i][3].' '.$Row_personal[$i][4];
-	$ok = (!empty($Row_personal[$i][8]))?"":"";
+	$Nombre = $Row_personal[$i][1].' '.$Row_personal[$i][2].' '.$Row_personal[$i][3].' '.$Row_personal[$i][4];	
+	$personaOk = (!empty($Row_personal[$i][8]))?$iOk:$iNotOk;
 	$Funcionarios .= '<tr>
-			        <td class="table-label">'.$ok.'&nbsp;'.$Row_personal[$i][6].':&nbsp;</td> 
+			        <td class="table-label">'.$personaOk.'&nbsp;'.$Row_personal[$i][6].':&nbsp;</td> 
 			        <td class="table-field" Colspan="3">'.$Nombre.'&nbsp;
-			        <a href="personal.php?id='.$Row_personal[$i][0].'" class="">[Editar]</a></td>         
+			        <a href="personal.php?id='.$Row_personal[$i][0].'" class="">[Editar]</a>&nbsp;
+			        <a href="#" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\');" class="">[Quitar]</a>
+			        </td>         
 			    </tr>';
 }
 ##Output
 $htmlTpl = 'index.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('jQuery', $jQueryPlugins);
+$html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
 $html->set('id_adscripcion', $Row['id_adscripcion']);
@@ -101,6 +109,7 @@ $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
+$html->set('direccionOk', $direccionOk);
 //-- Form
 $html->set('direccion', utf8_encode($direccion));
 $html->set('funcionarios', utf8_encode($Funcionarios));

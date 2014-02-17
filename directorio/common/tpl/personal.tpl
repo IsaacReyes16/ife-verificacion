@@ -1,4 +1,5 @@
 [@CSS_estilos]
+[@Javascript]
 [@jQuery]
 <script>
 function validar(f,accion){
@@ -7,12 +8,12 @@ function validar(f,accion){
         f.id_cargo.focus();
         return false;
     }
-    if($("#nombre").val()==''){
+    if(fulltrim($("#nombre").val())==''){
         alert("Debe ingresar el nombre del funcionario.");
         f.nombre.focus();
         return false;
     }
-    if($("#paterno").val()==''){
+    if(fulltrim($("#paterno").val())==''){
         alert("Debe ingresar el apellido paterno.");
         f.paterno.focus();
         return false;
@@ -27,21 +28,28 @@ function validar(f,accion){
         f.sexo.focus();
         return false;
     }
-    if($("#telefono").val()==''){
+    if(fulltrim($("#telefono").val())==''){
         alert("Debe ingresar el número telefónico.");
         f.telefono.focus();
         return false;
     }
-    if($("#telefonoip").val()==''){
+    if(fulltrim($("#telefonoip").val())==''){
         alert("Debe ingresar el número IP de la red telefónica.");
         f.telefonoip.focus();
         return false;
     }
-    if($("#correo").val()==''){
+    if(fulltrim($("#correo").val())==''){
         alert("Debe ingresar el correo electrónico.");
         f.correo.focus();
         return false;
     }
+
+    if(!EmailVerify($("#correo").val())){
+        alert("La dirección de correo electrónico no es valida, por favor, verifique.");
+         f.correo.focus();
+        return false;
+    }
+
     if($('input:radio[name=firma]:checked').length==''){
         alert("Seleccione si el funcionario firma oficios.");
         f.firma.focus();
@@ -52,6 +60,7 @@ function validar(f,accion){
 function save(accion){
     var ajax_url = "personal_save.php";
     var accion = accion;    
+    // Personal
     var id_cargo = $("#id_cargo").val();
     var cargo = $("#cargo").val();
     var id_personal = $("#id_personal").val();
@@ -70,6 +79,13 @@ function save(accion){
     var telefonoip = $("#telefonoip").val();
     var correo = $("#correo").val();
     var firma = $('input:radio[name=firma]:checked').val();
+    // Adscripcion 
+    var calle = $("#calle").val();
+    var num_ext = $("#num_ext").val();
+    var num_int = $("#num_int").val();
+    var colonia = $("#colonia").val();
+    var mpio_desc = $("#mpio_desc").val();
+    var cp = $("#cp").val();
     $.ajax({
       type: 'POST',
       url: ajax_url,
@@ -92,11 +108,17 @@ function save(accion){
       telefono2 : telefono2,
       telefonoip : telefonoip,
       correo : correo,
-      firma : firma
+      firma : firma,
+      calle : calle,
+      num_ext : num_ext,
+      num_int : num_int,
+      colonia : colonia,
+      mpio_desc : mpio_desc,
+      cp : cp
       },
-      success: function(data){   
-        alert(data);
-          if(data !=''){                                    
+      success: function(data){
+          if(data !=''){              
+          alert(data);                      
               if(data == 1){
                   alert("Información guardada correctamente.")
                   // location.reload();  
@@ -149,17 +171,17 @@ function cancelar(){
     </tr>
     <tr>
         <td class='table-label'><span class="label-required">*</span>Nombre:&nbsp;</td>  
-        <td class='table-field' colspan="3"><input type="text" name='nombre' id='nombre' size='32' maxlength='32' value='[@nombre]' />
-           <input type='hidden' name='id_personal' id='id_personal' value='[@id_personal]' />     
+        <td class='table-field' colspan="3"><input type="text" name='nombre' id='nombre' size='32' maxlength='32' value='[@nombre]' onkeyup="mayusc(this)" />
+           <input type='hidden' name='id_personal' id='id_personal' value='[@id_personal]' onkeyup="mayusc(this)" />     
         </td>        
     </tr>
     <tr>
         <td class='table-label'><span class="label-required">*</span>Paterno:&nbsp;</td>  
-        <td class='table-field' colspan="3"><input type="text" name='paterno' id='paterno' size='32' maxlength='32' value='[@paterno]' /></td>        
+        <td class='table-field' colspan="3"><input type="text" name='paterno' id='paterno' size='32' maxlength='32' value='[@paterno]' onkeyup="mayusc(this)"/></td>        
     </tr>
     <tr>
         <td class='table-label'>Materno:&nbsp;</td>  
-        <td class='table-field' colspan="3"><input type="text" name='materno' id='materno' size='32' maxlength='32' value='[@materno]' /></td>        
+        <td class='table-field' colspan="3"><input type="text" name='materno' id='materno' size='32' maxlength='32' value='[@materno]' onkeyup="mayusc(this)" /></td>        
     </tr>
     <tr>
         <td class='table-label'><span class="label-required">*</span>Tratamiento:&nbsp;</td>  
@@ -174,15 +196,15 @@ function cancelar(){
         </td>       
     </tr>    
     <tr>    <td class='table-label'>Lada:&nbsp;</td>    
-    <td class='table-field'><input type="text" name='lada' id='lada' size='10' maxlength='10' value='[@lada]' /></td>  
+    <td class='table-field'><input type="text" name='lada' id='lada' size='10' maxlength='10' value='[@lada]' onkeypress="return solo_num(event)" /></td>  
     <td class='table-label'><span class="label-required">*</span>Teléfono1:&nbsp;</td>    
-        <td class='table-field' ><input type="text" name='telefono' id='telefono' size='20' maxlength='20' value='[@telefono]' /></td>    
+        <td class='table-field' ><input type="text" name='telefono' id='telefono' size='20' maxlength='20' value='[@telefono]' onkeypress="return solo_num(event)" /></td>    
     </tr>
     <tr>
         <td class='table-label'>Teléfono2:&nbsp;</td>    
-        <td class='table-field' ><input type="text" name='telefono2' id='telefono2' size='20' maxlength='20' value='[@telefono2]' /></td>      
+        <td class='table-field' ><input type="text" name='telefono2' id='telefono2' size='20' maxlength='20' value='[@telefono2]' onkeypress="return solo_num(event)" /></td>      
         <td class='table-label'><span class="label-required">*</span>Teléfono IP:&nbsp;</td>    
-        <td class='table-field' ><input type="text" name='telefonoip' id='telefonoip' size='20' maxlength='20' value='[@telefonoip]' /></td>
+        <td class='table-field' ><input type="text" name='telefonoip' id='telefonoip' size='20' maxlength='20' value='[@telefonoip]' onkeypress="return solo_num(event)" /></td>
     </tr>
     <tr>
         <td class='table-label'><span class="label-required">*</span>Correo:&nbsp;</td> 
@@ -210,7 +232,7 @@ function cancelar(){
     <tr>
         <td class='table-center' colspan="4" >
         <input type="button" name='btncancelar' id='btncancelar' value='Cancelar' class="boton" onclick="cancelar();"/>
-        <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'UPDATE');"/></td>        
+        <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'[@btnDo]');"/></td>        
     </tr>
     </form>
 </table>

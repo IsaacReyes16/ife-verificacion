@@ -1,7 +1,38 @@
 [@CSS_estilos]
+[@Javascript]
 [@jQuery]
 <script>
-
+function quitar(id_persona, nombre){
+    confirmar=confirm("¿Esta seguro de quitar al funcionario: "+nombre+", de la lista?");
+    if (confirmar){save('DELETE',id_persona); }
+}
+function save(accion, id_persona){
+    var ajax_url = "personal_save.php";
+    var accion = accion;    
+    var id_personal = id_persona;
+    var id_adscripcion = $("#id_adscripcion").val();
+    $.ajax({
+      type: 'POST',
+      url: ajax_url,
+      data: {
+      accion : accion,
+      id_personal : id_personal,
+      id_adscripcion : id_adscripcion
+      },
+      success: function(data){  
+          if(data !=''){                                    
+              if(data == 1){                  
+                  alert("El funcionario ha sido quitado de la lista.");
+                  location.reload();
+              }else{
+                  alert("Error al quitar funcionario");
+              }
+          }else{
+              alert("Error al envíar datos");
+          }                                
+      }
+    });
+}
 </script>
 <table border="0">
     <form name="f_datos" method="POST" action="">
@@ -29,7 +60,7 @@
     </tr>
     <!-- Form -->
     <tr>
-        <td class='table-label'>Dirección:&nbsp;</td> 
+        <td class='table-label'>[@direccionOk] Dirección:&nbsp;</td> 
         <td class='table-field' Colspan="3">[@direccion]&nbsp;<a href="adscripciones.php" class="">[Editar]</a></td>         
     </tr>
     <tr>
@@ -37,7 +68,9 @@
     </tr>
     [@funcionarios]
     <tr>
-        <td class='table-label'><a href="personal_agregar.php?id=[@id_adscripcion]" class="">[Agregar]...</a></td> 
+        <td class='table-label'>
+        <a href="personal_agregar.php?id=[@id_adscripcion]" class="">[Agregar]...</a>    
+        </td> 
         <td class='table-field' Colspan="3">&nbsp;</td>         
     </tr>
     <!--

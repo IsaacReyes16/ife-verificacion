@@ -71,11 +71,13 @@ $vUsuario = SQLUser($id_usuario, 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 
 ##Output
-$htmlTpl = 'personal_agregar.tpl';
+$htmlTpl = 'personal.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('jQuery', $jQueryPlugins);
+$html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
+$html->set('btnDo', 'INSERT');
 $html->set('id_adscripcion', $Row['id_adscripcion']);
 $html->set('adscripcion', $Row['adscripcion']);
 $html->set('corto', $Row['corto']);

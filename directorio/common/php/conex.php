@@ -77,6 +77,7 @@ function SQLExec($Sql=''){
 		if(in_array(strtoupper($vSql[0]),$Cmd)){
 			$Link=SQLLink();
 			$Con=mysql_query($Sql, $Link)or die(mysql_error());	
+			$Id=mysql_insert_id($Link);
 			$TotRows=mysql_affected_rows();
 			if($TotRows){
 				$Result = $TotRows;					
@@ -87,6 +88,7 @@ function SQLExec($Sql=''){
 					$t=explode('INTO ',strtoupper($Sql));
 					$t2=explode(' ',$t[1]);
 					$table=strtolower($t2[0]);
+					$Result=$Id;
 				}				
 				if($action=='UPDATE'){
 					$t=explode(' ',strtoupper($Sql));
@@ -101,7 +103,6 @@ function SQLExec($Sql=''){
 			}else{
 				$Result = 0;
 			}
-			$Result = mysql_error();
 			mysql_close($Link);
 		}else{$Result = false;}
 	}else{$Result = false;}

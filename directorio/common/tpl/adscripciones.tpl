@@ -1,28 +1,29 @@
 [@CSS_estilos]
+[@Javascript]
 [@jQuery]
 <script>
 function validar(f,accion){
-    if($("#calle").val()==''){
+    if(fulltrim($("#calle").val())==''){
         alert("Debe ingresar el nombre de la calle.");
         f.calle.focus();
         return false;
     }
-    if($("#num_ext").val()==''){
+    if(fulltrim($("#num_ext").val())==''){
         alert("Debe ingresar el número exterior.");
         f.num_ext.focus();
         return false;
     }
-    if($("#colonia").val()==''){
+    if(fulltrim($("#colonia").val())==''){
         alert("Debe ingresar la colonia.");
         f.colonia.focus();
         return false;
     }
-    if($("#mpio_desc").val()==''){
+    if(fulltrim($("#mpio_desc").val())==''){
         alert("Debe ingresar el municipio.");
         f.mpio_desc.focus();
         return false;
     }
-    if($("#cp").val()==''){
+    if(fulltrim($("#cp").val())==''){
         alert("Debe ingresar el código postal.");
         f.cp.focus();
         return false;
@@ -109,33 +110,33 @@ function cancelar(){
 	</tr>
     <tr>
     	<td class='table-label'><span class="label-required">*</span>Calle:&nbsp;</td>	
-        <td class='table-field' colspan="3"><input type="text" name='calle' id='calle' size='50' maxlength='50' value='[@calle]' /></td>		
+        <td class='table-field' colspan="3"><input type="text" name='calle' id='calle' size='50' maxlength='50' value='[@calle]' onkeyup="mayusc(this)" /></td>		
 	</tr>
     <tr>
     	<td class='table-label'><span class="label-required">*</span>Num. Ext:&nbsp;</td>	
-        <td class='table-field'><input type="text" name='num_ext' id='num_ext' size='12' maxlength='20' value='[@num_ext]' /></td>
+        <td class='table-field'><input type="text" name='num_ext' id='num_ext' size='12' maxlength='20' value='[@num_ext]' onkeyup="mayusc(this)" /></td>
     	<td class='table-label'>Num. Int:&nbsp;</td>	
-        <td class='table-field'><input type="text" name='num_int' id='num_int' size='13' maxlength='20' value='[@num_int]' /></td>		
+        <td class='table-field'><input type="text" name='num_int' id='num_int' size='13' maxlength='20' value='[@num_int]' onkeyup="mayusc(this)" /></td>		
 	</tr>
     <tr>
     	<td class='table-label'><span class="label-required">*</span>Colonia:&nbsp;</td>	
-        <td class='table-field' colspan="3"><input type="text" name='colonia' id='colonia' size='50' maxlength='50' value='[@colonia]' /></td>		
+        <td class='table-field' colspan="3"><input type="text" name='colonia' id='colonia' size='50' maxlength='50' value='[@colonia]' onkeyup="mayusc(this)" /></td>		
 	</tr>
     <tr>
     	<td class='table-label'><span class="label-required">*</span>Municipio:&nbsp;</td>	
-        <td class='table-field' colspan="3"><input type="text" name='mpio_desc' id='mpio_desc' size='50' maxlength='50' value='[@mpio_desc]' /></td>		
+        <td class='table-field' colspan="3"><input type="text" name='mpio_desc' id='mpio_desc' size='50' maxlength='50' value='[@mpio_desc]' onkeyup="mayusc(this)" ></td>		
 	</tr>
     <tr>
     	<td class='table-label'><span class="label-required">*</span>CP:&nbsp;</td>	
-        <td class='table-field' colspan="3"><input type="text" name='cp' id='cp' size='5' maxlength='5' value='[@cp]' /></td>	</tr>
+        <td class='table-field' colspan="3"><input type="text" name='cp' id='cp' size='5' maxlength='5' value='[@cp]' onkeypress="return solo_num(event)"/></td>	</tr>
     <tr>	<td class='table-label'>Lada:&nbsp;</td>	
-    <td class='table-field' colspan="3"><input type="text" name='lada' id='lada' size='10' maxlength='10' value='[@lada]' /></td>		
+    <td class='table-field' colspan="3"><input type="text" name='lada' id='lada' size='10' maxlength='10' value='[@lada]' onkeypress="return solo_num(event)"/></td>		
 	</tr>
     <tr>
     	<td class='table-label'>Teléfono:&nbsp;</td>	
-        <td class='table-field' ><input type="text" name='telefono' id='telefono' size='20' maxlength='20' value='[@telefono]' /></td>		
+        <td class='table-field' ><input type="text" name='telefono' id='telefono' size='20' maxlength='20' value='[@telefono]' onkeypress="return solo_num(event)"/></td>		
     	<td class='table-label'>Fax:&nbsp;</td>	
-        <td class='table-field' ><input type="text" name='fax' id='fax' size='10' maxlength='10' value='[@fax]' /></td>		
+        <td class='table-field' ><input type="text" name='fax' id='fax' size='10' maxlength='10' value='[@fax]' onkeypress="return solo_num(event)"/></td>		
 	</tr>
     <!-- 
     <tr>
