@@ -118,8 +118,7 @@ function save(accion){
       cp : cp
       },
       success: function(data){
-          if(data !=''){              
-          alert(data);                      
+          if(data !=''){                      
               if(data == 1){
                   alert("Información guardada correctamente.")
                   // location.reload();  
