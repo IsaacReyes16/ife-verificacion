@@ -69,8 +69,6 @@ $sql = "SELECT
 $Row_personal = SQLQuery($sql);
 #Distrito
 $Dtto=($Row['dto']==0)?'N/A':$Row['dto'];
-#Direccion
-$direccion = $Row['calle'].' '.$Row['num_ext'].' '.$Row['num_int'].', <br/>'.$Row['colonia'].', '.$Row['mpio_desc'].', <br/> C.P. '.$Row['cp'].', Tel. ('.$Row['lada'].') '.$Row['telefono'];
 #Usuario
 $vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
@@ -78,6 +76,7 @@ $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsua
 $iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Actualizado'>";
 $iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Actualizar Datos'>";
 #Direccion
+$direccion = $Row['calle'].' '.$Row['num_ext'].' '.$Row['num_int'].', <br/>'.$Row['colonia'].', '.$Row['mpio_desc'].', <br/> C.P. '.$Row['cp'].', Tel. ('.$Row['lada'].') '.$Row['telefono'];
 $direccionOk = (!empty($Row['actualizado']))?$iOk:$iNotOk;
 #Personas
 $Total=count($Row_personal);
