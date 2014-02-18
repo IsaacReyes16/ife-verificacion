@@ -63,7 +63,8 @@ function save(accion, id_persona){
       <!-- Form -->
       <tr>
           <td class='table-label'>[@direccionOk] Dirección:&nbsp;</td> 
-          <td class='table-field' Colspan="3">[@direccion]&nbsp;<a href="adscripciones.php" class="">[Editar]</a></td>         
+          <td class='table-field' Colspan="3">[@direccion]&nbsp;<span id="btnEditar" class="btn" onclick="location.href='adscripciones.php'">Editar</span>
+          </td>         
       </tr>
       <tr>
           <th Colspan="4">FUNCIONARIOS&nbsp;</th>        
@@ -71,7 +72,7 @@ function save(accion, id_persona){
       [@funcionarios]
       <tr>
           <td class='table-label'>
-          <a href="personal_agregar.php?id=[@id_adscripcion]" class="">[Agregar]...</a>    
+          <span id="btnAgregar" class="btn" onclick="location.href='personal_agregar.php?id=[@id_adscripcion]'">Agregar...</span> 
           </td> 
           <td class='table-field' Colspan="3">&nbsp;</td>         
       </tr>
@@ -87,8 +88,32 @@ function save(accion, id_persona){
           <td class='table-field' Colspan="4">&nbsp;</td>        
       </tr>
       <tr>
-          <td class='table-center' colspan="4" ><input type="button" name='btnGuardar' id='btnGuardar' value='Confirmar' class="boton" onclick="validar(this.form,'UPDATE');"/></td>        
+          <td class='table-center' colspan="4" >
+          <span id="btnCancelar" class="btn" onclick="ocultar();">Cerrar</span> 
+          </td>        
       </tr>
       </form>
   </table>
+  <div id="msjPie"><b>IMPORTANTE:</b> La información aquí presentada, es la que aparecerá en <b>toda la documentación</b> generada por el sistema.<br/>
+  <table align="right">
+    <tr>
+      <td>[@icoOK]</td>
+      <td>Información actualizada.</td>
+    </tr>
+    <tr>
+      <td>[@icoNotOK]</td>
+      <td>Necesita ser actualizado.</td>
+    </tr>
+  </table>
+  </div>
 </div>
+<script>
+function ocultar(){
+  window.parent.document.getElementById('popup_msj').style.display='none';
+  window.parent.document.getElementById('popup_modal').style.display='none';
+}
+function ver(){
+  document.getElementById('popup_msj').style.display='block';
+  document.getElementById('popup_modal').style.display='block';
+}
+</script>

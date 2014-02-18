@@ -232,8 +232,9 @@ function cancelar(){
       
       <tr>
           <td class='table-center' colspan="4" >
-          <input type="button" name='btncancelar' id='btncancelar' value='Cancelar' class="boton" onclick="cancelar();"/>
-          <input type="button" name='btnGuardar' id='btnGuardar' value='Guardar' class="boton" onclick="validar(this.form,'[@btnDo]');"/></td>        
+          <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Cancelar</span>
+          <span id="btnAceptar" class="btn" onclick="validar(this.form,'[@btnDo]');" title="Guardar">Guardar</span>
+          </td>        
       </tr>
       </form>
   </table>

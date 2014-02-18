@@ -75,8 +75,8 @@ $direccion = $Row['calle'].' '.$Row['num_ext'].' '.$Row['num_int'].', <br/>'.$Ro
 $vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 #Icono OK & Not OK
-$iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Revisado'>";
-$iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Revisar'>";
+$iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Actualizado'>";
+$iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Actualizar Datos'>";
 #Direccion
 $direccionOk = (!empty($Row['actualizado']))?$iOk:$iNotOk;
 #Personas
@@ -87,8 +87,8 @@ for($i=1; $i<=$Total-1; $i++){
 	$Funcionarios .= '<tr>
 			        <td class="table-label">'.$personaOk.'&nbsp;'.$Row_personal[$i][6].':&nbsp;</td> 
 			        <td class="table-field" Colspan="3">'.$Nombre.'&nbsp;
-			        <a href="personal.php?id='.$Row_personal[$i][0].'" class="">[Editar]</a>&nbsp;
-			        <a href="#" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\');" class="">[Quitar]</a>
+			        <span id="btnEditar" class="btn" onclick="location.href=\'personal.php?id='.$Row_personal[$i][0].'\'" title="Editar">Editar</span>&nbsp;
+			        <span id="btnQuitar" class="btn" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\');" title="Quitar">Quitar</span>
 			        </td>         
 			    </tr>';
 }
@@ -101,21 +101,23 @@ $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
 $html->set('id_adscripcion', $Row['id_adscripcion']);
-$html->set('adscripcion', utf8_encode($Row['adscripcion']));
+$html->set('adscripcion', $Row['adscripcion']);
 $html->set('corto', $Row['corto']);
 $html->set('id_ent', $Row['ent']);
-$html->set('entidad', utf8_encode($Row['entidad']));
+$html->set('entidad', $Row['entidad']);
 $html->set('id_dto', $Row['dto']);
 $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
 $html->set('direccionOk', $direccionOk);
+$html->set('icoOK', $iOk);
+$html->set('icoNotOK', $iNotOk);
 //-- Form
-$html->set('direccion', utf8_encode($direccion));
-$html->set('funcionarios', utf8_encode($Funcionarios));
+$html->set('direccion', $direccion);
+$html->set('funcionarios', $Funcionarios);
 $html->set('actualizado', $Row['actualizado']);
-$html->set('id_usuario', utf8_encode($UsuarioNombre));
+$html->set('id_usuario', $UsuarioNombre);
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo utf8_encode($html);
