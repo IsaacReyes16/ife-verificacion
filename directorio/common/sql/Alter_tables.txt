@@ -1,0 +1,12 @@
+//-- Alters para BD de Domicilios Vigentes
+ALTER TABLE `lis_vocales_distrital_vd`
+ADD COLUMN `id_adscripcion`  int(11) NULL AFTER `sexo_vd`,
+ADD INDEX `id_adscripcion` (`id_adscripcion`) USING BTREE ,
+ADD COLUMN `id_personal`  int(11) NULL AFTER `id_adscripcion`,
+ADD INDEX `id_personal` (`id_personal`) USING BTREE ;
+
+ALTER TABLE `lis_vocales_local_vl`
+ADD COLUMN `id_adscripcion`  int(11) NULL AFTER `nombre_sup_dep_vl`,
+ADD INDEX `id_adscripcion` (`id_adscripcion`) USING BTREE,
+ADD COLUMN `id_personal`  int(11) NULL AFTER `id_adscripcion`,
+ADD INDEX `id_personal` (`id_personal`) USING BTREE ;
