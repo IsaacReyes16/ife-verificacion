@@ -76,14 +76,6 @@ function save(accion, id_persona){
           </td> 
           <td class='table-field' Colspan="3">&nbsp;</td>         
       </tr>
-      <!--
-      <tr>
-          <td class='table-label'>Activo:&nbsp;</td>  
-          <td class='table-field' colspan="3">
-          <select id="activo" name="activo">[@select_activo]</select>
-          </td>       
-      </tr>
-      <!-- -->
        <tr>
           <td class='table-field' Colspan="4">&nbsp;</td>        
       </tr>
