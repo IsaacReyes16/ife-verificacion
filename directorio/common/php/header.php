@@ -40,4 +40,5 @@ $jQueryPlugins = '
 	<script type="text/javascript" src="'.$Path['js'].'jquery/jquery-1.9.1.min.js"></script>';
 $Javascript='<!--jQuery-->
 	<script type="text/javascript" src="'.$Path['js'].'o3m_functions.js"></script>';
+$HtmlHead = '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>';
 ?>

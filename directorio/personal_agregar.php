@@ -73,6 +73,7 @@ $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsua
 ##Output
 $htmlTpl = 'personal.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
+$html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
@@ -110,5 +111,5 @@ $html->set('actualizado', $Row['actualizado']);
 $html->set('id_usuario', $UsuarioNombre);
 $html=$html->output();
 ####### Fin de Impresión ##########
-echo $html;
+echo utf8_encode($html);
 ?>

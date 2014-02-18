@@ -95,6 +95,7 @@ for($i=1; $i<=$Total-1; $i++){
 ##Output
 $htmlTpl = 'index.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
+$html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
@@ -117,5 +118,5 @@ $html->set('actualizado', $Row['actualizado']);
 $html->set('id_usuario', utf8_encode($UsuarioNombre));
 $html=$html->output();
 ####### Fin de Impresión ##########
-echo $html;
+echo utf8_encode($html);
 ?>
