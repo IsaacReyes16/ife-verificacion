@@ -86,7 +86,7 @@ function save(accion, id_persona){
       </tr>
       </form>
   </table>
-  <div id="msjPie"><b>IMPORTANTE:</b> La información aquí presentada, es la que aparecerá en <b>toda la documentación</b> generada por el sistema.<br/>
+  <div id="msjPie"><b>IMPORTANTE:</b> La información aquí presentada, es la que aparecerá en <b>toda la documentación</b> generada por el sistema.<br/><br/>
   <table align="right">
     <tr>
       <td>[@icoOK]</td>

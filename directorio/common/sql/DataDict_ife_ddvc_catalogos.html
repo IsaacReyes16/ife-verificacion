@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>DB:ife_ddvc_catalgos</title>
+<style>
+.F1 { font-family: "Courier New";  color: #000000;  font-size: 10pt;  font-weight: bold; }
+.F2 { font-family: "Courier New";  color: #000000;  font-size: 9pt; }
+.F3 { font-family: "Courier New";  color: #000000;  font-size: 11pt; }
+
+</style>
+<meta name="author" content=""></meta>
+<meta name="description" content=""></meta>
+<meta name="keywords" content=""></meta>
+<meta name="generator" content="TExtraFormats"></meta>
+</head>
+<body leftmargin="0" topmargin="0">
+<div style="position: relative;">
+<table border="0" cellpadding="0" cellspacing="0" width="794"><tr valign="top">
+  <td height="1123">
+<div style="left: 24px;top: 24px;width: 746px;height: 21px;z-index: 0;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 64px;width: 746px;height: 1px;z-index: 1;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 26px;width: 736px;height: 17px;z-index: 2;line-height: 1.1;position: absolute;" class="F1">admin_logs_ddvc_catalogos</div>
+<div style="left: 24px;top: 49px;width: 746px;height: 15px;z-index: 3;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field        Type                               Extra</div>
+<div style="left: 24px;top: 66px;width: 746px;height: 15px;z-index: 4;line-height: 1.1;position: absolute;" class="F2">P  id_log       int(11)                            Auto Increment</div>
+<div style="left: 24px;top: 81px;width: 746px;height: 15px;z-index: 5;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;tablename    varchar(50)                        Allow Null</div>
+<div style="left: 24px;top: 97px;width: 746px;height: 15px;z-index: 6;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_table     int(11)                            Allow Null</div>
+<div style="left: 24px;top: 112px;width: 746px;height: 15px;z-index: 7;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;accion       enum('UPDATE','DELETE','INSERT')   Allow Null</div>
+<div style="left: 24px;top: 127px;width: 746px;height: 15px;z-index: 8;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;query        text                               Allow Null</div>
+<div style="left: 24px;top: 143px;width: 746px;height: 15px;z-index: 9;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;txt          varchar(100)                       Allow Null</div>
+<div style="left: 24px;top: 158px;width: 746px;height: 15px;z-index: 10;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;timestamp    datetime                           Allow Null</div>
+<div style="left: 24px;top: 174px;width: 746px;height: 15px;z-index: 11;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario   int(11)                            Allow Null</div>
+<div style="left: 24px;top: 214px;width: 746px;height: 1px;z-index: 12;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 24px;top: 198px;width: 746px;height: 15px;z-index: 13;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Index        Fields       Extra</div>
+<div style="left: 24px;top: 216px;width: 746px;height: 15px;z-index: 14;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario   id_usuario   </div>
+<div style="left: 24px;top: 250px;width: 746px;height: 21px;z-index: 15;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 290px;width: 746px;height: 1px;z-index: 16;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 252px;width: 736px;height: 17px;z-index: 17;line-height: 1.1;position: absolute;" class="F1">cat_areas</div>
+<div style="left: 24px;top: 275px;width: 746px;height: 15px;z-index: 18;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field     Type           Extra</div>
+<div style="left: 24px;top: 292px;width: 746px;height: 15px;z-index: 19;line-height: 1.1;position: absolute;" class="F2">P  id_area   smallint(3)    Auto Increment</div>
+<div style="left: 24px;top: 307px;width: 746px;height: 15px;z-index: 20;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;area      varchar(100)   Allow Null</div>
+<div style="left: 24px;top: 323px;width: 746px;height: 15px;z-index: 21;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;organo    varchar(15)    Allow Null</div>
+<div style="left: 24px;top: 357px;width: 746px;height: 21px;z-index: 22;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 397px;width: 746px;height: 1px;z-index: 23;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 359px;width: 736px;height: 17px;z-index: 24;line-height: 1.1;position: absolute;" class="F1">cat_cargos</div>
+<div style="left: 24px;top: 382px;width: 746px;height: 15px;z-index: 25;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field      Type           Extra</div>
+<div style="left: 24px;top: 399px;width: 746px;height: 15px;z-index: 26;line-height: 1.1;position: absolute;" class="F2">P  id_cargo   smallint(5)    Auto Increment</div>
+<div style="left: 24px;top: 415px;width: 746px;height: 15px;z-index: 27;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;cargo      varchar(150)   Allow Null</div>
+<div style="left: 24px;top: 430px;width: 746px;height: 15px;z-index: 28;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;cargo_ab   varchar(15)    Allow Null</div>
+<div style="left: 24px;top: 445px;width: 746px;height: 15px;z-index: 29;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_area    tinyint(3)     Allow Null</div>
+<div style="left: 24px;top: 461px;width: 746px;height: 15px;z-index: 30;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;activo     bit(1)         </div>
+<div style="left: 24px;top: 495px;width: 746px;height: 21px;z-index: 31;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 535px;width: 746px;height: 1px;z-index: 32;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 497px;width: 736px;height: 17px;z-index: 33;line-height: 1.1;position: absolute;" class="F1">cat_distritos</div>
+<div style="left: 24px;top: 520px;width: 746px;height: 15px;z-index: 34;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field         Type           Extra</div>
+<div style="left: 24px;top: 537px;width: 746px;height: 15px;z-index: 35;line-height: 1.1;position: absolute;" class="F2">P  id_distrito   smallint(3)    Auto Increment</div>
+<div style="left: 24px;top: 553px;width: 746px;height: 15px;z-index: 36;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent           tinyint(2)     Allow Null</div>
+<div style="left: 24px;top: 568px;width: 746px;height: 15px;z-index: 37;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto           tinyint(2)     Allow Null</div>
+<div style="left: 24px;top: 583px;width: 746px;height: 15px;z-index: 38;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto_desc      varchar(150)   Allow Null</div>
+<div style="left: 24px;top: 599px;width: 746px;height: 15px;z-index: 39;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto_corto     varchar(15)    Allow Null</div>
+<div style="left: 24px;top: 639px;width: 746px;height: 1px;z-index: 40;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 24px;top: 624px;width: 746px;height: 15px;z-index: 41;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Index   Fields   Extra</div>
+<div style="left: 24px;top: 641px;width: 746px;height: 15px;z-index: 42;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent     ent      </div>
+<div style="left: 24px;top: 656px;width: 746px;height: 15px;z-index: 43;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto     dto      </div>
+<div style="left: 24px;top: 690px;width: 746px;height: 21px;z-index: 44;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 730px;width: 746px;height: 1px;z-index: 45;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 692px;width: 736px;height: 17px;z-index: 46;line-height: 1.1;position: absolute;" class="F1">cat_entidades</div>
+<div style="left: 24px;top: 715px;width: 746px;height: 15px;z-index: 47;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field        Type          Extra</div>
+<div style="left: 24px;top: 732px;width: 746px;height: 15px;z-index: 48;line-height: 1.1;position: absolute;" class="F2">P  id_entidad   int(2)        Auto Increment</div>
+<div style="left: 24px;top: 748px;width: 746px;height: 15px;z-index: 49;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent_mayusc   varchar(25)   Allow Null</div>
+<div style="left: 24px;top: 763px;width: 746px;height: 15px;z-index: 50;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent_minusc   varchar(25)   Allow Null</div>
+<div style="left: 24px;top: 778px;width: 746px;height: 15px;z-index: 51;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent_corto    varchar(5)    Allow Null</div>
+<div style="left: 24px;top: 794px;width: 746px;height: 15px;z-index: 52;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent_puntos   varchar(10)   Allow Null</div>
+<div style="left: 24px;top: 834px;width: 746px;height: 1px;z-index: 53;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 24px;top: 819px;width: 746px;height: 15px;z-index: 54;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Index    Fields       Extra</div>
+<div style="left: 24px;top: 836px;width: 746px;height: 15px;z-index: 55;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_ent   id_entidad   Unique</div>
+<div style="left: 24px;top: 870px;width: 746px;height: 21px;z-index: 56;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 910px;width: 746px;height: 1px;z-index: 57;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 872px;width: 736px;height: 17px;z-index: 58;line-height: 1.1;position: absolute;" class="F1">cat_tratamientos</div>
+<div style="left: 24px;top: 895px;width: 746px;height: 15px;z-index: 59;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field            Type          Extra</div>
+<div style="left: 24px;top: 912px;width: 746px;height: 15px;z-index: 60;line-height: 1.1;position: absolute;" class="F2">P  id_tratamiento   tinyint(2)    Auto Increment</div>
+<div style="left: 24px;top: 928px;width: 746px;height: 15px;z-index: 61;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;tratamiento      varchar(10)   Allow Null</div>
+<div style="left: 24px;top: 943px;width: 746px;height: 15px;z-index: 62;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;descripcion      varchar(50)   Allow Null</div>
+<div style="left: 752px;top: 1083px;width: 9px;height: 17px;z-index: 63;line-height: 1.1;position: absolute;" class="F3">1</div>
+  </td></tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="794"><tr valign="top">
+  <td height="1123">
+<div style="left: 24px;top: 1147px;width: 746px;height: 21px;z-index: 0;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 1187px;width: 746px;height: 1px;z-index: 1;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 1149px;width: 736px;height: 17px;z-index: 2;line-height: 1.1;position: absolute;" class="F1">tbl_adscripciones</div>
+<div style="left: 24px;top: 1172px;width: 746px;height: 15px;z-index: 3;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field            Type           Extra</div>
+<div style="left: 24px;top: 1189px;width: 746px;height: 15px;z-index: 4;line-height: 1.1;position: absolute;" class="F2">P  id_adscripcion   smallint(3)    Auto Increment</div>
+<div style="left: 24px;top: 1204px;width: 746px;height: 15px;z-index: 5;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;adscripcion      varchar(150)   Allow Null</div>
+<div style="left: 24px;top: 1220px;width: 746px;height: 15px;z-index: 6;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;corto            varchar(15)    Allow Null</div>
+<div style="left: 24px;top: 1235px;width: 746px;height: 15px;z-index: 7;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent              tinyint(2)     Allow Null</div>
+<div style="left: 24px;top: 1250px;width: 746px;height: 15px;z-index: 8;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto              smallint(3)    Allow Null</div>
+<div style="left: 24px;top: 1266px;width: 746px;height: 15px;z-index: 9;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_area          tinyint(3)     Allow Null</div>
+<div style="left: 24px;top: 1281px;width: 746px;height: 15px;z-index: 10;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;calle            varchar(50)    Allow Null</div>
+<div style="left: 24px;top: 1297px;width: 746px;height: 15px;z-index: 11;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;num_ext          varchar(20)    Allow Null</div>
+<div style="left: 24px;top: 1312px;width: 746px;height: 15px;z-index: 12;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;num_int          varchar(20)    Allow Null</div>
+<div style="left: 24px;top: 1327px;width: 746px;height: 15px;z-index: 13;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;colonia          varchar(50)    Allow Null</div>
+<div style="left: 24px;top: 1343px;width: 746px;height: 15px;z-index: 14;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;mpio_desc        varchar(50)    Allow Null</div>
+<div style="left: 24px;top: 1358px;width: 746px;height: 15px;z-index: 15;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;mpio             smallint(4)    Allow Null</div>
+<div style="left: 24px;top: 1373px;width: 746px;height: 15px;z-index: 16;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;cp               varchar(5)     Allow Null</div>
+<div style="left: 24px;top: 1389px;width: 746px;height: 15px;z-index: 17;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;lada             varchar(10)    Allow Null</div>
+<div style="left: 24px;top: 1404px;width: 746px;height: 15px;z-index: 18;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;telefono         varchar(20)    Allow Null</div>
+<div style="left: 24px;top: 1419px;width: 746px;height: 15px;z-index: 19;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;telefonoip       varchar(20)    Allow Null</div>
+<div style="left: 24px;top: 1435px;width: 746px;height: 15px;z-index: 20;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;fax              varchar(10)    Allow Null</div>
+<div style="left: 24px;top: 1450px;width: 746px;height: 15px;z-index: 21;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;activo           bit(1)         </div>
+<div style="left: 24px;top: 1465px;width: 746px;height: 15px;z-index: 22;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;actualizado      datetime       Allow Null</div>
+<div style="left: 24px;top: 1481px;width: 746px;height: 15px;z-index: 23;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario       int(11)        Allow Null</div>
+<div style="left: 24px;top: 1521px;width: 746px;height: 1px;z-index: 24;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 24px;top: 1506px;width: 746px;height: 15px;z-index: 25;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Index        Fields       Extra</div>
+<div style="left: 24px;top: 1523px;width: 746px;height: 15px;z-index: 26;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent          ent          </div>
+<div style="left: 24px;top: 1538px;width: 746px;height: 15px;z-index: 27;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;areas        id_area      </div>
+<div style="left: 24px;top: 1553px;width: 746px;height: 15px;z-index: 28;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ed           ent, dto     </div>
+<div style="left: 24px;top: 1568px;width: 746px;height: 15px;z-index: 29;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario   id_usuario   </div>
+<div style="left: 24px;top: 1602px;width: 746px;height: 21px;z-index: 30;position: absolute;background-color:#DDD; border:1px #000 solid;"></div>
+<div style="left: 24px;top: 1642px;width: 746px;height: 1px;z-index: 31;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 29px;top: 1604px;width: 736px;height: 17px;z-index: 32;line-height: 1.1;position: absolute;" class="F1">tbl_personal</div>
+<div style="left: 24px;top: 1627px;width: 746px;height: 15px;z-index: 33;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Field            Type            Extra</div>
+<div style="left: 24px;top: 1644px;width: 746px;height: 15px;z-index: 34;line-height: 1.1;position: absolute;" class="F2">P  id_personal      smallint(5)     Auto Increment</div>
+<div style="left: 24px;top: 1660px;width: 746px;height: 15px;z-index: 35;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;nombre           varchar(32)     Allow Null</div>
+<div style="left: 24px;top: 1675px;width: 746px;height: 15px;z-index: 36;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;paterno          varchar(32)     Allow Null</div>
+<div style="left: 24px;top: 1690px;width: 746px;height: 15px;z-index: 37;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;materno          varchar(32)     Allow Null</div>
+<div style="left: 24px;top: 1706px;width: 746px;height: 15px;z-index: 38;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_tratamiento   tinyint(2)      Allow Null</div>
+<div style="left: 24px;top: 1721px;width: 746px;height: 15px;z-index: 39;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;sexo             enum('H','M')   Allow Null</div>
+<div style="left: 24px;top: 1737px;width: 746px;height: 15px;z-index: 40;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;lada             varchar(10)     Allow Null</div>
+<div style="left: 24px;top: 1752px;width: 746px;height: 15px;z-index: 41;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;telefono         varchar(20)     Allow Null</div>
+<div style="left: 24px;top: 1767px;width: 746px;height: 15px;z-index: 42;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;telefono2        varchar(20)     Allow Null</div>
+<div style="left: 24px;top: 1783px;width: 746px;height: 15px;z-index: 43;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;telefonoip       varchar(20)     Allow Null</div>
+<div style="left: 24px;top: 1798px;width: 746px;height: 15px;z-index: 44;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;correo           varchar(80)     Allow Null</div>
+<div style="left: 24px;top: 1813px;width: 746px;height: 15px;z-index: 45;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_cargo         tinyint(3)      Allow Null</div>
+<div style="left: 24px;top: 1829px;width: 746px;height: 15px;z-index: 46;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent              tinyint(2)      Allow Null</div>
+<div style="left: 24px;top: 1844px;width: 746px;height: 15px;z-index: 47;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto              tinyint(2)      Allow Null</div>
+<div style="left: 24px;top: 1859px;width: 746px;height: 15px;z-index: 48;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;fecha_alta       date            Allow Null</div>
+<div style="left: 24px;top: 1875px;width: 746px;height: 15px;z-index: 49;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_adscripcion   smallint(3)     Allow Null</div>
+<div style="left: 24px;top: 1890px;width: 746px;height: 15px;z-index: 50;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;firma            enum('S','N')   Allow Null</div>
+<div style="left: 24px;top: 1906px;width: 746px;height: 15px;z-index: 51;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;activo           bit(1)          </div>
+<div style="left: 24px;top: 1921px;width: 746px;height: 15px;z-index: 52;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;actualizado      datetime        Allow Null</div>
+<div style="left: 24px;top: 1936px;width: 746px;height: 15px;z-index: 53;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario       int(11)         Allow Null</div>
+<div style="left: 24px;top: 1977px;width: 746px;height: 1px;z-index: 54;position: absolute; border-bottom: #000 1px solid;"></div>
+<div style="left: 24px;top: 1961px;width: 746px;height: 15px;z-index: 55;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;Index         Fields        Extra</div>
+<div style="left: 24px;top: 1979px;width: 746px;height: 15px;z-index: 56;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_personal   id_personal   </div>
+<div style="left: 24px;top: 1994px;width: 746px;height: 15px;z-index: 57;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_cargo      id_cargo      </div>
+<div style="left: 24px;top: 2009px;width: 746px;height: 15px;z-index: 58;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;ent           ent           </div>
+<div style="left: 24px;top: 2024px;width: 746px;height: 15px;z-index: 59;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;dto           dto           </div>
+<div style="left: 24px;top: 2039px;width: 746px;height: 15px;z-index: 60;line-height: 1.1;position: absolute;" class="F2">&nbsp;&nbsp;&nbsp;id_usuario    id_usuario    </div>
+<div style="left: 752px;top: 2206px;width: 9px;height: 17px;z-index: 61;line-height: 1.1;position: absolute;" class="F3">2</div>
+  </td></tr>
+</table>
+</div>
+</body>
+</html>
