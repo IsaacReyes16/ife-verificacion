@@ -53,7 +53,7 @@ function select_dto(ent){
   }else{DivContenido("select_dto", ""); }
 }
 function cancelar(){ 
-  location.href="index.php";
+  location.href="busqueda.php";
 }
 </script>
 <div id="contenido">
@@ -90,9 +90,9 @@ function cancelar(){
             </td>       
         </tr>
         <tr>
-          <td class='table-center' colspan="4" >
-          <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Cancelar</span>
+          <td class='table-center' colspan="4" >          
           <span id="btnAceptar" class="btn" onclick="buscar();" title="Buscar">Buscar</span>
+          <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Limpiar</span>
           </td>        
       </tr>
         </form>
