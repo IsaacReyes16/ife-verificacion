@@ -31,6 +31,27 @@ function buscar(){
       }  
   });
 }
+function select_dto(ent){ 
+  if(ent>0){
+    var ajax_url = "common/php/build_select.php";
+    var tipo = 'select_dto';
+    $.ajax({
+        type: 'POST',
+        url: ajax_url,
+        data: {
+        tipo : tipo,
+        ent : ent
+        },
+        success: function(data){ 
+          if(data != 0){    
+            DivContenido("select_dto", data); 
+          }else{
+              alert("Error al realizar la búsqueda");
+          }
+        }  
+    });
+  }else{DivContenido("select_dto", ""); }
+}
 function cancelar(){ 
   location.href="index.php";
 }
@@ -59,13 +80,13 @@ function cancelar(){
         <tr>
             <td class='table-label'>Ent:&nbsp;</td> 
             <td class='table-field' >
-            <select id="id_ent" name="id_ent">[@select_ent]</select>
+            <select id="id_ent" name="id_ent" onchange="select_dto(this.value)">[@select_ent]</select>
             </td>   
         </tr>
         <tr>
             <td class='table-label'>Dtto:&nbsp;</td>    
             <td class='table-field' >
-            <select id="id_dto" name="id_dto">[@select_dto]</select>
+            <span id="select_dto"></span>
             </td>       
         </tr>
         <tr>

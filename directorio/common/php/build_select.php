@@ -104,11 +104,11 @@ function select_ent($value=''){
 	return $options;
 }
 
-function select_dto($value=''){
+function select_dto($value='', $ent=''){
 	$sel = (empty($value))?"selected":"";
 	$options="<option value='' $sel>--Todos--</option>";
 	$options.="<option value='0'>0 - Vocalia Local</option>";
-	$Sql="SELECT dto, dto_corto FROM cat_distritos ORDER BY ent, dto ASC;";
+	$Sql="SELECT dto, dto_corto FROM cat_distritos WHERE ent='$ent' ORDER BY ent, dto ASC;";
 	$Row=SQLQuery($Sql);
 	$Total=count($Row);
 	for($i=1; $i<=$Total; $i++){
@@ -150,5 +150,29 @@ function radio_firma($value=''){
 	return $options;
 }
 
+// Dinamicos
+if($in['tipo']=='select_dto'){
+#Crea select con distritos de acuerdo al la entidad seleccionada
+	$ent=$in['ent'];
+	$select='<select id="id_dto" name="id_dto">';
+	$local=($ent==0)?"<option value='0'>0 - Vocalia Local</option>":"<option value='' selected>--Todos--</option>";
+	$options.=$local;
+	$Sql="SELECT dto, dto_corto FROM cat_distritos WHERE ent='$ent' ORDER BY ent, dto ASC;";
+	$Row=SQLQuery($Sql);
+	$Total=count($Row);
+	for($i=1; $i<=$Total; $i++){
+		$keys[$i-1]=$Row[$i][0];
+		$valueTxt[$i-1]=$Row[$i][1];
+	}
+	$x=0;
+	foreach($keys as $key){
+		if(!empty($valueTxt[$x])){
+			$options.="<option value='$key'>".$valueTxt[$x]."</option>";
+		}
+		$x++;
+	}
+	$select .= $options.'</select>';
+	echo $select;
+}
 /*O3M*/
 ?>

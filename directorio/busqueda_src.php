@@ -3,7 +3,6 @@
 include_once('common/php/header.php');
 ##Bussines
 if($ins['auth']){
-	echo $ins['ent'];
 	$filtro = (!empty($ins['ent']))?"and a.ent='$ins[ent]'":"";
 	$filtro .= (!empty($ins['dto']))?"and a.dto='$ins[dto]'":"";
 	$filtro .= (!empty($ins['nombre']))?"and a.nombre LIKE '%$ins[nombre]%'":"";
@@ -26,8 +25,9 @@ if($ins['auth']){
 			LEFT JOIN cat_distritos f ON a.ent=f.ent and a.dto=f.dto
 			WHERE 1 $filtro
 			ORDER BY a.ent, a.dto, a.nombre, a.paterno, a.materno ASC;";
-	// echo $sql;
 	$Rows = SQLQuery($sql);
+	$TotRegs = count($Rows)-1;
+	$msjTotalRegs = ($TotRegs)?'-- Se encontraron '.$TotRegs.' registros. --':'-- No se encontraron registros. --';
 	$HTML='<table border="0" width="100%">
         <tr>
             <th Colspan="7">Resultados</th>        
@@ -40,26 +40,32 @@ if($ins['auth']){
           <td class="table-toplabel" >Tel&eacute;fono</td>        
           <td class="table-toplabel" >Correo</td>
           <td class="table-toplabel" >M&aacute;s</td>
+      </tr>
+      <tr style="background-color:#F7F7E6;">
+        <td Colspan="7" align="center">'.$msjTotalRegs.'</td>        
       </tr>';
-    $i=0;
-	foreach($Rows as $Row){
-		$c=($i%2==0)?'#DAEFF2':'';
-		if($i){
-			$HTML .= "<tr style='background-color:$c'>
-			          <td class='table-filed' >".$Row[1]."</td>
-			          <td class='table-filed' >".$Row[2]."</td>
-			          <td class='table-filed' >".$Row[3]."</td>  
-			          <td class='table-filed' >".$Row[4]."</td>
-			          <td class='table-filed' >".$Row[5]."</td>        
-			          <td class='table-filed' >".$Row[6]."</td>   
-			          <td class='table-filed' >"."<span id='btnEditar' class='btn' onclick='location.href=\"personal.php?id=".$Row[0]."&s=1\"' title='Ver M&aacute;s'>M&aacute;s</span>"."</td>
 
-			      </tr>";
+    if($TotRegs){
+	    $i=0;
+		foreach($Rows as $Row){
+			$c=($i%2==0)?'#DAEFF2':'';
+			if($i){
+				$HTML .= "<tr style='background-color:$c'>
+				          <td class='table-filed' >".$Row[1]."</td>
+				          <td class='table-filed' >".$Row[2]."</td>
+				          <td class='table-filed' >".$Row[3]."</td>  
+				          <td class='table-filed' >".$Row[4]."</td>
+				          <td class='table-filed' >".$Row[5]."</td>        
+				          <td class='table-filed' >".$Row[6]."</td>   
+				          <td class='table-filed' >"."<span id='btnEditar' class='btn' onclick='location.href=\"personal.php?id=".$Row[0]."&s=1\"' title='Ver M&aacute;s'>M&aacute;s</span>"."</td>
+
+				      </tr>";
+			}
+			$i++;
 		}
-		$i++;
 	}
 	$HTML.='<tr>
-            <td Colspan="6"></th>        
+            <td Colspan="7"></td>        
         </tr>
         </table>';
 	echo utf8_encode($HTML);
