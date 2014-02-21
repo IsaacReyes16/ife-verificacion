@@ -7,8 +7,8 @@ if($ins['auth']){
 	$filtro = (!empty($ins['ent']))?"and a.ent='$ins[ent]'":"";
 	$filtro .= (!empty($ins['dto']))?"and a.dto='$ins[dto]'":"";
 	$filtro .= (!empty($ins['nombre']))?"and a.nombre LIKE '%$ins[nombre]%'":"";
-	$filtro .= (!empty($ins['paterno']))?"and a.paterno LIKE '%$ins[paterno]%'":"";
-	$filtro .= (!empty($ins['materno']))?"and a.materno LIKE '%$ins[materno]%'":"";
+	$filtro .= (!empty($ins['paterno']))?"and a.paterno LIKE '$ins[paterno]%'":"";
+	$filtro .= (!empty($ins['materno']))?"and a.materno LIKE '$ins[materno]%'":"";
 
 	$sql = "SELECT 
 			 a.id_personal
