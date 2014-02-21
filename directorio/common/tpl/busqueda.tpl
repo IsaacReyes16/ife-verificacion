@@ -55,6 +55,13 @@ function select_dto(ent){
 function cancelar(){ 
   location.href="busqueda.php";
 }
+
+$(document).ready(function(){
+   $("#contenido").keyup(function(e){
+      e.preventDefault();
+      if(e.which==13){buscar();}      
+   });
+});
 </script>
 <div id="contenido">
   <div id="btnSearch" class="btnBl" style="display:[@divSearch];" onclick="location.href='index.php'">Regresar</div>
