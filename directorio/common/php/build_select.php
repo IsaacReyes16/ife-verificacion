@@ -5,6 +5,7 @@ include_once('header.php');
 * Funciones
 **/
 
+//SELECTS
 function select_activo($value=''){
 	#$sel = (empty($value))?"selected":"";
 	#$options="<option value='' $sel>--Seleccionar--</option>";
@@ -60,6 +61,72 @@ function select_tratamiento($value=''){
 	return $options;
 }
 
+function select_srcAdscripcion($value=''){
+	$sel = (empty($value))?"selected":"";
+	$options="<option value='0' $sel>--Todas--</option>";
+	$Sql="SELECT id_adscripcion, CONCAT(id_adscripcion,' - ',adscripcion) FROM tbl_adscripciones WHERE activo=1 ORDER BY id_adscripcion ASC;";
+	$Row=SQLQuery($Sql);
+	$Total=count($Row);
+	for($i=1; $i<=$Total; $i++){
+		$keys[$i-1]=$Row[$i][0];
+		$valueTxt[$i-1]=$Row[$i][1];
+	}
+	$x=0;
+	foreach($keys as $key){
+		if(!empty($valueTxt[$x])){
+			$sel = ($value==$key)?"selected":"";
+			$options.="<option value='$key' $sel>".$valueTxt[$x]."</option>";
+		}
+		$x++;
+	}	
+	return $options;
+}
+
+function select_ent($value=''){
+	$sel = (empty($value))?"selected":"";
+	$options="<option value='' $sel>--Todas--</option>";
+	$options.="<option value='0'>0 - Oficinas Centrales</option>";
+	$Sql="SELECT id_entidad, CONCAT(id_entidad,' - ',ent_minusc) FROM cat_entidades ORDER BY id_entidad ASC;";
+	$Row=SQLQuery($Sql);
+	$Total=count($Row);
+	for($i=1; $i<=$Total; $i++){
+		$keys[$i-1]=$Row[$i][0];
+		$valueTxt[$i-1]=$Row[$i][1];
+	}
+	$x=0;
+	foreach($keys as $key){
+		if(!empty($valueTxt[$x])){			
+			$sel = ($value==$key)?"selected":"";
+			$options.="<option value='$key' $sel>".$valueTxt[$x]."</option>";
+		}
+		$x++;
+	}	
+	return $options;
+}
+
+function select_dto($value=''){
+	$sel = (empty($value))?"selected":"";
+	$options="<option value='' $sel>--Todos--</option>";
+	$options.="<option value='0'>0 - Vocalia Local</option>";
+	$Sql="SELECT dto, dto_corto FROM cat_distritos ORDER BY ent, dto ASC;";
+	$Row=SQLQuery($Sql);
+	$Total=count($Row);
+	for($i=1; $i<=$Total; $i++){
+		$keys[$i-1]=$Row[$i][0];
+		$valueTxt[$i-1]=$Row[$i][1];
+	}
+	$x=0;
+	foreach($keys as $key){
+		if(!empty($valueTxt[$x])){
+			$sel = ($value==$key)?"selected":"";
+			$options.="<option value='$key' $sel>".$valueTxt[$x]."</option>";
+		}
+		$x++;
+	}	
+	return $options;
+}
+
+//RADIOS
 function radio_sexo($value=''){
 	#$name=(empty($value))?"sexo":$value;
 	$name="sexo";

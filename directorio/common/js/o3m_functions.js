@@ -12,6 +12,15 @@ function ocultardiv(nombre) {
 	div.style.display="none";
 }
 
+function divShow(div){
+  ver = document.getElementById(div).style.display;
+  if(ver=='block'){
+    document.getElementById(div).style.display='none';
+  }else{
+    document.getElementById(div).style.display='block';
+  }
+}
+
 function solo_txt(e) { 
 	tecla = (document.all) ? e.keyCode : e.which; 
 	if (tecla==8 || tecla==13 || tecla==164 || tecla==165) return true;  
@@ -54,4 +63,18 @@ function ButtonON(IdButton){
 }
 function ButtonOFF(IdButton){
 	$("#"+IdButton).attr('disabled', 'disabled');
+}
+
+function DivContenido(Div, Contenido){
+	document.getElementById(Div).innerHTML=Contenido;
+}
+
+// Funciones hardcode
+function ocultar(){
+  window.parent.document.getElementById('popup_msj').style.display='none';
+  window.parent.document.getElementById('popup_modal').style.display='none';
+}
+function ver(){
+  document.getElementById('popup_msj').style.display='block';
+  document.getElementById('popup_modal').style.display='block';
 }

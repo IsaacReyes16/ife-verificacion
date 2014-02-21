@@ -3,14 +3,14 @@
 include_once('common/php/header.php');
 ##Bussines
 #Sesiones
-if (!isset($_SESSION)) { session_start(); }
+// if (!isset($_SESSION)) { session_start(); }
 //--Vars Temporales
 @include('testvars.php');
 //--FIN Vars Temporales
-$v_ent = $_SESSION[id_vlc];
-$v_dto = $_SESSION[id_vdi];
+$v_ent = $Usuario['ent'];
+$v_dto = $Usuario['dto'];
 $v_id=$ins['id'];
-switch($_SESSION['nivel']){
+switch($Usuario['nivel']){
 	case 1: //usuario de nivel central
 	 	$Filtro = "and a.id_personal='$v_id'";
 		break;	
@@ -21,6 +21,14 @@ switch($_SESSION['nivel']){
 		$Filtro = "and a.id_personal='$v_id' and a.ent='$v_ent' and a.dto='$v_dto'";
 		break;
 	default: exit;
+}
+if($ins['s']){
+	$Filtro = "and a.id_personal='$v_id'";
+	$botones = "none";
+	$botonesSrc = "block";
+}else{
+	$botones = "block";
+	$botonesSrc = "none";
 }
 #Query SQL
 $sql="SELECT 
@@ -118,6 +126,8 @@ $html->set('activo', $Row[1]);
 $html->set('select_activo', $select_activo);
 $html->set('actualizado', $Row['actualizado']);
 $html->set('id_usuario', $UsuarioNombre);
+$html->set('botones', $botones);
+$html->set('botonesSrc', $botonesSrc);
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo utf8_encode($html);

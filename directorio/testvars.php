@@ -1,7 +1,10 @@
 <?php
-$Usuario['id']=2015;
-$_SESSION['nivel']=2;
-$_SESSION[id_vlc]=9;
-$_SESSION[id_vdi]=5;
+/**
+* Variables para debugear el sistema
+*/
+// $Usuario['id']=2015;
+// $Usuario['nivel']=2;
+// $Usuario['ent']=9;
+// $Usuario['dto']=5;
 //$v_id=180;
 ?>

@@ -2,7 +2,7 @@
 ## Establece variables con ruta local
 ## $SiteFolder => El nombre de la carpeta del sitio: www/[Carpeta]
 ##
-session_name('verif_directorio');
+// session_name('verif_directorio');
 session_start();
 $SiteFolder="directorio";
 $DirLocal=getcwd();

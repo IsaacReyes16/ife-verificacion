@@ -3,13 +3,13 @@
 include_once('common/php/header.php');
 ##Bussines
 #Sesiones
-if (!isset($_SESSION)) { session_start(); }
+// if (!isset($_SESSION)) { session_start(); }
 //--Vars Temporales
 @include('testvars.php');
 //--FIN Vars Temporales
-$v_ent = $_SESSION[id_vlc];
-$v_dto = $_SESSION[id_vdi];
-switch($_SESSION['nivel']){
+$v_ent = $Usuario['ent'];
+$v_dto = $Usuario['dto'];
+switch($Usuario['nivel']){
 	case 1: //usuario de nivel central
 	 	$Filtro = "";
 		break;	

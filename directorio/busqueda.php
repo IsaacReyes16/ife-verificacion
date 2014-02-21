@@ -96,7 +96,7 @@ for($i=1; $i<=$Total-1; $i++){
 #divSearch
 $divSearch=($Usuario['nivel']==1)?'block':'none';
 ##Output
-$htmlTpl = 'index.tpl';
+$htmlTpl = 'busqueda.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
@@ -104,20 +104,8 @@ $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 $html->set('ImgPath', $Path['img']);
 #--
-$html->set('id_adscripcion', $Row['id_adscripcion']);
-$html->set('adscripcion', $Row['adscripcion']);
-$html->set('corto', $Row['corto']);
-$html->set('id_ent', $Row['ent']);
-$html->set('entidad', $Ent);
-$html->set('id_dto', $Row['dto']);
-$html->set('dto', $Dtto);
-$html->set('id_area', $Row['id_area']);
-$html->set('area', $Row['area']);
-$html->set('organo', $Row['organo']);
-$html->set('direccionOk', $direccionOk);
-$html->set('icoOK', $iOk);
-$html->set('icoNotOK', $iNotOk);
-$html->set('divSearch', $divSearch);
+$html->set('select_ent', select_ent());
+$html->set('select_dto', select_dto());
 //-- Form
 $html->set('direccion', $direccion);
 $html->set('funcionarios', $Funcionarios);

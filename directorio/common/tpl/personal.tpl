@@ -232,8 +232,13 @@ function cancelar(){
       
       <tr>
           <td class='table-center' colspan="4" >
-          <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Cancelar</span>
-          <span id="btnAceptar" class="btn" onclick="validar(this.form,'[@btnDo]');" title="Guardar">Guardar</span>
+            <div id="botones" style="display:[@botones];">
+              <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Cancelar</span>
+              <span id="btnAceptar" class="btn" onclick="validar(this.form,'[@btnDo]');" title="Guardar">Guardar</span>
+            </div>
+            <div id="botonesSrc" style="display:[@botonesSrc];">
+              <span id="btnRegresar" class="btnBl" onclick="history.go(-1);" title="Regresar">Regresar</span>
+            </div>
           </td>        
       </tr>
       </form>

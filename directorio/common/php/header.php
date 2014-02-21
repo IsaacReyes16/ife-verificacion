@@ -17,12 +17,24 @@ $Path['img']='common/img/';
 parse_form_sanitizer($_GET, $_POST);
 parse_form($_GET, $_POST);
 ##Variables de usuario
+session_start();
 $Usuario['id'] = $_SESSION['id_usu'];
 $Usuario['user'] = $_SESSION['usuario'];
 $Usuario['name'] = $_SESSION['usuario'];
 $Usuario['ent'] = $_SESSION['id_vlc'];
 $Usuario['dto'] = $_SESSION['id_vlc'];
-$Usuario['nivel'] = $_SESSION['nivel'];
+//Definicion de Nivel
+if(empty($_SESSION['nivel'])){
+	//Central
+	if($Usuario['ent']==0 && $Usuario['dto']==0){$Usuario['nivel'] = 1;}
+	//Local
+	elseif($Usuario['ent']>0 && $Usuario['dto']==0){$Usuario['nivel'] = 2;}
+	//Distrito
+	else{$Usuario['nivel'] = 3;}	
+}else{
+	$Usuario['nivel'] = $_SESSION['nivel'];
+}
+//--Fin de nivel
 if(empty($Usuario['user']) && empty($Usuario['name'])){$Usuario['user']="Usuario"; $Usuario['name']="Nombre de Usuario";}
 $Css='<!--CSS Styles-->
 	<link href="'.$Path['css'].'estilo.css'.'" rel="stylesheet" type="text/css" />';

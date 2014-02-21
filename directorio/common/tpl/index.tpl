@@ -36,76 +36,69 @@ function save(accion, id_persona){
 }
 </script>
 <div id="contenido">
-  <table border="0" width="100%">
-      <form name="f_datos" method="POST" action="">
+  <div id="btnSearch" class="btnBl" style="display:[@divSearch];" onclick="location.href='busqueda.php'"><img src="[@ImgPath]find.gif" valign="middle">&nbsp;Búsqueda</div>
+  <div id="verDetalle" style="display:block;">
+    <table border="0" width="100%">
+        <form name="f_datos" method="POST" action="">
+        <tr>
+            <td class='table-label'>Adscripción:&nbsp;</td> 
+            <td class='table-field' colspan="3">[@adscripcion]
+            <input type='hidden' name='id_adscripcion' id='id_adscripcion' value='[@id_adscripcion]' />
+            </td>       
+        </tr>
+        <tr>
+            <td class='table-label'>Siglas:&nbsp;</td>  
+            <td class='table-field' colspan="3">[@corto]</td>   
+        </tr>    
+        <tr>
+            <td class='table-label'>Organo:&nbsp;</td>  
+            <td class='table-field' >[@organo]</td>     
+            <td class='table-label'>Área:&nbsp;</td>    
+            <td class='table-field'>[@area]<input type='hidden' name='id_area' id='id_area' value='[@id_area]' /></td>      
+        </tr>
+        <tr>
+            <td class='table-label'>Ent:&nbsp;</td> 
+            <td class='table-field' >[@entidad]<input type='hidden' name='ent' id='ent' value='[@id_ent]' /></td>   
+            <td class='table-label'>Dtto:&nbsp;</td>    
+            <td class='table-field' >[@dto]<input type='hidden' name='dto' id='dto' value='[@id_dto]' /></td>       
+        </tr>
+        <!-- Form -->
+        <tr>
+            <td class='table-label'>[@direccionOk] Dirección:&nbsp;</td> 
+            <td class='table-field' Colspan="3">[@direccion]&nbsp;<span id="btnEditar" class="btn" onclick="location.href='adscripciones.php'">Editar</span>
+            </td>         
+        </tr>
+        <tr>
+            <th Colspan="4">FUNCIONARIOS&nbsp;</th>        
+        </tr>
+        [@funcionarios]
+        <tr>
+            <td class='table-label'>
+            <span id="btnAgregar" class="btn" onclick="location.href='personal_agregar.php?id=[@id_adscripcion]'">Agregar...</span> 
+            </td> 
+            <td class='table-field' Colspan="3">&nbsp;</td>         
+        </tr>
+         <tr>
+            <td class='table-field' Colspan="4">&nbsp;</td>        
+        </tr>
+        <tr>
+            <td class='table-center' colspan="4" >
+            <span id="btnCancelar" class="btn" onclick="ocultar();">Cerrar</span> 
+            </td>        
+        </tr>
+        </form>
+    </table>
+    <div id="msjPie"><b>IMPORTANTE:</b> La información aquí presentada, es la que aparecerá en <b>toda la documentación</b> generada por el sistema.<br/><br/>
+    <table align="right">
       <tr>
-          <td class='table-label'>Adscripción:&nbsp;</td> 
-          <td class='table-field' colspan="3">[@adscripcion]
-          <input type='hidden' name='id_adscripcion' id='id_adscripcion' value='[@id_adscripcion]' />
-          </td>       
+        <td>[@icoOK]</td>
+        <td>Información actualizada.</td>
       </tr>
       <tr>
-          <td class='table-label'>Siglas:&nbsp;</td>  
-          <td class='table-field' colspan="3">[@corto]</td>   
-      </tr>    
-      <tr>
-          <td class='table-label'>Organo:&nbsp;</td>  
-          <td class='table-field' >[@organo]</td>     
-          <td class='table-label'>Área:&nbsp;</td>    
-          <td class='table-field'>[@area]<input type='hidden' name='id_area' id='id_area' value='[@id_area]' /></td>      
+        <td>[@icoNotOK]</td>
+        <td>Necesita ser actualizado.</td>
       </tr>
-      <tr>
-          <td class='table-label'>Ent:&nbsp;</td> 
-          <td class='table-field' >[@entidad]<input type='hidden' name='ent' id='ent' value='[@id_ent]' /></td>   
-          <td class='table-label'>Dtto:&nbsp;</td>    
-          <td class='table-field' >[@dto]<input type='hidden' name='dto' id='dto' value='[@id_dto]' /></td>       
-      </tr>
-      <!-- Form -->
-      <tr>
-          <td class='table-label'>[@direccionOk] Dirección:&nbsp;</td> 
-          <td class='table-field' Colspan="3">[@direccion]&nbsp;<span id="btnEditar" class="btn" onclick="location.href='adscripciones.php'">Editar</span>
-          </td>         
-      </tr>
-      <tr>
-          <th Colspan="4">FUNCIONARIOS&nbsp;</th>        
-      </tr>
-      [@funcionarios]
-      <tr>
-          <td class='table-label'>
-          <span id="btnAgregar" class="btn" onclick="location.href='personal_agregar.php?id=[@id_adscripcion]'">Agregar...</span> 
-          </td> 
-          <td class='table-field' Colspan="3">&nbsp;</td>         
-      </tr>
-       <tr>
-          <td class='table-field' Colspan="4">&nbsp;</td>        
-      </tr>
-      <tr>
-          <td class='table-center' colspan="4" >
-          <span id="btnCancelar" class="btn" onclick="ocultar();">Cerrar</span> 
-          </td>        
-      </tr>
-      </form>
-  </table>
-  <div id="msjPie"><b>IMPORTANTE:</b> La información aquí presentada, es la que aparecerá en <b>toda la documentación</b> generada por el sistema.<br/><br/>
-  <table align="right">
-    <tr>
-      <td>[@icoOK]</td>
-      <td>Información actualizada.</td>
-    </tr>
-    <tr>
-      <td>[@icoNotOK]</td>
-      <td>Necesita ser actualizado.</td>
-    </tr>
-  </table>
+    </table>
+    </div>
   </div>
 </div>
-<script>
-function ocultar(){
-  window.parent.document.getElementById('popup_msj').style.display='none';
-  window.parent.document.getElementById('popup_modal').style.display='none';
-}
-function ver(){
-  document.getElementById('popup_msj').style.display='block';
-  document.getElementById('popup_modal').style.display='block';
-}
-</script>
