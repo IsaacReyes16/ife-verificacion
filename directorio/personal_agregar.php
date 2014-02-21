@@ -23,6 +23,14 @@ switch($Usuario['nivel']){
 		break;
 	default: exit;
 }
+if($ins['s']){
+	$Filtro = "and a.id_personal='$v_id'";
+	$botones = "none";
+	$botonesSrc = "block";
+}else{
+	$botones = "block";
+	$botonesSrc = "none";
+}
 #Query SQL
 $sql="SELECT 
 	a.id_adscripcion
@@ -109,6 +117,8 @@ $html->set('activo', $Row[1]);
 $html->set('select_activo', $select_activo);
 $html->set('actualizado', $Row['actualizado']);
 $html->set('id_usuario', $UsuarioNombre);
+$html->set('botones', $botones);
+$html->set('botonesSrc', $botonesSrc);
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo utf8_encode($html);
