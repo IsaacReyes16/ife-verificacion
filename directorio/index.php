@@ -48,9 +48,8 @@ $sql="SELECT
 	FROM tbl_adscripciones a
 	LEFT JOIN cat_areas b using(id_area)
 	LEFT JOIN cat_entidades c on a.ent=c.id_entidad
-	WHERE 1 $Filtro
-	LIMIT 1;";
-$Row = SQLQuery($sql,1);
+	WHERE 1 and a.activo=1 $Filtro ORDER BY a.id_adscripcion ASC;";
+$Row = SQLQuery($sql);
 
 $sql = "SELECT 
 	a.id_personal
@@ -66,20 +65,31 @@ $sql = "SELECT
 	LEFT JOIN cat_cargos e USING(id_cargo)
 	LEFT JOIN cat_tratamientos f USING(id_tratamiento)
 	WHERE 1 and firma='S' and a.activo=1 $Filtro ;";
+
 $Row_personal = SQLQuery($sql);
 #Entidad
-$Ent=($Row['ent']==0)?'N/A':$Row['entidad'];
+$Ent=($Row[1][3]==0)?'N/A':$Row[1][21];
 #Distrito
-$Dtto=($Row['dto']==0)?'N/A':$Row['dto'];
+$Dtto=($Row[1][4]==0)?'N/A':$Row[1][4];
 #Usuario
-$vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
+$vUsuario = SQLUser($Row[1][18], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 #Icono OK & Not OK
 $iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Actualizado'>";
 $iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Actualizar Datos'>";
 #Direccion
-$direccion = $Row['calle'].' '.$Row['num_ext'].' '.$Row['num_int'].', <br/>'.$Row['colonia'].', '.$Row['mpio_desc'].', <br/> C.P. '.$Row['cp'].', Tel. ('.$Row['lada'].') '.$Row['telefono'];
-$direccionOk = (!empty($Row['actualizado']))?$iOk:$iNotOk;
+
+$TotalDirs = count($Row);
+for($i=1; $i<=$TotalDirs-1; $i++){
+	$direccion = $Row[$i][6].' '.$Row[$i][7].' '.$Row[$i][8].', <br/>'.$Row[$i][9].', '.$Row[$i][10].', <br/> C.P. '.$Row[$i][12].', Tel. ('.$Row[$i][13].') '.$Row[$i][14];
+	$direccionOk = (!empty($Row[$i][17]))?$iOk:$iNotOk;
+	$Direcciones .= '<tr>
+            <td class="table-label">'.$direccionOk.' Dirección '.$i.':&nbsp;</td> 
+            <td class="table-field" Colspan="3">'.$direccion.'&nbsp;<span id="btnEditar" class="btn" onclick="location.href=\'adscripciones.php?id='.$Row[$i][0].'\'">Editar</span>
+            <span id="btnQuitar" class="btn" onclick="quitar(\''.$Row[$i][0].'\',\''.$direccion.'\', \'direccion\');" title="Quitar">Quitar</span>
+            </td>         
+        </tr>';
+}
 #Personas
 $Total=count($Row_personal);
 for($i=1; $i<=$Total-1; $i++){
@@ -89,7 +99,7 @@ for($i=1; $i<=$Total-1; $i++){
 			        <td class="table-label">'.$personaOk.'&nbsp;'.$Row_personal[$i][6].':&nbsp;</td> 
 			        <td class="table-field" Colspan="3">'.$Nombre.'&nbsp;
 			        <span id="btnEditar" class="btn" onclick="location.href=\'personal.php?id='.$Row_personal[$i][0].'\'" title="Editar">Editar</span>&nbsp;
-			        <span id="btnQuitar" class="btn" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\');" title="Quitar">Quitar</span>
+			        <span id="btnQuitar" class="btn" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\', \'personal\');" title="Quitar">Quitar</span>
 			        </td>         
 			    </tr>';
 }
@@ -104,24 +114,24 @@ $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 $html->set('ImgPath', $Path['img']);
 #--
-$html->set('id_adscripcion', $Row['id_adscripcion']);
-$html->set('adscripcion', $Row['adscripcion']);
-$html->set('corto', $Row['corto']);
-$html->set('id_ent', $Row['ent']);
+$html->set('id_adscripcion', $Row[1][0]);
+$html->set('adscripcion', $Row[1][1]);
+$html->set('corto', $Row[1][2]);
+$html->set('id_ent', $Row[1][3]);
 $html->set('entidad', $Ent);
-$html->set('id_dto', $Row['dto']);
+$html->set('id_dto', $Row[1][4]);
 $html->set('dto', $Dtto);
-$html->set('id_area', $Row['id_area']);
-$html->set('area', $Row['area']);
-$html->set('organo', $Row['organo']);
+$html->set('id_area', $Row[1][5]);
+$html->set('area', $Row[1][19]);
+$html->set('organo', $Row[1][20]);
 $html->set('direccionOk', $direccionOk);
 $html->set('icoOK', $iOk);
 $html->set('icoNotOK', $iNotOk);
 $html->set('divSearch', $divSearch);
 //-- Form
-$html->set('direccion', $direccion);
+$html->set('direcciones', $Direcciones);
 $html->set('funcionarios', $Funcionarios);
-$html->set('actualizado', $Row['actualizado']);
+$html->set('actualizado', $Row[17]);
 $html->set('id_usuario', $UsuarioNombre);
 $html=$html->output();
 ####### Fin de Impresión ##########

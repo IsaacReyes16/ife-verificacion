@@ -34,7 +34,7 @@ input:focus, textarea:focus, select:focus{
 }
 #contenido{
 	/*display:{popup_diplay};*/
-	position:relative;
+	position:static;
 	width:100%;
 	margin:0 auto 0 auto; 
 	background-color:#FFF;
@@ -154,6 +154,7 @@ input:focus, textarea:focus, select:focus{
 	margin-left: 3px;
 	margin-bottom: 3px;
 	clear: both;
+	z-index: 4;
 }
 #msjPie{
 	font-family:Arial, Helvetica, sans-serif;
@@ -164,7 +165,17 @@ input:focus, textarea:focus, select:focus{
 	vertical-align: middle;
 }
 #verDetalle{
+	position: relative;
 	float: left;
 	clear: both;
 	width: 100%;
+	z-index: 4;
+}
+#resultados{
+	position: static;
+	float: left;
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+	z-index: 4;
 }

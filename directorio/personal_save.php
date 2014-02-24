@@ -8,6 +8,7 @@ if(!empty($in['id_adscripcion'])){
 	if($in['accion']=='UPDATE'){
 		//--Update ife_ddvc_catalogos.tbl_personal
 		$sql="UPDATE $db_catalogos.tbl_personal SET 
+					id_adscripcion='$in[id_adscripcion]',
 					id_cargo='$in[id_cargo]',
 					nombre='$in[nombre]',
 					paterno='$in[paterno]',
@@ -29,6 +30,7 @@ if(!empty($in['id_adscripcion'])){
 		if($in['ent']>0 && $in['dto']==0){
 		//--Update ife_dom_irre.lis_vocales_local_vl
 			$sql="UPDATE $db_domirreg.lis_vocales_local_vl SET 
+					id_adscripcion='$in[id_adscripcion]',
 					puesto_vl='$in[cargo]',
 					nombre_vl='$in[nombre]',
 					paterno_vl='$in[paterno]',
@@ -41,6 +43,7 @@ if(!empty($in['id_adscripcion'])){
 		}elseif($in['ent']>0 && $in['dto']>0){
 		//--Update ife_ddvc_catalogos.lis_vocales_distrital_vd		
 			$sql="UPDATE $db_domirreg.lis_vocales_distrital_vd SET 
+					id_adscripcion='$in[id_adscripcion]',
 					/*id_puesto_vd='$in[id_cargo]',*/
 					nombre_vd='$in[nombre]',
 					paterno_vd='$in[paterno]',

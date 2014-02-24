@@ -20,9 +20,9 @@ parse_form($_GET, $_POST);
 session_start();
 $Usuario['id'] = $_SESSION['id_usu'];
 $Usuario['user'] = $_SESSION['usuario'];
-$Usuario['name'] = $_SESSION['usuario'];
+$Usuario['name'] = $_SESSION['nombre_completo'];
 $Usuario['ent'] = $_SESSION['id_vlc'];
-$Usuario['dto'] = $_SESSION['id_vlc'];
+$Usuario['dto'] = $_SESSION['id_vdi'];
 //Definicion de Nivel
 if(empty($_SESSION['nivel'])){
 	//Central

@@ -21,7 +21,6 @@ switch($Usuario['nivel']){
 		break;
 	default: exit;
 }
-if($in['id']){$Filtro .= "and id_adscripcion='$in[id]'";}
 #Query SQL
 $sql="SELECT 
 	a.id_adscripcion
@@ -72,7 +71,7 @@ $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
 #--
-$html->set('btnDo', 'UPDATE');
+$html->set('btnDo', 'INSERT');
 $html->set('id_adscripcion', $Row['id_adscripcion']);
 $html->set('adscripcion', $Row['adscripcion']);
 $html->set('corto', $Row['corto']);
@@ -83,19 +82,19 @@ $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
-$html->set('calle', $Row['calle']);
-$html->set('num_ext', $Row['num_ext']);
-$html->set('num_int', $Row['num_int']);
-$html->set('colonia', $Row['colonia']);
-$html->set('mpio_desc', $Row['mpio_desc']);
+$html->set('calle', "");
+$html->set('num_ext', "");
+$html->set('num_int', "");
+$html->set('colonia', "");
+$html->set('mpio_desc', "");
 #$html->set('mpio', $Row['mpio']);
-$html->set('cp', $Row['cp']);
+$html->set('cp', "");
 $html->set('lada', $Row['lada']);
-$html->set('telefono', $Row['telefono']);
-$html->set('fax', $Row['fax']);
+$html->set('telefono', "");
+$html->set('fax', "");
 $html->set('activo', $Row[1]);
 $html->set('select_activo', $select_activo);
-$html->set('actualizado', $Row['actualizado']);
+$html->set('actualizado', date('Y-m-d H:i:s'));
 $html->set('id_usuario', $UsuarioNombre);
 $html=$html->output();
 ####### Fin de Impresión ##########

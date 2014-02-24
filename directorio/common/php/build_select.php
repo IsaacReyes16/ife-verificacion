@@ -82,6 +82,25 @@ function select_srcAdscripcion($value=''){
 	return $options;
 }
 
+function select_direccion($value='', $ent='', $dto=''){
+	$Sql="SELECT id_adscripcion, CONCAT(calle,', ',num_ext,' ',num_int,', ',colonia,', ',mpio_desc,'...') FROM tbl_adscripciones WHERE activo=1 and ent='$ent' and dto='$dto'ORDER BY id_adscripcion ASC;";
+	$Row=SQLQuery($Sql);
+	$Total=count($Row);
+	for($i=1; $i<=$Total; $i++){
+		$keys[$i-1]=$Row[$i][0];
+		$valueTxt[$i-1]=$Row[$i][1];
+	}
+	$x=0;
+	foreach($keys as $key){
+		if(!empty($valueTxt[$x])){
+			$sel = ($value==$key)?"selected":"";
+			$options.="<option value='$key' $sel>".$valueTxt[$x]."</option>";
+		}
+		$x++;
+	}	
+	return $options;
+}
+
 function select_ent($value=''){
 	$sel = (empty($value))?"selected":"";
 	$options="<option value='' $sel>--Todas--</option>";

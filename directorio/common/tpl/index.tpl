@@ -3,11 +3,16 @@
 [@Javascript]
 [@jQuery]
 <script>
-function quitar(id_persona, nombre){
+function quitar(id, nombre, tipo){
+  if(tipo=='personal'){
     confirmar=confirm("¿Esta seguro de quitar al funcionario: "+nombre+", de la lista?");
-    if (confirmar){save('DELETE',id_persona); }
+    if (confirmar){save_personal('DELETE',id); }
+  }else if(tipo=='direccion'){
+    confirmar=confirm("¿Esta seguro de quitar la dirección: "+nombre+", de la lista?");
+    if (confirmar){save_direccion('DELETE',id); }
+  }
 }
-function save(accion, id_persona){
+function save_personal(accion, id_persona){
     var ajax_url = "personal_save.php";
     var accion = accion;    
     var id_personal = id_persona;
@@ -27,6 +32,32 @@ function save(accion, id_persona){
                   location.reload();
               }else{
                   alert("Error al quitar funcionario");
+              }
+          }else{
+              alert("Error al envíar datos");
+          }                                
+      }
+    });
+}
+
+function save_direccion(accion, id_adscripcion){
+    var ajax_url = "adscripciones_save.php";
+    var accion = accion;    
+    var id_adscripcion = id_adscripcion;
+    $.ajax({
+      type: 'POST',
+      url: ajax_url,
+      data: {
+      accion : accion,
+      id_adscripcion : id_adscripcion
+      },
+      success: function(data){  
+          if(data !=''){                                    
+              if(data == 1){                  
+                  alert("La dirección ha sido quitada de la lista.");
+                  location.reload();
+              }else{
+                  alert("Error al quitar la dirección");
               }
           }else{
               alert("Error al envíar datos");
@@ -64,9 +95,14 @@ function save(accion, id_persona){
         </tr>
         <!-- Form -->
         <tr>
-            <td class='table-label'>[@direccionOk] Dirección:&nbsp;</td> 
-            <td class='table-field' Colspan="3">[@direccion]&nbsp;<span id="btnEditar" class="btn" onclick="location.href='adscripciones.php'">Editar</span>
-            </td>         
+            <th Colspan="4">DIRECCIONES&nbsp;</th>        
+        </tr>
+        [@direcciones]
+        <tr>
+            <td class='table-label'>
+            <span id="btnAgregar" class="btn" onclick="location.href='adscripciones_agregar.php?id=[@id_adscripcion]'" title="Agregar dirección">Agregar...</span> 
+            </td> 
+            <td class='table-field' Colspan="3">&nbsp;</td>         
         </tr>
         <tr>
             <th Colspan="4">FUNCIONARIOS&nbsp;</th>        
@@ -74,7 +110,7 @@ function save(accion, id_persona){
         [@funcionarios]
         <tr>
             <td class='table-label'>
-            <span id="btnAgregar" class="btn" onclick="location.href='personal_agregar.php?id=[@id_adscripcion]'">Agregar...</span> 
+            <span id="btnAgregar" class="btn" onclick="location.href='personal_agregar.php?id=[@id_adscripcion]'" title="Agregar funcionario">Agregar...</span> 
             </td> 
             <td class='table-field' Colspan="3">&nbsp;</td>         
         </tr>

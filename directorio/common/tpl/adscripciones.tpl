@@ -33,10 +33,13 @@ function validar(f,accion){
 }
 function save(accion){
     var ajax_url = "adscripciones_save.php";
-    // var accion = accion;
+    var accion = accion;
     var id_adscripcion = $("#id_adscripcion").val();
+    var adscripcion = $("#adscripcion").val();
     var ent = $("#ent").val();
     var dto = $("#dto").val();
+    var corto = $("#corto").val();
+    var id_area = $("#id_area").val();
     var calle = $("#calle").val();
     var num_ext = $("#num_ext").val();
     var num_int = $("#num_int").val();
@@ -52,6 +55,9 @@ function save(accion){
       data: {
       accion : accion,
       id_adscripcion : id_adscripcion,
+      adscripcion : adscripcion,
+      corto : corto,
+      id_area : id_area,
       ent : ent,
       dto : dto,
       calle : calle,
@@ -92,11 +98,14 @@ function cancelar(){
       	<td class='table-label'>Adscripción:&nbsp;</td>	
           <td class='table-field' colspan="3">[@adscripcion]
           <input type='hidden' name='id_adscripcion' id='id_adscripcion' value='[@id_adscripcion]' />
+          <input type='hidden' name='adscripcion' id='adscripcion' value='[@adscripcion]' />
           </td>		
   	</tr>
       <tr>
       	<td class='table-label'>Siglas:&nbsp;</td>	
-          <td class='table-field' colspan="3">[@corto]</td>	
+          <td class='table-field' colspan="3">[@corto]
+            <input type='hidden' name='corto' id='corto' value='[@corto]' />
+          </td>	
   	</tr>    
       <tr>
       	<td class='table-label'>Organo:&nbsp;</td>	
@@ -158,7 +167,7 @@ function cancelar(){
       <tr>
           <td class='table-center' colspan="4" >	
           <span id="btnCancelar" class="btn" onclick="cancelar();" title="Cancelar">Cancelar</span>
-          <span id="btnAceptar" class="btn" onclick="validar(this.form,'UPDATE');" title="Guardar">Guardar</span>
+          <span id="btnAceptar" class="btn" onclick="validar(this.form,'[@btnDo]');" title="Guardar">Guardar</span>
           </td>
   	</tr>
       </form>

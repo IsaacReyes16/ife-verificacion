@@ -143,7 +143,6 @@ function cancelar(){
        <tr>
           <td class='table-label'>Adscripción:&nbsp;</td> 
           <td class='table-field' colspan="3">[@adscripcion]
-          <input type='hidden' name='id_adscripcion' id='id_adscripcion' value='[@id_adscripcion]' />
           </td>       
       </tr>
       <tr>
@@ -163,6 +162,12 @@ function cancelar(){
           <td class='table-field' >[@dto]<input type='hidden' name='dto' id='dto' value='[@id_dto]' /></td>       
       </tr>
       <!-- Form -->
+      <tr>
+          <td class='table-label'><span class="label-required">*</span>Dirección:&nbsp;</td>  
+          <td class='table-field' colspan="3">
+          <select id="id_adscripcion" name="id_adscripcion">[@select_direccion]</select>
+          </td>       
+      </tr>
       <tr>
           <td class='table-label'><span class="label-required">*</span>Puesto:&nbsp;</td>  
           <td class='table-field' colspan="3">
@@ -212,7 +217,7 @@ function cancelar(){
           <td class='table-field' colspan="3"><input type="text" name='correo' id='correo' size='40' maxlength='80' value='[@correo]' /></td>  
       </tr>
       <tr>
-          <td class='table-label'><span class="label-required">*</span>Firma Oficios:&nbsp;</td>    
+          <td class='table-label'><span class="label-required">*</span>Firma Documentos:&nbsp;</td>    
           <td class='table-field' colspan="3">[@radio_firma]</td>  
       </tr>
       <!--
