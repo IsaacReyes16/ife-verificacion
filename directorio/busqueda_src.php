@@ -58,16 +58,16 @@ if($ins['auth']){
 				          <td class='table-filed' >".$Row[5]."</td>        
 				          <td class='table-filed' >".$Row[6]."</td>   
 				          <td class='table-filed' >"."<span id='btnEditar' class='btn' onclick='location.href=\"personal.php?id=".$Row[0]."&s=1\"' title='Ver M&aacute;s'>M&aacute;s</span>"."</td>
-
 				      </tr>";
 			}
 			$i++;
 		}
 	}
 	$HTML.='<tr>
-            <td Colspan="7"></td>        
+            <td Colspan="7" height="12"></td>        
         </tr>
-        </table>';
+        </table>
+        <div height="10">&nbsp;</div>';
 	echo utf8_encode($HTML);
 }else{echo 0;}
 ?>
