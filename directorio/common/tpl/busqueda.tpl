@@ -64,7 +64,7 @@ $(document).ready(function(){
 });
 </script>
 <div id="contenido">
-  <div id="btnSearch" class="btnBl" style="display:[@divSearch];" onclick="location.href='index.php'">Regresar</div>
+  <div id="btnSearch" class="btnBl" style="display:[@divSearch];" onclick="location.href='inicio.php'">Regresar</div>
   <div id="verDetalle" style="display:block;">
     <table border="0" width="100%">
         <form name="f_datos" method="POST" action="">

@@ -59,11 +59,39 @@ $select_activo=select_activo($Row['activo']);
 #Usuario
 $vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
-##Save
-#if($ins[]){
-	$Log=SQLExec('update tbl_adscripciones set activo=1 where id_adscripcion=9 limit 1');
-#}
-
+#Personas
+$sql = "SELECT 
+	a.id_personal
+	,f.tratamiento
+	,a.nombre
+	,a.paterno
+	,a.materno	
+	,e.cargo
+	,e.cargo_ab
+	,a.id_tratamiento
+	,a.actualizado
+	,a.sexo
+	,a.telefono
+	,a.telefonoip
+	,a.correo
+	,a.firma
+	FROM tbl_personal a
+	LEFT JOIN cat_cargos e USING(id_cargo)
+	LEFT JOIN cat_tratamientos f USING(id_tratamiento)
+	WHERE 1 and firma='S' and a.activo=1 and a.id_adscripcion='$Row[id_adscripcion]' ;";
+$Row_personal = SQLQuery($sql);
+$Total=count($Row_personal);
+for($i=1; $i<=$Total-1; $i++){
+	$Nombre = $Row_personal[$i][1].' '.$Row_personal[$i][2].' '.$Row_personal[$i][3].' '.$Row_personal[$i][4];	
+	$personaOk = (!empty($Row_personal[$i][8]) && !empty($Row_personal[$i][7]) && !empty($Row_personal[$i][2]) && !empty($Row_personal[$i][3]) && !empty($Row_personal[$i][9]) && !empty($Row_personal[$i][10]) && !empty($Row_personal[$i][11]) && !empty($Row_personal[$i][12]) && !empty($Row_personal[$i][13]))?$iOk:$iNotOk;
+	$Funcionarios .= '<tr>
+			        <td class="table-label">'.$personaOk.'&nbsp;'.$Row_personal[$i][6].':&nbsp;</td> 
+			        <td class="table-field" Colspan="3">'.$Nombre.'&nbsp;
+			        <span id="btnEditar" class="btn" onclick="location.href=\'personal.php?id='.$Row_personal[$i][0].'\'" title="Editar">Editar</span>&nbsp;
+			        <span id="btnQuitar" class="btn" onclick="quitar(\''.$Row_personal[$i][0].'\',\''.$Nombre.'\', \'personal\');" title="Quitar">Quitar</span>
+			        </td>         
+			    </tr>';
+}
 ##Output
 $htmlTpl = 'adscripciones.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
@@ -97,6 +125,7 @@ $html->set('activo', $Row[1]);
 $html->set('select_activo', $select_activo);
 $html->set('actualizado', $Row['actualizado']);
 $html->set('id_usuario', $UsuarioNombre);
+$html->set('funcionarios', $Funcionarios);
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo utf8_encode($html);

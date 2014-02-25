@@ -75,7 +75,7 @@ function save(accion){
               if(data == 1){
                   alert("Información guardada correctamente.")
                   // location.reload();  
-                  location.href="index.php";
+                  location.href="inicio.php";
               }else{
                   alert("Error al guardar");
               }
@@ -88,7 +88,7 @@ function save(accion){
 
 function cancelar(){    
   confirmar=confirm("¿Esta seguro de cancelar? \nNo se guardara ningun cambio."); 
-  if (confirmar){location.href="index.php";}  
+  if (confirmar){location.href="inicio.php";}  
 }
 </script>
 <div id="contenido">
@@ -171,5 +171,12 @@ function cancelar(){
           </td>
   	</tr>
       </form>
+  </table>
+  <br/>
+  <table border="0" width="100%">
+    <tr>
+        <th Colspan="4">Funcionarios en está dirección&nbsp;</th>        
+    </tr>
+    [@funcionarios]
   </table>
 </div>

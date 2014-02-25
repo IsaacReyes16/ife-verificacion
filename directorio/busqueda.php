@@ -4,7 +4,7 @@ include_once('common/php/header.php');
 ##Bussines
 #Validación de acceso
 if($Usuario['nivel']!=1){
-	header("location: index.php");
+	header("location: inicio.php");
 }
 ##Output
 $htmlTpl = 'busqueda.tpl';

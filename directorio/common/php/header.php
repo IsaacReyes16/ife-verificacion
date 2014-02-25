@@ -18,6 +18,7 @@ parse_form_sanitizer($_GET, $_POST);
 parse_form($_GET, $_POST);
 ##Variables de usuario
 session_start();
+// if (!isset($_SESSION['id_usu'])) { header("Location: ../sdir/index.php"); exit; }
 $Usuario['id'] = $_SESSION['id_usu'];
 $Usuario['user'] = $_SESSION['usuario'];
 $Usuario['name'] = $_SESSION['nombre_completo'];

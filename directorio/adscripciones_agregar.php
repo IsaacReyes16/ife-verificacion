@@ -58,11 +58,6 @@ $select_activo=select_activo($Row['activo']);
 #Usuario
 $vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
-##Save
-#if($ins[]){
-	$Log=SQLExec('update tbl_adscripciones set activo=1 where id_adscripcion=9 limit 1');
-#}
-
 ##Output
 $htmlTpl = 'adscripciones.tpl';
 $html = new Template($Path['tpl'].$htmlTpl);
@@ -96,6 +91,7 @@ $html->set('activo', $Row[1]);
 $html->set('select_activo', $select_activo);
 $html->set('actualizado', date('Y-m-d H:i:s'));
 $html->set('id_usuario', $UsuarioNombre);
+$html->set('funcionarios', '');
 $html=$html->output();
 ####### Fin de Impresión ##########
 echo utf8_encode($html);
