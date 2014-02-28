@@ -655,6 +655,23 @@ class PDF extends FPDF
         $s=$row['a1_secc'];
         $l=$row['a1_loc'];
         $mz=$row['a1_mza'];
+        $this->SetFont($fuente,'',$ft2);
+        for($i=0; $i<strlen($fuar); $i++){$letra[$i]=substr($fuar,$i,1); $fuar1.=$letra[$i]." ";}
+        $this->Text($x[8],$y, $fuar1);
+        for($i=0; $i<strlen($cve); $i++){$letra[$i]=substr($cve,$i,1); $cve1.=$letra[$i]." ";}
+        $this->Text($x[25],$y, $cve1);
+        for($i=0; $i<strlen($e); $i++){$letra[$i]=substr($e,$i,1); $e1.=$letra[$i]." ";}
+        $this->Text($x[50],$y,$e1);
+        for($i=0; $i<strlen($d); $i++){$letra[$i]=substr($d,$i,1); $d1.=$letra[$i]." ";}
+        $this->Text($x[60],$y,$d1);
+        for($i=0; $i<strlen($m); $i++){$letra[$i]=substr($m,$i,1); $m1.=$letra[$i]." ";}
+        $this->Text($x[70],$y,$m1);
+        for($i=0; $i<strlen($s); $i++){$letra[$i]=substr($s,$i,1); $s1.=$letra[$i]." ";}
+        $this->Text($x[80],$y,$s1);
+        for($i=0; $i<strlen($l); $i++){$letra[$i]=substr($l,$i,1); $l1.=$letra[$i]." ";}
+        $this->Text($x[88],$y,$l1);
+        for($i=0; $i<strlen($mz); $i++){$letra[$i]=substr($mz,$i,1); $mz1.=$letra[$i]." ";}
+        $this->Text($x[95],$y,$mz1);
         //salto de linea 
         $y = $y + $salto-1;
         $this->SetTextColor($color3);

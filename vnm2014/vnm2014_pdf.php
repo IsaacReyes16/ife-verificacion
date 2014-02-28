@@ -62,7 +62,7 @@ if($v_auth && $v_ent && $v_dto){
     $nuevoDoc='VNM2014_CUESTIONARIO_E'.$fEnt.'_D'.$fDto.'_S'.$fSecc.'_M'.$fMzna.'_'.date('Ymd-His');
     $docPDF=$nuevoDoc.'.pdf';
     $pdf->Output($rutaDocs.$docPDF);
-    echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
+    // echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
 }else{echo "False";}
 /*O3M*/
 ?>

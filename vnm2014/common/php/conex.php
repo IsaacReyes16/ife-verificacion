@@ -1,4 +1,6 @@
 <?php /*O3M*/
+##Includes
+require_once('common/php/o3m_functions.php');
 ###Conexión Data###
 function SQLLink(){
 ##Conexion to MySQL
