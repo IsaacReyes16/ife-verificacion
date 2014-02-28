@@ -1,6 +1,7 @@
 <?php /*O3M*/
 ##Includes
 require_once('common/php/o3m_functions.php');
+date_default_timezone_set("America/Mexico_City");
 ###Conexión Data###
 function SQLLink(){
 ##Conexion to MySQL

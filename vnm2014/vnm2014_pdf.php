@@ -62,7 +62,7 @@ if($v_auth && $v_ent && $v_dto){
     $nuevoDoc='VNM2014_CUESTIONARIO_E'.$fEnt.'_D'.$fDto.'_S'.$fSecc.'_M'.$fMzna.'_'.date('Ymd-His');
     $docPDF=$nuevoDoc.'.pdf';
     $pdf->Output($rutaDocs.$docPDF);
-    // echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
-}else{echo "False";}
+    echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
+}else{echo "<a href='http://localhost/ife/verificacion/vnm2014/vnm2014_pdf.php?auth=1&ent=2&dto=3'>http://localhost/ife/verificacion/vnm2014/vnm2014_pdf.php?auth=1&ent=2&dto=3</a>";}
 /*O3M*/
 ?>

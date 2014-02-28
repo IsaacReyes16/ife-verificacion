@@ -497,17 +497,19 @@ class PDF extends FPDF
     }   
     ##### FIN Formateo de Texto
     
-    
-
+    ##INICIA template de PDF
     function Header() {
         global $cons;
         global $digito;
         $this->Image('common/img/logo.jpg',10,7,40);
-        $this->SetFont('Arial','B',9);
+        $this->SetFont('Arial','B',11);
         $this->SetTextColor($color1);
         $num_fol = strlen($cons);
-        $this->Text(63.5,14,"TERCER AVISO CIUDADANO PARA RECOGER");
-        $this->Text(60,19,"LA CREDENCIAL PARA VOTAR CON FOTOGRAFÍA");
+        $this->Text(67,14,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
+        $this->SetFont('Arial','B',9);
+        $this->Text(63,18,utf8_decode("CUESTIONARIO DE RESIDENTES POR VIVIENDA (PARTE A)"));
+        $this->Text(95,22,utf8_decode("ZONA URBANA"));
+        $this->Text(86,26,utf8_decode("VIVIENDA DE REEMPLAZO"));
         $this->Ln(2);
     
     }
@@ -552,251 +554,15 @@ class PDF extends FPDF
         $y = $y + $salto;           
         $this->SetFont($fuente,'B',$ft1);
         $this->SetTextColor($color1);
-        $this->Text($x[67],$y,'México, D.F., 16 de enero de 2012.');
-        //salto de linea 
-        $y = $y + $salto;       
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['nombre_comp']))));
-        //salto de linea 
-        $y = $y + $salto;
-        $this->SetFont($fuente,'',$ft1);
-        $this->SetTextColor($color3);
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['a1_calle']." ".$row['a1_exterior']." ".$row['a1_interior']))));
-        //salto de linea 
-        $y = $y + $salto;
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['a1_colonia']))).", C.P. ".$row['a1_cp']);
-        //salto de linea 
-        $y = $y + $salto;
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['mpio_ent']))));
+        $this->Text($x[67],$y,utf8_decode('México, D.F., 16 de enero de 2012.'));
         
-        //salto de linea 
-        $y = $y + $salto+3;
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'B',$ft1);
-        $this->Text($x[5],$y,'Presente');
         
-        //salto de linea 
-        #$y = $y + $salto;
-        $this->Ln($y-$salto-5);
-        $this->SetFont($fuente,'',$ft1);
-        $this->SetStyle("n","arial","B",0,$color1);
-        $this->SetStyle("cur","arial","I",0,$color1);
-        if($row['a1_modulo_dir']==NULL){
-            $donde="se sugiere llamar a IFETEL (01-800-433-2000) para confirmar la dirección del módulo donde se encuentra disponible su Credencial para Votar";
-            $ifetel=true;
-        }else{
-            $donde="ubicado en <cur>".ucwords(strtolower(utf8_decode($row['mod_direccion'])))."</cur>";
-            $ifetel=false;
-        }
-        $parrafo1="Estimado ciudadano, el día $fec_tram[2] de $mes de $fec_tram[0], usted realizó en el módulo de atención ciudadana, un trámite para obtener su Credencial para Votar con Fotografía. Debido a que a la fecha no la ha recogido, el IFE le extiende una cordial invitación para que pase por ella.";
-        $this->WriteTag(195,4,$parrafo1,0,"J",0,1);     
-        //salto de linea 
-        $this->Ln(2);
-        $parrafo2="Su credencial está disponible en el módulo ".$row['a1_modulo_cred'].", ".$donde.", acuda cuanto antes, sólo revise sus datos, firme y ponga su huella en su credencial.";
-        $this->WriteTag(195,4,$parrafo2,0,"J",0,1);     
-        if(!$ifetel){
-        //salto de linea 
-        $this->Ln(2);
-        $parrafo3="Sólo preséntese con una identificación con fotografía, revise sus datos, firme y poga su huella en su credencial.";
-        $this->WriteTag(195,4,$parrafo3,0,"J",0,1);     
-        }
-        //salto de linea 
-        $this->Ln(2);
-        $parrafo4="De conformidad con lo dispuesto en el artículo 180, párrafo 5 del Código Federal de Instituciones y Procedimientos Electorales, le informamos que debe acudir al Módulo de Atención Ciudadana por su Credencial para Votar a más tardar el día 31 de marzo de 2012. En cumplimiento del artículo 199 del mismo Código, <n>su Credencial para Votar será destruida</n>, su solicitud será cancelada y su registro será dado de baja del Padrón Electoral. Y no podrá votar en las próximas elecciones.";      
-        $this->WriteTag(195,4,$parrafo4,0,"J",0,1);
-        //salto de linea 
-        $this->Ln(2);
-        $parrafo5="Sí ya recogió su Credencial para Votar, haga caso omiso a este aviso.";
-        $this->WriteTag(195,4,$parrafo5,0,"J",0,1);     
-        //salto de linea 
-        $this->Ln(2);
-        $parrafo6="Sin otro particular, aprovecho la ocasión para enviarle un cordial saludo.";
-        $this->WriteTag(195,4,$parrafo6,0,"J",0,1);        
-
-        //salto de linea 
-        $y = $y + $salto+2;
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[8],$y,'FUAR No.');
-        $this->Text($x[77],$y,'Clave de Elector');  
-        $this->SetTextColor($color1);
-        $this->Text($x[14],$y,$row['a1_fuar']);     
-        $this->Text($x[86],$y,$row['a1_cve_elector']);      
-        //salto de linea 
-        $y = $y + $salto-2;
-        $this->SetFillColor($color1);   
-        $this->SetTextColor($color2);
-        $this->SetFont($fuente,'B',$ft2-.8);        
-        $this->Rect($x[5],$y,192,5,$style='FD');
-        $this->Text($x[6],$y+3.5,'Para mayores informes LLAME GRATIS desde cualquier parte del país a IFETEL: 01-800-433-2000 o consulte la página electrónica www.ife.org.mx y síguenos en twitter.com/IFETEL');
-        //salto de linea 
-        $y = $y + $salto+4;
-        $this->SetTextColor($color1);
-        $this->SetDrawColor($color1);
-        $this->SetLineWidth(0.1);
-        $this->SetDash(1,1); 
-        $this->Line($x[6]+3,$y,$x[99],$y);
-        
-        //salto de linea 
-        $y = $y + $salto-2;
-        $this->Image('common/img/logo.jpg',$x[6],$y,30);
-        $this->SetFont('Arial','B',9);
-        $num_fol = strlen($folio);
-        $this->Text(70,$y+5,"REGISTRO FEDERAL DE ELECTORES");
-        $this->Text(63.5,$y+10,"TERCER AVISO CIUDADANO PARA RECOGER");
-        $this->Text(60,$y+15,"LA CREDENCIAL PARA VOTAR CON FOTOGRAFÍA");
-        
-        //salto de linea 
-        $y = $y + $salto+16;
-        $fuar=$row['a1_fuar'];
-        $cve=$row['a1_cve_elector'];
-        $e=$row['a1_ent'];
-        $d=$row['a1_dto'];
-        $m=$row['a1_mpio'];
-        $s=$row['a1_secc'];
-        $l=$row['a1_loc'];
-        $mz=$row['a1_mza'];
-        //salto de linea 
-        $y = $y + $salto-1;
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[13],$y, 'FUAR');
-        $this->Text($x[30],$y, 'CLAVE DE ELECTOR');
-        $this->Text($x[50]-.5,$y,'ENT');
-        $this->Text($x[60],$y,'DTTO');
-        $this->Text($x[70],$y,'MPIO');
-        $this->Text($x[80]+.5,$y,'SECC');
-        $this->Text($x[89],$y,'LOC');
-        $this->Text($x[96],$y,'MZA');
-        
-        //salto de linea 
-        $y = $y + $salto-2;
-        $this->SetDash(1,0);
-        $this->Line($x[5],$y,$x[99],$y);
-        
-        //salto de linea 
-        $y = $y + $salto+2;
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'B',$ft1);
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['nombre_comp']))));
-        //salto de linea 
-        $y = $y + $salto;
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft2);
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['a1_calle']." ".$row['a1_exterior']." ".$row['a1_interior']))));
-        //salto de linea 
-        $y = $y + $salto;
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['a1_colonia']))).", C.P. ".$row['a1_cp']);
-        //salto de linea 
-        $y = $y + $salto;
-        $this->Text($x[5],$y,ucwords(strtolower(utf8_decode($row['mpio_ent']))));
-        
-        //salto de linea 
-        $y = $y + $salto-18;
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'B',$ft2);
-        $this->Text($x[68],$y+.5,'b) Recibí Aviso');
-        $this->Line($x[45],$y+10,$x[85],$y+10);
-        $this->Line($x[87],$y+10,$x[99],$y+10);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[60],$y+12,'Nombre completo');
-        $this->Text($x[93]-2,$y+12,'Firma');
-        //salto de linea 
-        $y = $y + $salto+5;
-        $this->Line($x[45],$y+13,$x[85],$y+13);
-        $this->Line($x[87],$y+13,$x[99],$y+13);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[59],$y+15,'Identificación');
-        $this->Text($x[93]-2,$y+15,'Número');
-        
-        //salto de linea 
-        $y = $y + $salto+11;
-        $this->SetFont($fuente,'B',$ft2);   
-        $this->Text($x[14],$y-5,'a) Fecha de la Visita');
-        $this->SetDrawColor($color1);   
-        $this->Rect($x[5],$y,15,6,$style='B');
-        $this->Line($x[9]-.5,$y+3,$x[9]-.5,$y+6);
-        $this->Rect($x[14],$y,15,6,$style='B');
-        $this->Line($x[18]-.5,$y+3,$x[18]-.5,$y+6);
-        $this->Rect($x[23],$y,15,6,$style='B');
-        $this->Line($x[27]-.5,$y+3,$x[27]-.5,$y+6);
-        $this->Rect($x[32],$y,10,6,$style='B');
-        $this->SetDrawColor(255,255,255);   
-        $this->Line($x[5],$y,$x[31],$y);
-        //salto de linea 
-        $y = $y + $salto+4;
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[8],$y,'Día');
-        $this->Text($x[17],$y,'Mes');
-        $this->Text($x[26],$y,'Año');
-        $this->Text($x[33],$y,'Código');
-        //salto de linea 
-        $y = $y + $salto;
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[5],$y,'1. Domicilio no localizado');
-        $this->Text($x[5],$y+4,'2. Lote baldío');
-        $this->Text($x[5],$y+8,'3. Cambio de uso de suelo');
-        $this->Text($x[5],$y+12,'4. Vivienda deshabitada');
-        $this->Text($x[5],$y+16,'5. Cambio de domicilio');
-        $this->Text($x[5],$y+20,'6. Ciudadano ausente');
-        $this->Text($x[5],$y+24,'7. No vive, no lo conocen');
-        
-        $this->Text($x[22],$y,'8. Fallecimiento');
-        $this->Text($x[22],$y+4,'9. Receptor inadecuado');
-        $this->Text($x[22],$y+8,'10. Rechazo');
-        $this->Text($x[22],$y+12,'11. Ausencia de ocupantes');
-        $this->Text($x[22],$y+16,'12. Entregado al ciudadano en cuestión');
-        $this->Text($x[22],$y+20,'13. Entregado a un receptor adecuado');
-        
-        //salto de linea 
-        $y = $y + $salto-8;
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'B',$ft2);   
-        $this->Text($x[45],$y,'c) Parentesco');
-        $this->SetDrawColor($color1);   
-        $this->Rect($x[54],$y-5,10,6,$style='B');
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[55]-.5,$y+3,'Código');
-        $this->Text($x[45],$y+8,'1. Ciudadano en cuestión');
-        $this->Text($x[45],$y+12,'2. Familiar');
-        $this->Text($x[45],$y+16,'3. No familiar');        
-        
-        $this->SetTextColor($color1);       
-        $this->SetFont($fuente,'B',$ft2);   
-        $this->Text($x[65]-.5,$y,'d) Causa por la que no ha recogido su CPVF');
-        $this->SetDrawColor($color1);   
-        $this->Rect($x[94],$y-5,10,6,$style='B');
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[95],$y+3,'Código');
-        $y = $y -3;
-        $this->Text($x[67],$y+8,'1. Se le había olvidado');
-        $this->Text($x[67],$y+11,'2. No ha tenido tiempo');
-        $this->Text($x[67],$y+14,'3. Motivos de salud');
-        $this->Text($x[67],$y+17,'4. Trabaja/estudia en otra Entidad/País');
-        $this->Text($x[67],$y+20,'5. No sabe (receptor adecuado)');
-        $this->Text($x[67],$y+23,'6. Otra');
-        $this->SetDrawColor($color3);   
-        $this->Line($x[72],$y+24,$x[99],$y+24);
-        
-        //salto de linea 
-        $y = $y + $salto+24+2;
-        $this->SetDrawColor($color1);
-        $this->SetTextColor($color1);
-        $this->SetFont($fuente,'B',$ft2);   
-        $this->Text($x[45],$y-1,'e) Técnico de Campo/Visitador Domiciliario');
-        $this->Line($x[45],$y+5,$x[80],$y+5);
-        $this->Line($x[82],$y+5,$x[99],$y+5);
-        $this->SetTextColor($color3);
-        $this->SetFont($fuente,'',$ft3);
-        $this->Text($x[61],$y+7,'Nombre');
-        $this->Text($x[90],$y+7,'Firma');
     }
 
     function PrintDatos($Valores){
         $this->AddPage();
         $this->Hoja1($Valores);
     }
+    ##FIN template PDF
 }
 ?>
