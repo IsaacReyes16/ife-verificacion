@@ -43,5 +43,31 @@ function limpiar_tmp($dir, $extension, $segundos){
     }
     closedir($h);
 }
+function zipFile($File='', $Path='', $Delete=false){
+##Compress in Zip file in the same directory
+	chdir($Path);
+	$f = explode('.',$File);
+	for($i=0; $i<count($f)-1; $i++){
+		$zipFile .= $f[$i];
+	}
+	$zipFile .= '.zip';
+	$Zip = new ZipArchive;
+	$Zip->open($zipFile, ZipArchive::CREATE);	
+	$Zip->addFile($File);
+	$Zip->close();
+	if($Delete){
+		unlink($File);
+	}
+	return $zipFile;
+}
+function ceros($num=0, $digitos=1){
+	if(strlen($num)<$digitos){
+	    for($i=1; $i<=$digitos-strlen($num); $i++){
+	        $cero .= '0';
+	    }
+	    $num = $cero.$num;
+	}
+    return $num;
+}
 /*O3M*/
 ?>

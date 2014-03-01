@@ -4,10 +4,10 @@ require_once('common/php/conex.php');
 ##Delete tmp folder
 limpiar_tmp('tmp/','zip',5);
 limpiar_tmp('tmp/','rtf',5);
-if($v_auth && $v_ent && $v_dto){	
-	##Business
-	extract($_GET, EXTR_PREFIX_ALL, "v");
-	extract($_POST, EXTR_PREFIX_ALL, "v"); 
+##Business
+extract($_GET, EXTR_PREFIX_ALL, "v");
+extract($_POST, EXTR_PREFIX_ALL, "v");
+if($v_auth && $v_ent && $v_dto){		 
 	if($v_ent){$Filtro .= "and id_ent='$v_ent'";}
 	if($v_dto){$Filtro .= "and id_dis='$v_dto'";}
 	if($v_folio){$Filtro .= "and folio='$v_folio'";}

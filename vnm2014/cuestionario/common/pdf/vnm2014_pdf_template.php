@@ -1,5 +1,6 @@
 <?php
 require_once('common/php/pdf/fpdf.php');
+require_once('common/php/o3m_functions.php');
 ##FPDF
 class PDF extends FPDF
 {
@@ -34,7 +35,7 @@ class PDF extends FPDF
 
     // Public Functions
 
-    function WriteTag($w, $h, $txt, $border=0, $align="J", $fill=false, $padding=0)
+    function WriteTag($x, $w, $h, $txt, $border=0, $align="J", $fill=false, $padding=0)
     {
         $this->wLine=$w;
         $this->hLine=$h;
@@ -45,7 +46,8 @@ class PDF extends FPDF
         $this->fill=$fill;
         $this->Padding=$padding;
 
-        $this->Xini=$this->GetX();
+        // $this->Xini=$this->GetX();
+        $this->Xini=$x;
         $this->href="";
         $this->PileStyle=array();        
         $this->TagHref=array();
@@ -499,18 +501,7 @@ class PDF extends FPDF
     
     ##INICIA template de PDF
     function Header() {
-        global $cons;
-        global $digito;
-        $this->Image('common/img/logo.jpg',10,7,40);
-        $this->SetFont('Arial','B',11);
-        $this->SetTextColor($color1);
-        $num_fol = strlen($cons);
-        $this->Text(67,14,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
-        $this->SetFont('Arial','B',9);
-        $this->Text(63,18,utf8_decode("CUESTIONARIO DE RESIDENTES POR VIVIENDA (PARTE A)"));
-        $this->Text(95,22,utf8_decode("ZONA URBANA"));
-        $this->Text(86,26,utf8_decode("VIVIENDA DE REEMPLAZO"));
-        $this->Ln(2);
+        
     
     }
 
@@ -521,7 +512,375 @@ class PDF extends FPDF
        #$this->Cell(0,10,'Hoja '.$this->PageNo(),0,0,'C');
     }
 
-    function Hoja1($Valores){        
+    function Hoja1($in){
+        //Variables con datos
+        $folio = utf8_decode($in['folio']);
+        $consecutivo = utf8_decode($in['consecutivo']);
+        $entidad = utf8_decode($in['entidad']);
+        $distrito = utf8_decode(ceros($in['distrito'],2));
+        $seccion = utf8_decode(ceros($in['seccion'],4));
+        $manzana = utf8_decode(ceros($in['manzana'],4));
+        $municipio = utf8_decode($in['municipio']);
+        $localidad = utf8_decode($in['localidad']);
+        $calle = utf8_decode($in['calle']);
+        $num_ext = utf8_decode($in['num_ext']);
+        $num_int = utf8_decode($in['num_int']);
+        $colonia = utf8_decode($in['colonia']);
+        $reemplazo = utf8_decode($in['reemplazo']);  
+        $hojas = '';      
+
+
+
+        //Variables layout        
+        $w=208;     //ancho de tabla
+        $h=4;       //alto de fila
+        $i=42;      // Inicio superior de tabla
+        $y=10;      //separacion de linea inicial
+        $x[1]=5;        //posicion x - margen izquierdo
+        $largo = 203;   //Espacio de trabajo - Largo
+        $celdas =100;   //Número de celdas a crear
+        $celda = $largo/$celdas;    //Largo de cada celda
+        for($a=2; $a<=$celdas; $a++){
+            $x[$a]=$x[$a-1]+$celda; //Celdas $x[n]
+        }
+        $fuente='Arial';    //Fuente
+        $ft0=12;        //tamaño de fuente
+        $ft1=10;        //tamaño de fuente
+        $ft2=9;     //tamaño de fuente
+        $ft3=8;     //tamaño de fuente
+        $ft4=6;     //tamaño de fuente
+        $ft5=4;     //tamaño de fuente
+        $salto=4;
+        $saltolinea=.5;
+        $colo1="0,0,0"; // color de relleno de celda
+        $color2="255,255,255";
+        $color3="180,180,180";
+        $si='B';        //relleno de casilla F - B
+        $fondo1 = "B";
+        $this->SetLeftMargin(12);
+        $this->SetRightMargin(5);
+        $this->SetStyle("b","arial","B",0,$color1);
+        $this->SetStyle("cur","arial","I",0,$color1);
+        
+        //Header
+        $this->Image('common/img/logo.jpg',10,7,40);
+        $this->SetFont('Arial','B',$ft0);
+        $this->SetTextColor($color1);
+        $this->Text(72,$y,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
+        $y = $y + $salto +.5; 
+        $this->SetFont('Arial','B',$ft1);
+        $this->Text(63,$y,utf8_decode("CUESTIONARIO DE RESIDENTES POR VIVIENDA (PARTE A)"));
+        $y = $y + $salto +.5; 
+        $this->Text(100,$y,utf8_decode("ZONA URBANA"));
+        $y = $y + $salto +.5; 
+        $this->SetTextColor($color3);
+        $this->Text(90,$y,$reemplazo);
+        
+        //salto de linea 
+        $y = $y + $salto + 3;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->SetTextColor($color1);
+        $this->Text($x[4],$y,utf8_decode('FOLIO DE CAPTURA:'));
+        $this->Text($x[37],$y,utf8_decode('CONSECUTIVO DE VIVIENDA:'));
+        $this->Text($x[80],$y,utf8_decode('TOTAL DE HOJAS:'));
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[19],$y,$folio);
+        $this->Text($x[58],$y,$consecutivo);
+        $this->Text($x[93],$y,$hojas);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Line($x[93],$y+.5,$x[100],$y+.5);
+        
+        ##1. IDENTIFICACIÓN GEOELECTORAL
+        //salto de linea y marco
+        $y = $y + $salto -3;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[95],5,'F');
+        $this->Rect($x[4],$y,$x[95],20,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[37],$y,utf8_decode('1. IDENTIFICACIÓN GEOELECTORAL'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('Entidad'));
+        $this->Text($x[40],$y,utf8_decode('Distrito'));
+        $this->Text($x[60],$y,utf8_decode('Sección'));
+        $this->Text($x[85],$y,utf8_decode('Manzana'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[5],$y,$entidad);
+        $this->Text($x[41]+1,$y,$distrito);
+        $this->Text($x[60]+2,$y,$seccion);
+        $this->Text($x[86]+1,$y,$manazana);
+        //salto de linea 
+        $y = $y + $salto+1;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('Municipio'));
+        $this->Text($x[50],$y,utf8_decode('Localidad'));
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[13],$y,$municipio);
+        $this->Text($x[58],$y,$localidad);
+
+        ##2. DOMICILIO 
+        //salto de linea y marco
+        $y = $y + $salto;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[95],5,'F');
+        $this->Rect($x[4],$y,$x[95],16,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[48],$y,utf8_decode('2. DOMICILIO'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('Calle:'));
+        $this->Text($x[40],$y,utf8_decode('Número Exterior:'));
+        $this->Text($x[75],$y,utf8_decode('Número Interior:'));
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[9],$y,$calle);
+        $this->Text($x[51],$y,$num_ext);
+        $this->Text($x[86],$y,$num_int);
+        //salto de linea 
+        $y = $y + $salto+1;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('Colonia o Localidad:'));
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[18],$y,$colonia);
+        //salto de linea 
+        $y = $y + $salto-2;           
+        $this->SetFont($fuente,'B',$ft4);
+        $this->Ln(54);
+        $texto = '<cur><b>'.utf8_decode('Pasa al apartado 3').'</b></cur>';
+        $this->WriteTag($x[48],20,5,$texto,0,"",0,0);
+
+        ##3. CARACTERÍSTICAS DE LA VIVIENDA
+        //salto de linea y marco
+        $y = $y + $salto-2;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[95],5,'F');
+        $this->Rect($x[4],$y,$x[95],26,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[36],$y,utf8_decode('3. CARACTERÍSTICAS DE LA VIVIENDA'));
+        //salto de linea 
+        $y = $y + $salto;
+        $this->Rect($x[4],$y-3,$x[46]+1,21,'B');
+        $this->Rect($x[52],$y-3,$x[47],21,'B');
+        //Cuadro izquierdo
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[10],$y+1,utf8_decode('3.1 Anota las características de la vivienda'));
+        $this->Rect($x[45],$y-2,$x[4],5,'B');
+        //salto de linea 
+        $y = $y + $salto+2;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('1. Vivienda habitada'));
+        $this->SetFont($fuente,'B',$ft4);
+        $texto = '<cur><b>'.utf8_decode('(pasa a 3.2)').'</b></cur>';
+        $this->Ln(11);
+        $this->WriteTag($x[18],20,5,$texto,0,"",0,0);
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('2. Vivienda deshabitada'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('3. Otro uso'));
+        $this->SetLineWidth(0.1);
+        $this->SetDash(1,1); 
+        $this->Line($x[14],$y+1,$x[35],$y+1);
+        $this->SetFont($fuente,'B',$ft4);
+        $texto = '<cur><b>'.utf8_decode('Específica').'</b></cur>';
+        $this->Ln(6.2);
+        $this->WriteTag($x[22],20,5,$texto,0,"",0,0);
+        $this->SetFont($fuente,'',$ft4);
+        $this->Image('common/img/llave.png',$x[36],$y-10,3);
+        $this->Text($x[38]-1,$y-5,utf8_decode('Fin de llenado utiliza vivienda'));
+        $this->Text($x[42]-1,$y-2,utf8_decode('de reemplazo'));
+        //Cuadro derecha
+        //salto de linea 
+        $y = $y + $salto-18;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[53],$y+1,utf8_decode('3.2 Anota si detectaste viviendas omitidas en el domicilio'));
+        $this->SetDash();
+        $this->Rect($x[93],$y-2,$x[4],5,'B');
+        //salto de linea 
+        $y = $y + $salto+2;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[53],$y,utf8_decode('1. Sí, ¿cuántas?'));
+        $this->Line($x[64],$y+1,$x[75],$y+1);
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[53],$y,utf8_decode('2. No'));
+        //salto de linea 
+        $y = $y + $salto; 
+        $this->SetFont($fuente,'B',$ft4);
+        $texto = '<cur><b>'.utf8_decode('Pasa a 4').'</b></cur>';
+        $this->Ln(-5);
+        $this->WriteTag($x[75],20,5,$texto,0,"",0,0);
+
+        ##4. ENTREVISTA
+        ##Cuadro Izquierdo
+        //salto de linea y marco
+        $y = $y + $salto+1;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[46],5,'F');
+        $this->Rect($x[4],$y,$x[46],40,'B');
+        
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[22],$y,utf8_decode('4. ENTREVISTA'));
+        //salto de linea 
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[7],$y+1,utf8_decode('4.1 Anota si realizaste la entrevista, el día y la hora de la visita'));
+        //salto de linea 
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[9],$y,utf8_decode('1ª Visita'));
+        $this->Text($x[23],$y,utf8_decode('2ª Visita'));
+        $this->Text($x[38],$y,utf8_decode('3ª visita'));
+        //salto de linea 
+        $y = $y + $salto-1;
+        $this->SetFont($fuente,'',$ft4);
+        $this->SetDash(1,1);
+        $this->Text($x[12],$y,utf8_decode('Día'));        
+        $this->Line($x[15],$y+1,$x[18],$y+1);
+        $this->Text($x[26],$y,utf8_decode('Día'));
+        $this->Line($x[29],$y+1,$x[32],$y+1);
+        $this->Text($x[40],$y,utf8_decode('Día'));
+        $this->Line($x[43],$y+1,$x[46],$y+1);
+         //salto de linea 
+        $y = $y + $salto+1;
+        $this->SetFont($fuente,'',$ft4);
+        $this->SetDash(1,1);
+        $this->Text($x[7],$y,utf8_decode('Código')); 
+        $this->Rect($x[7],$y-6,$x[2],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[7]-1,$y-7,$x[2]+2,2,'F');
+        $this->SetDash(1,1);
+        $this->Text($x[21],$y,utf8_decode('Código'));
+        $this->Rect($x[21],$y-6,$x[2],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[21]-1,$y-7,$x[2]+2,2,'F');
+        $this->SetDash(1,1);
+        $this->Text($x[35],$y,utf8_decode('Código'));
+        $this->Rect($x[35],$y-6,$x[2],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[35]-1,$y-7,$x[2]+2,2,'F');
+        $this->SetDash(1,1);
+        $this->Text($x[12],$y,utf8_decode('Hora'));        
+        $this->Line($x[15],$y+1,$x[18],$y+1);
+        $this->Text($x[26],$y,utf8_decode('Hora'));
+        $this->Line($x[29],$y+1,$x[32],$y+1);
+        $this->Text($x[40],$y,utf8_decode('Hora'));
+        $this->Line($x[43],$y+1,$x[46],$y+1);
+        $this->SetDash();
+        //salto de linea 
+        $y = $y + $salto+2;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('1. Sí, se realizó'));
+        $this->SetFont($fuente,'B',$ft4);
+        $texto = '<cur><b>'.utf8_decode('(pasa a 5)').'</b></cur>';
+        $this->Ln(22.2);
+        $this->WriteTag($x[15],20,5,$texto,0,"",0,0);
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('2. No, por ausencia'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('3. No, por informante inadecuado'));
+        //salto de linea 
+        $y = $y + $salto;           
+        $this->SetFont($fuente,'',$ft3);
+        $this->Text($x[5],$y,utf8_decode('4. No, por rechazo'));
+        //llave
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Image('common/img/llave.png',$x[26],$y-13,3);
+        $texto = '<cur><b>'.utf8_decode('Programa segunda y tercera visitas').'</b></cur>';
+        $this->Ln(1.5);
+        $this->WriteTag($x[28]-.5,50,5,$texto,0,"",0,0);
+
+        #Cuadro Derecho
+        //salto de linea
+        $y = $y + $salto-42;
+        $this->SetFillColor($color3);
+        $this->Rect($x[52],$y,$x[47],5,'F');
+        $this->Rect($x[52],$y,$x[47],40,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[66],$y,utf8_decode('5. OCUPANTES DE LA VIVIENDA'));
+        //salto de linea
+        $y = $y + $salto+1;        
+        $this->Ln(-27);
+        $texto = '<cur><b>'.utf8_decode('5.1 ¿Cuántas personas que tienen 18 años, viven aquí?').'</b></cur>';
+        $this->WriteTag($x[52]+1,35,3,$texto,0,"C",0,0);
+        $this->Line($x[70],$y-4,$x[70],$y+31);
+        $this->Ln(-9);
+        $texto = '<cur><b>'.utf8_decode('5.2 ¿Cuántas personas mayores de 18 años, viven aquí?').'</b></cur>';        
+        $this->WriteTag($x[70]+1,35,3,$texto,0,"C",0,0);
+        $this->Line($x[89],$y-4,$x[89],$y+31);
+        $this->Ln(-9);
+        $texto = '<cur><b>'.utf8_decode('5.3 Total de personas').'</b></cur>';
+        $this->WriteTag($x[90]+1,18,3,$texto,0,"C",0,0);
+        //salto de linea
+        $y = $y + $salto+15;
+        $this->SetFont($fuente,'',$ft4);
+        $this->SetDash(1,1);
+        $this->Text($x[57],$y+1,utf8_decode('ANOTA NÚMERO')); 
+        $this->Rect($x[54],$y-6,$x[12],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[54]-1,$y-7,$x[12]+2,2,'F');
+        $this->SetDash(1,1);
+        $this->Text($x[76],$y+1,utf8_decode('ANOTA NÚMERO')); 
+        $this->Rect($x[73],$y-6,$x[12],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[73]-1,$y-7,$x[12]+2,2,'F');
+        $this->SetDash(1,1);
+        $this->Text($x[90]+1,$y+1,utf8_decode('ANOTA NÚMERO')); 
+        $this->Rect($x[90],$y-6,$x[8],4,'B');
+        $this->SetFillColor($color2);
+        $this->SetDash();
+        $this->Rect($x[90]-1,$y-7,$x[8]+2,2,'F');
+        //salto de linea
+        $this->SetFont($fuente,'B',$ft4);
+        $this->Ln(20);
+        $texto = '<cur><b>'.utf8_decode('Pasa a 5.2').'</b></cur>';
+        $this->WriteTag($x[56]+1,18,3,$texto,0,"C",0,0);
+        $this->Ln(-3);
+        $texto = '<cur><b>'.utf8_decode('Pasa a 5.3').'</b></cur>';
+        $this->WriteTag($x[75]+1,18,3,$texto,0,"C",0,0);
+        $this->Ln(-3);
+        $texto = '<cur><b>'.utf8_decode('Pasa a 6').'</b></cur>';
+        $this->WriteTag($x[90]+1,18,3,$texto,0,"C",0,0);
+
+        
+    }
+
+    function Hoja2(){        
         //Variables layout        
         $w=208;     //ancho de tabla
         $h=4;       //alto de fila
@@ -554,7 +913,7 @@ class PDF extends FPDF
         $y = $y + $salto;           
         $this->SetFont($fuente,'B',$ft1);
         $this->SetTextColor($color1);
-        $this->Text($x[67],$y,utf8_decode('México, D.F., 16 de enero de 2012.'));
+        $this->Text($x[67],$y,utf8_decode('Hoja'));
         
         
     }
@@ -562,6 +921,8 @@ class PDF extends FPDF
     function PrintDatos($Valores){
         $this->AddPage();
         $this->Hoja1($Valores);
+        $this->AddPage();
+        $this->Hoja2();
     }
     ##FIN template PDF
 }

@@ -1,4 +1,4 @@
-<?php #$noment='BAJA CALIFORNIA'; $txtEnt=2; $dis=3; ?>
+<?php $noment='BAJA CALIFORNIA'; $txtEnt=2; $dis=3; ?>
 <?php require_once('common/php/build_select.php'); 
 $ent=$txtEnt; 
 $dto=$dis;
@@ -12,48 +12,56 @@ $dto=$dis;
 function validar(f){
 	var ent = $("#ent").val();
     var dto = $("#dto").val();
-    var folio = fulltrim($("#folio").val());    
-    var consecutivo = fulltrim($("#consecutivo").val());
+    // var folio = fulltrim($("#folio").val());    
+    // var consecutivo = fulltrim($("#consecutivo").val());
     var seccion = $("#seccion").val();
     var manzana = $("#manzana").val();
     var folio_edsm = $("#folio_edsm").val();
-    if(folio=='' && consecutivo=='' && seccion==''){
+    if(seccion==''){
         alert("Debe ingresar algun criterio de b&uacute;squeda");
-        f.folio.focus();
+        f.seccion.focus();
         return false;
     }
     generaArchivo();
 }
 
-function generaArchivo(){
+function generaArchivo(){	
 	$("#divResultado").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
-	var ajax_url = "vnm2014_rtf.php";
+	var ajax_url = "vnm2014_cuestionario.php";
     var ent = $("#ent").val();
     var dto = $("#dto").val();
-    var folio = $("#folio").val();
-    var consecutivo = $("#consecutivo").val();
+    var folio = '';
+    // var folio = $("#folio").val();
+    // var consecutivo = $("#consecutivo").val();
     var seccion = $("#seccion").val();
     var manzana = $("#manzana").val();
     var folio_edsm = $("#folio_edsm").val();
+    var t = $('input:radio[name=t]:checked').val();
     if(folio==''){folio=folio_edsm;}
     $.ajax({
       type: 'POST',
       url: ajax_url,
+      dataType: "json",
       data: {
       ent : ent,
       dto : dto,
       folio : folio,
-      consecutivo : consecutivo,
+      // consecutivo : consecutivo,
       seccion : seccion,
       manzana : manzana,
+      t : t,
       auth : 1
       },
-      success: function(data){  
+      success: function(data){ 
           if(data !=''){                                    
-              if(data != 0){    
-                  $("#divResultado").html("Archivo Generado. <a href='tmp/"+data+"' title='Descargar'><br/><img src='common/img/zip.png' border='0' valing='middle'>"+data+"</a>");
+              if(data != 0){  
+              	if(data[0]=='rtf'){  
+                  $("#divResultado").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar'><br/><img src='common/img/zip.png' border='0' valing='middle'>"+data[2]+"</a>");
+                }else if(data[0]=='pdf'){  
+                  $("#divResultado").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar'><br/><img src='common/img/pdf.gif' border='0' valing='middle'>"+data[2]+"</a>");
+               	}else{$("#divResultado").html("Tipo de documento no identificado.");}
               }else{
-                  $("#divResultado").html("Error al generar archivo.");
+                  $("#divResultado").html("Error al generar archivo. "+data);
               }
           }else{
               alert("Error al envíar datos");
@@ -149,11 +157,11 @@ input:focus, textarea:focus, select:focus{
 	background-color:#FBE6FA;	
 }
 #forma{
-	position:absolute;
+	/*position:absolute;
     top:50%;
     left: 50%;
     margin-top: -100px;
-    margin-left: -100px;
+    margin-left: -100px;*/
 	overflow:hidden;
 }
 .table-label{
@@ -211,7 +219,7 @@ input:focus, textarea:focus, select:focus{
 	overflow:hidden;
 	float: left;
 	clear: both;
-	margin-left: 50px;
+	/*margin-left: 50px;*/
 }
 #divResultado{
 	position:relative;
@@ -239,7 +247,7 @@ input:focus, textarea:focus, select:focus{
 				<tr>
 					<td colspan="2"><hr></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="table-label">Folio:&nbsp;</td>
 					<td class="table-field"><input type="text" id="folio" name="folio" size="10"></td>
 				</tr>
@@ -249,7 +257,7 @@ input:focus, textarea:focus, select:focus{
 				</tr>
 				<tr>
 					<td colspan="2"><hr></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td class="table-label">Secci&oacute;n:&nbsp;</td>
 					<td class="table-field">
@@ -268,6 +276,16 @@ input:focus, textarea:focus, select:focus{
 					<td class="table-label">Folio:&nbsp;</td>
 					<td class="table-field">
 					<span id="select_folio"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><hr></td>
+				</tr>
+				<tr>
+					<td class="table-label">Formato:&nbsp;</td>
+					<td class="table-field">
+					<input type='radio' name='t' value='pdf' checked="checked">&nbsp;PDF
+					<input type='radio' name='t' value='rtf' >&nbsp;RTF
 					</td>
 				</tr>
 				<tr>

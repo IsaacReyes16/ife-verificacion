@@ -63,6 +63,6 @@ if($v_auth && $v_ent && $v_dto){
     $docPDF=$nuevoDoc.'.pdf';
     $pdf->Output($rutaDocs.$docPDF);
     echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
-}else{echo "<a href='http://localhost/ife/verificacion/vnm2014/vnm2014_pdf.php?auth=1&ent=2&dto=3'>http://localhost/ife/verificacion/vnm2014/vnm2014_pdf.php?auth=1&ent=2&dto=3</a>";}
+}else{echo "<a href='vnm2014_pdf.php?auth=1&ent=2&dto=3' target='blank'>vnm2014_pdf.php?auth=1&ent=2&dto=3</a>";}
 /*O3M*/
 ?>
