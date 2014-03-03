@@ -527,9 +527,7 @@ class PDF extends FPDF
         $num_int = utf8_decode($in['num_int']);
         $colonia = utf8_decode($in['colonia']);
         $reemplazo = utf8_decode($in['reemplazo']);  
-        $hojas = '';      
-
-
+        $hojas = '';   
 
         //Variables layout        
         $w=208;     //ancho de tabla
@@ -596,7 +594,7 @@ class PDF extends FPDF
         $y = $y + $salto -3;  
         $this->SetFillColor($color3);
         $this->SetDrawColor($color1);
-        $this->SetLineWidth(0.1);
+        $this->SetLineWidth(0.4);
         $this->Rect($x[4],$y,$x[95],5,'F');
         $this->Rect($x[4],$y,$x[95],20,'B');
         //salto de linea y titulo de marco
@@ -833,17 +831,18 @@ class PDF extends FPDF
         $this->Text($x[66],$y,utf8_decode('5. OCUPANTES DE LA VIVIENDA'));
         //salto de linea
         $y = $y + $salto+1;        
+        $this->SetFont($fuente,'B',$ft3);
         $this->Ln(-27);
         $texto = '<cur><b>'.utf8_decode('5.1 ¿Cuántas personas que tienen 18 años, viven aquí?').'</b></cur>';
-        $this->WriteTag($x[52]+1,35,3,$texto,0,"C",0,0);
+        $this->WriteTag($x[53],32,3,$texto,0,"C",0,0);
         $this->Line($x[70],$y-4,$x[70],$y+31);
         $this->Ln(-9);
         $texto = '<cur><b>'.utf8_decode('5.2 ¿Cuántas personas mayores de 18 años, viven aquí?').'</b></cur>';        
-        $this->WriteTag($x[70]+1,35,3,$texto,0,"C",0,0);
+        $this->WriteTag($x[71],35,3,$texto,0,"C",0,0);
         $this->Line($x[89],$y-4,$x[89],$y+31);
         $this->Ln(-9);
         $texto = '<cur><b>'.utf8_decode('5.3 Total de personas').'</b></cur>';
-        $this->WriteTag($x[90]+1,18,3,$texto,0,"C",0,0);
+        $this->WriteTag($x[91],16,3,$texto,0,"C",0,0);
         //salto de linea
         $y = $y + $salto+15;
         $this->SetFont($fuente,'',$ft4);
@@ -877,7 +876,98 @@ class PDF extends FPDF
         $texto = '<cur><b>'.utf8_decode('Pasa a 6').'</b></cur>';
         $this->WriteTag($x[90]+1,18,3,$texto,0,"C",0,0);
 
-        
+        ##6. LISTA DE RESIDENTES HABITUALES
+        //salto de linea y marco
+        $y = $y + $salto+9;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[95],5,'FD');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[37],$y,utf8_decode('6. LISTA DE RESIDENTES HABITUALES'));
+        //salto de linea 
+        $y = $y + $salto;
+        //marcos
+        $this->Rect($x[4],$y-3,$x[37],21,'B');
+        $this->Rect($x[42]+1,$y-3,$x[16],21,'B');
+        $this->Rect($x[60],$y-3,$x[12],21,'B');
+        $this->Rect($x[73]+1,$y-3,$x[12],21,'B');
+        $this->Rect($x[87],$y-3,$x[12],21,'B');
+        //titulos
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Ln(17);
+        $texto = '<cur><b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b></cur>';
+        $this->WriteTag($x[5],75,3,$texto,0,"C",0,0);
+        $this->Ln(-6);
+        $texto = '<cur><b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b></cur>';
+        $this->WriteTag($x[44],30,3,$texto,0,"C",0,0);
+        $this->Ln(-7);
+        $texto = '<cur><b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b></cur>';
+        $this->WriteTag($x[60]+1,25,3,$texto,0,"C",0,0);
+        $this->Ln(-10);
+        $texto = '<cur><b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b></cur>';
+        $this->WriteTag($x[74],25,3,$texto,0,"C",0,0);
+        $this->Ln(-11);
+        $texto = '<cur><b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b></cur>';
+        $this->WriteTag($x[88],22,3,$texto,0,"C",0,0);
+        //Opciones
+        for($i=1; $i<=3; $i++){
+            //Opciones - salto de linea 
+            if($i==1){$y = $y + $salto+17;}else{$y = $y + $salto+4;}
+            
+            //marcos
+            $this->Rect($x[4],$y-3,$x[37],30,'B');
+            $this->Rect($x[42]+1,$y-3,$x[16],30,'B');
+            $this->Rect($x[60],$y-3,$x[12],30,'B');
+            $this->Rect($x[73]+1,$y-3,$x[12],30,'B');
+            $this->Rect($x[87],$y-3,$x[12],30,'B');
+            //salto de linea 
+            $y = $y + $salto-3;
+            $this->SetFont($fuente,'B',$ft3);
+            $this->Text($x[5],$y+1,utf8_decode($i.'.'));
+            //salto de linea 
+            $y = $y + $salto;        
+            $this->SetDash(1,1);
+            $this->Line($x[4]+1,$y,$x[42],$y);        
+            //salto de linea 
+            $y = $y + $salto;
+            $this->Text($x[20],$y,utf8_decode('NOMBRE(S)'));
+            //salto de linea 
+            $y = $y + $salto+5;
+            $this->Line($x[4]+1,$y,$x[42],$y);        
+            //salto de linea 
+            $y = $y + $salto;
+            $this->Text($x[7],$y,utf8_decode('APELLIDO PATERNO'));
+            $this->Text($x[26],$y,utf8_decode('APELLIDO MATERNO'));
+            //cuadro 2 - dia
+            $y = $y + $salto-20;
+            $this->Text($x[44],$y,utf8_decode('DÍA'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-6,$x[5],2,'F');
+            //cuadro 2 - dia
+            $y = $y + $salto+4;
+            $this->Text($x[44]-1,$y,utf8_decode('MES'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-6,$x[5],2,'F');
+            //cuadro 2 - dia
+            $y = $y + $salto+4;
+            $this->Text($x[44]-1,$y,utf8_decode('AÑO'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->Rect($x[52],$y-5,$x[1],6,'B');
+            $this->Rect($x[54]+1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-6,$x[10],2,'F');
+        }             
     }
 
     function Hoja2(){        
@@ -885,7 +975,7 @@ class PDF extends FPDF
         $w=208;     //ancho de tabla
         $h=4;       //alto de fila
         $i=42;      // Inicio superior de tabla
-        $y=30;      //separacion de linea inicial
+        $y=5;      //separacion de linea inicial
         $x[1]=5;        //posicion x - margen izquierdo
         $largo = 203;   //Espacio de trabajo - Largo
         $celdas =100;   //Número de celdas a crear
@@ -896,26 +986,270 @@ class PDF extends FPDF
         $fuente='Arial';    //Fuente
         $ft0=12;        //tamaño de fuente
         $ft1=10;        //tamaño de fuente
-        $ft2=7;     //tamaño de fuente
-        $ft3=6;     //tamaño de fuente
-        $ft4=4;     //tamaño de fuente
+        $ft2=9;     //tamaño de fuente
+        $ft3=8;     //tamaño de fuente
+        $ft4=6;     //tamaño de fuente
+        $ft5=4;     //tamaño de fuente
         $salto=4;
         $saltolinea=.5;
         $colo1="0,0,0"; // color de relleno de celda
         $color2="255,255,255";
-        $color3="102,102,102";
+        $color3="180,180,180";
         $si='B';        //relleno de casilla F - B
         $fondo1 = "B";
         $this->SetLeftMargin(12);
         $this->SetRightMargin(5);
+        $this->SetStyle("b","arial","B",0,$color1);
+        $this->SetStyle("cur","arial","I",0,$color1);
         
+        ##6. LISTA DE RESIDENTES HABITUALES
+        //salto de linea y marco
+        $y = $y + $salto;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[95],5,'FD');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[37],$y,utf8_decode('6. LISTA DE RESIDENTES HABITUALES'));
         //salto de linea 
-        $y = $y + $salto;           
-        $this->SetFont($fuente,'B',$ft1);
-        $this->SetTextColor($color1);
-        $this->Text($x[67],$y,utf8_decode('Hoja'));
+        $y = $y + $salto;
+        //marcos
+        $this->Rect($x[4],$y-3,$x[37],13,'B');
+        $this->Rect($x[42]+1,$y-3,$x[16],13,'B');
+        $this->Rect($x[60],$y-3,$x[12],13,'B');
+        $this->Rect($x[73]+1,$y-3,$x[12],13,'B');
+        $this->Rect($x[87],$y-3,$x[12],13,'B');
+        //titulos
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Ln(6);
+        $texto = '<cur><b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b></cur>';
+        $this->WriteTag($x[5],75,3,$texto,0,"C",0,0);
+        $this->Ln(-6);
+        $texto = '<cur><b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b></cur>';
+        $this->WriteTag($x[44],30,3,$texto,0,"C",0,0);
+        $this->Ln(-7);
+        $texto = '<cur><b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b></cur>';
+        $this->WriteTag($x[60]+1,25,3,$texto,0,"C",0,0);
+        $this->Ln(-10);
+        $texto = '<cur><b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b></cur>';
+        $this->WriteTag($x[74],25,3,$texto,0,"C",0,0);
+        $this->Ln(-11);
+        $texto = '<cur><b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b></cur>';
+        $this->WriteTag($x[88],22,3,$texto,0,"C",0,0);
         
-        
+        for($i=4; $i<=10; $i++){
+            //Opciones - salto de linea 
+            if($i==4){$y = $y + $salto+9;}else{$y = $y + $salto+2;}
+            
+            //marcos
+            $this->Rect($x[4],$y-3,$x[37],23,'B');
+            $this->Rect($x[42]+1,$y-3,$x[16],23,'B');
+            $this->Rect($x[60],$y-3,$x[12],23,'B');
+            $this->Rect($x[73]+1,$y-3,$x[12],23,'B');
+            $this->Rect($x[87],$y-3,$x[12],23,'B');
+            //salto de linea 
+            $y = $y + $salto-4;
+            $this->SetFont($fuente,'B',$ft3);
+            $this->Text($x[5],$y+1,utf8_decode($i.'.'));
+            //salto de linea 
+            $y = $y + $salto-1;        
+            $this->SetDash(1,1);
+            $this->Line($x[4]+1,$y,$x[42],$y);        
+            //salto de linea 
+            $y = $y + $salto;
+            $this->Text($x[20],$y,utf8_decode('NOMBRE(S)'));
+            //salto de linea 
+            $y = $y + $salto+1;
+            $this->Line($x[4]+1,$y,$x[42],$y);        
+            //salto de linea 
+            $y = $y + $salto;
+            $this->Text($x[7],$y,utf8_decode('APELLIDO PATERNO'));
+            $this->Text($x[26],$y,utf8_decode('APELLIDO MATERNO'));
+            //cuadro 2 - dia
+            $y = $y + $salto-17;
+            $this->Text($x[44],$y,utf8_decode('DÍA'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-5.2,$x[5],2,'F');
+            //cuadro 2 - mes
+            $y = $y + $salto+3;
+            $this->Text($x[44]-1,$y,utf8_decode('MES'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-5.5,$x[5],2,'F');
+            //cuadro 2 - año
+            $y = $y + $salto+3;
+            $this->Text($x[44]-1,$y,utf8_decode('AÑO'));
+            $this->SetDash();
+            $this->Rect($x[47],$y-5,$x[1],6,'B');
+            $this->Rect($x[50]-1,$y-5,$x[1],6,'B');
+            $this->Rect($x[52],$y-5,$x[1],6,'B');
+            $this->Rect($x[54]+1,$y-5,$x[1],6,'B');
+            $this->SetFillColor($color2);
+            $this->Rect($x[47]-1,$y-5.5,$x[10]+2,2,'F');
+        }        
+
+        ##FIRMAS 1
+        ##Cuadro Izquierdo
+        //salto de linea y marco
+        $y = $y + $salto;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[46],5,'F');
+        $this->Rect($x[4],$y,$x[46],25,'B');                
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[24],$y,utf8_decode('VISITADOR'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25],$y+1,utf8_decode('NOMBRE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25]+1,$y+1,utf8_decode('FIRMA'));
+        #Cuadro Derecho
+        //salto de linea
+        $y = $y + $salto-26;
+        $this->SetFillColor($color3);
+        $this->Rect($x[52],$y,$x[47],5,'F');
+        $this->Rect($x[52],$y,$x[47],25,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[64],$y,utf8_decode('VALIDADOR DEL PARTIDO POLÍTICO'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[75],$y+1,utf8_decode('NOMBRE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[68],$y+1,utf8_decode('FIRMA'));
+        $this->Text($x[89],$y+1,utf8_decode('SIGLAS P.P.'));
+
+        ##FIRMAS 2
+        ##Cuadro Izquierdo
+        //salto de linea y marco
+        $y = $y + $salto;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[46],5,'F');
+        $this->Rect($x[4],$y,$x[46],25,'B');                
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[21],$y,utf8_decode('VALIDADOR DEL RFE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25],$y+1,utf8_decode('NOMBRE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25]+1,$y+1,utf8_decode('FIRMA'));
+        #Cuadro Derecho
+        //salto de linea
+        $y = $y + $salto-26;
+        $this->SetFillColor($color3);
+        $this->Rect($x[52],$y,$x[47],5,'F');
+        $this->Rect($x[52],$y,$x[47],25,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[64],$y,utf8_decode('SUPERVISOR DEL PARTIDO POLÍTICO'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[75],$y+1,utf8_decode('NOMBRE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[68],$y+1,utf8_decode('FIRMA'));
+        $this->Text($x[89],$y+1,utf8_decode('SIGLAS P.P.'));
+
+        ##FIRMAS 3
+        ##Cuadro Izquierdo
+        //salto de linea y marco
+        $y = $y + $salto;  
+        $this->SetFillColor($color3);
+        $this->SetDrawColor($color1);
+        $this->SetLineWidth(0.1);
+        $this->Rect($x[4],$y,$x[46],5,'F');
+        $this->Rect($x[4],$y,$x[46],25,'B');                
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[21],$y,utf8_decode('SUPERVISOR DEL RFE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25],$y+1,utf8_decode('NOMBRE'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[5],$y,$x[50],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        $this->Text($x[25]+1,$y+1,utf8_decode('FIRMA'));
+        #Cuadro Derecho
+        //salto de linea
+        $y = $y + $salto-26;
+        $this->SetFillColor($color3);
+        $this->Rect($x[52],$y,$x[47],5,'F');
+        $this->Rect($x[52],$y,$x[47],25,'B');
+        //salto de linea y titulo de marco
+        $y = $y + $salto;
+        $this->SetFont($fuente,'B',$ft2);
+        $this->Text($x[72],$y,utf8_decode('OBSERVACIONES'));
+        //salto de linea 
+        $y = $y + $salto+3;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto-2;
+        $this->SetFont($fuente,'B',$ft3);
+        //salto de linea 
+        $y = $y + $salto-1;
+        $this->Line($x[54],$y,$x[99],$y);
+        //salto de linea 
+        $y = $y + $salto+1;
+        $this->Line($x[54],$y,$x[99],$y);    
     }
 
     function PrintDatos($Valores){
@@ -926,4 +1260,5 @@ class PDF extends FPDF
     }
     ##FIN template PDF
 }
+/*O3M*/
 ?>

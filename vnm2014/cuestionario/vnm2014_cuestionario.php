@@ -88,14 +88,14 @@ if($v_auth && $v_ent && $v_dto && $v_t){
 	    @$pdf->Output($rutaDocs.$docPDF);
 	    $Result = array($v_t, $rutaDocs, $docPDF);	
 	    //Temporal
-	    echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
+	    // echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
 	}else{
 	##NON
 		$Result = array(0, $rutaDocs, "No se selecciono Tipo");
 	}
 	##Print Result
 	echo json_encode($Result);
-// }else{echo false;}
-}else{echo "<a href='http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_cuestionario.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_' target='blank'>http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_pdf.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_</a>";}
+}else{echo false;}
+// }else{echo "<a href='http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_cuestionario.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_' target='blank'>http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_pdf.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_</a>";}
 /*O3M*/
 ?>
