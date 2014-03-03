@@ -898,19 +898,19 @@ class PDF extends FPDF
         //titulos
         $this->SetFont($fuente,'B',$ft3);
         $this->Ln(17);
-        $texto = '<cur><b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b>';
         $this->WriteTag($x[5],75,3,$texto,0,"C",0,0);
         $this->Ln(-6);
-        $texto = '<cur><b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b>';
         $this->WriteTag($x[44],30,3,$texto,0,"C",0,0);
         $this->Ln(-7);
-        $texto = '<cur><b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b></cur>';
+        $texto = '<b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b>';
         $this->WriteTag($x[60]+1,25,3,$texto,0,"C",0,0);
         $this->Ln(-10);
-        $texto = '<cur><b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b></cur>';
+        $texto = '<b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b>';
         $this->WriteTag($x[74],25,3,$texto,0,"C",0,0);
         $this->Ln(-11);
-        $texto = '<cur><b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b>';
         $this->WriteTag($x[88],22,3,$texto,0,"C",0,0);
         //Opciones
         for($i=1; $i<=3; $i++){
@@ -1024,19 +1024,19 @@ class PDF extends FPDF
         //titulos
         $this->SetFont($fuente,'B',$ft3);
         $this->Ln(6);
-        $texto = '<cur><b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.1 Solicita los nombres de los residentes, inicia con la persona que te atiende.').'</b>';
         $this->WriteTag($x[5],75,3,$texto,0,"C",0,0);
         $this->Ln(-6);
-        $texto = '<cur><b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.2 Solicita la fecha de nacimiento').'</b>';
         $this->WriteTag($x[44],30,3,$texto,0,"C",0,0);
         $this->Ln(-7);
-        $texto = '<cur><b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b></cur>';
+        $texto = '<b>'.utf8_decode("6.3 Indica el sexo 1. Hombre                           2. Mujer").'</b>';
         $this->WriteTag($x[60]+1,25,3,$texto,0,"C",0,0);
         $this->Ln(-10);
-        $texto = '<cur><b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b></cur>';
+        $texto = '<b>'.utf8_decode("6.4 Búscalo en el padrón e indica:                1.- Sí está              2.- No está").'</b>';
         $this->WriteTag($x[74],25,3,$texto,0,"C",0,0);
         $this->Ln(-11);
-        $texto = '<cur><b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b></cur>';
+        $texto = '<b>'.utf8_decode('6.5 Anota Consecutivo del Padrón').'</b>';
         $this->WriteTag($x[88],22,3,$texto,0,"C",0,0);
         
         for($i=4; $i<=10; $i++){
