@@ -96,7 +96,7 @@ if(confirm("Se guardarán los datos con el tipo: "+$("#tipo").val()+" \r\n¿Dese
 	    var paterno = $("#paterno").val();
 	    var materno = $("#materno").val();	
 	    var cve_elector = $("#cve_elector").val();
-	    var clave = $("#clave").val();
+	    // var clave = $("#clave").val();
 	    var vocal_nombre = $("#vocal_nombre").val();
 	    var vocal_puesto = $("#vocal_puesto").val();
 	    var vigencia = $("#vigencia").val();
@@ -114,7 +114,7 @@ if(confirm("Se guardarán los datos con el tipo: "+$("#tipo").val()+" \r\n¿Dese
 		    	paterno : paterno,
 		    	materno : materno,
 		    	cve_elector : cve_elector,
-		    	clave : clave,
+		    	// clave : clave,
 		    	vocal_nombre : vocal_nombre,
 		    	vocal_puesto : vocal_puesto,
 		    	vigencia : vigencia
@@ -235,12 +235,12 @@ function validar(){
 						<input type="hidden" id="vocal_puesto" name="vocal_puesto" value="VOCAL EJECUTIVO DE LA JUNTA DISTRITAL EJECUTIVA" />
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="table-label">Clave: &nbsp; </td>
 					<td class="table-field">
 						<input type="text" id="clave" name="clave" size="15" readonly="true" />
 					</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td class="table-label">Vigencia: &nbsp; </td>
 					<td class="table-field">
