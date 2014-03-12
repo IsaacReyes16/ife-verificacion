@@ -39,7 +39,7 @@ function listado(){
 	       			var cons = i+1;
 	       			if(cons<10){cons = '0'+cons;}
 	       			var tipo  =valor.tipo.substr(0,3);
-      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l">'+cons+'.- '+tipo+' | '+valor.nombre_completo+'</td><td class="table-label-c"><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">RTF</span></td></tr>');
+      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l">'+cons+'.- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">RTF</span></td></tr>');
       				$("#tbl_resultados tbody tr:even").css("background-color", "#EEE");
 					$("#tbl_resultados tbody tr:odd").css("background-color", "#FFF");
       			});		      
@@ -197,8 +197,8 @@ function validar(){
 						<select id="puesto" name="puesto">
 							<option value="">--Seleccione--</option>
 							<option value="VALIDADOR">VALIDADOR</option>
-							<option value="VISITADOR">VISITADOR</option>
-							<option value="SUPERVISOR">SUPERVISOR</option>
+							<option value="VISITADOR">VISITADOR DOMICILIARIO</option>
+							<option value="SUPERVISOR DE CAMPO">SUPERVISOR DE CAMPO</option>
 							<option value="ENUMERADOR">ENUMERADOR</option>
 							<option value="REVISOR">REVISOR</option>
 						</select>
@@ -229,10 +229,15 @@ function validar(){
 					</td>
 				</tr>				
 				<tr>
-					<td class="table-label">Vocal Ejecutivo: &nbsp; </td>
+					<td class="table-label">Nombre <br/>(Vocal Ejecutivo): &nbsp; </td>
 					<td class="table-field">
 						<input type="text" id="vocal_nombre" name="vocal_nombre" size="30" maxlength="150" onkeyup="mayusc(this)"/>
-						<input type="hidden" id="vocal_puesto" name="vocal_puesto" value="VOCAL EJECUTIVO DE LA JUNTA DISTRITAL EJECUTIVA" />
+					</td>
+				</tr>
+				<tr>
+					<td class="table-label">Puesto <br/>(Vocal Ejecutivo): &nbsp; </td>
+					<td class="table-field">
+						<input type="text" id="vocal_puesto" name="vocal_puesto" size="30" maxlength="150" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
 				<!-- <tr>

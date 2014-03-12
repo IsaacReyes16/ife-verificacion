@@ -100,10 +100,10 @@ if($v_auth && $v_t && strtolower($v_t)!='add'){
 }elseif($v_auth && strtolower($v_t)=='add'){	
 ##Guardar registro
 	switch($v_puesto){
-		case 'SUPERVISOR': $digito=10; break;
+		case 'SUPERVISOR DE CAMPO': $digito=10; break;
 		case 'VALIDADOR': $digito=20; break;
 		case 'REVISOR': $digito=20; break;
-		case 'VISITADOR': $digito=30; break;
+		case 'VISITADOR DOMICILIARIO': $digito=30; break;
 		case 'ENUMERADOR': $digito=30; break;
 		default : $digito=0;
 	}

@@ -112,7 +112,6 @@ input:focus, textarea:focus, select:focus{
 	position:relative;
 	width:350px;
 	margin:0 auto 0 auto;
-	text-align:left;
 	overflow:hidden;
 	float: left;
 	clear: both;

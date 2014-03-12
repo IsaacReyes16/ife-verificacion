@@ -24,7 +24,7 @@ CREATE TABLE `tbl_gafetes_copy` (
   `tipo` enum('ENUMERACION','COBERTURA','ACTUALIZACION') DEFAULT NULL,
   `ent` smallint(2) DEFAULT NULL,
   `dto` smallint(2) DEFAULT NULL,
-  `puesto` varchar(20) DEFAULT NULL,
+  `puesto` varchar(30) DEFAULT NULL,
   `nombre` varchar(32) DEFAULT NULL,
   `paterno` varchar(32) DEFAULT NULL,
   `materno` varchar(32) DEFAULT NULL,
