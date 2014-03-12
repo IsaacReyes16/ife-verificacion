@@ -49,14 +49,16 @@ if($v_auth && $v_t && strtolower($v_t)!='add'){
 				,'vocal_nombre'
 				,'vocal_puesto'
 				,'vigencia');
-	foreach($Rows as $Row){
-		++$n;
-		if($n>1){
-			$Valores[$n-1] = $Row;
-			$Valores[$n-1][4] = utf8_encode($Row[4]);
-			$Valores[$n-1][8] = utf8_encode($Row[8]);
+	if($Registros>0){
+		foreach($Rows as $Row){
+			++$n;
+			if($n>1){
+				$Valores[$n-1] = $Row;
+				$Valores[$n-1][4] = utf8_encode($Row[4]);
+				$Valores[$n-1][8] = utf8_encode($Row[8]);
+			}
 		}
-	}	
+	}
 	$rutaDocs='tmp/';
 	$ruta = $rutaDocs;	
 	##File Name		
@@ -89,11 +91,12 @@ if($v_auth && $v_t && strtolower($v_t)!='add'){
 		}
 	}elseif(strtolower($v_t)=='lista'){
 	##LISTA => Genera listado de registros guardados
-		foreach($Valores as $Line){
-	    	$Row = array_combine($Variables, $Line);
-			$Result [] = $Row;
-	    } 
-		// $Result = $Rows;
+		if($Registros>0){
+			foreach($Valores as $Line){
+		    	$Row = array_combine($Variables, $Line);
+				$Result [] = $Row;
+		    } 
+		}		
 	}
 	##Print Result
 	echo json_encode($Result);

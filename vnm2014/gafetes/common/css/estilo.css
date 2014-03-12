@@ -29,6 +29,13 @@ input:focus, textarea:focus, select:focus{
 	border:#F500AB solid 1px;
 	background-color:#FBE6FA;	
 }
+#contenido{
+	position:relative;
+	width:350px;
+	margin:0 auto 0 auto;
+	padding: 2px;
+	overflow:hidden;
+}
 .table-label{
 	font-weight:bold;
 	text-align: right;
@@ -110,7 +117,7 @@ input:focus, textarea:focus, select:focus{
 }
 #tabla-ingreso{
 	position:relative;
-	width:350px;
+	width:100%;
 	margin:0 auto 0 auto;
 	overflow:hidden;
 	float: left;
@@ -118,7 +125,7 @@ input:focus, textarea:focus, select:focus{
 }
 #tabla-resultados{
 	position:relative;
-	width:350px;
+	width:100%;
 	overflow:hidden;
 	float: left;
 	clear: both;

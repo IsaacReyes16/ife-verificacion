@@ -44,7 +44,7 @@ function listado(){
 					$("#tbl_resultados tbody tr:odd").css("background-color", "#FFF");
       			});		      
 	      }else{
-	          alert("Error al generar archivo.");
+	          // alert("Sin datos.");
 	      }
 	       
 	    }  
@@ -165,6 +165,7 @@ function validar(){
 </script>
 </head>
 <body>
+<div id="contenido">
 	<div id="tabla-ingreso" class="Tabla">
 		<div class="tabla-top">Impresión de Gafete</div>
 		<table border="0" width="100%">
@@ -286,5 +287,6 @@ function validar(){
 			</tfoot>
 		</table>		
 	</div>
+</div>
 </body>
 </html>
