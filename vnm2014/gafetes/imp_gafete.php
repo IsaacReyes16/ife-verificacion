@@ -35,7 +35,7 @@ if($v_auth && $v_t && strtolower($v_t)!='add'){
 			WHERE 1 and activo=1 $Filtro 
 			ORDER BY tipo, puesto, nombre, paterno, materno ASC";
 	$Rows=SQLQuery($sql);
-	$Registros = count($rows)-1;
+	$Registros = count($Rows)-1;
 	##Vars
 	$Variables = array(
 				 'id_gafete'
@@ -48,7 +48,7 @@ if($v_auth && $v_t && strtolower($v_t)!='add'){
 				,'clave'
 				,'vocal_nombre'
 				,'vocal_puesto'
-				,'vigencia');
+				,'vigencia');	
 	if($Registros>0){
 		foreach($Rows as $Row){
 			++$n;

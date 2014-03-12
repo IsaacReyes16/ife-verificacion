@@ -34,7 +34,8 @@ function listado(){
 	    },
 	    success: function(data){ 
 	      if(data!=null){
-	      		$('#tbl_resultados tbody, #tbl_resultados tfoot').empty();
+	      		$('#tbl_resultados tbody').empty();
+	      		$('#tbl_resultados tfoot').html('<tr><td colspan="2"></td></tr>');
 	       		$.each(data, function(i, valor){
 	       			var cons = i+1;
 	       			if(cons<10){cons = '0'+cons;}
@@ -85,7 +86,7 @@ function imprimir(id,t){
 function agregar(){ 
 	validar();
 if(confirm("Se guardarán los datos con el tipo: "+$("#tipo").val()+" \r\n¿Desea continuar?")) {
-		$("#divResultado").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
+		$("#divResultado").html("<img src='common/img/wait.gif' valign='middle'> Guardando información, por favor, espere...");
 		var ajax_url = "imp_gafete.php";
 		var t = "ADD";
 		var tipo = $("#tipo").val();
