@@ -1,5 +1,6 @@
 $(document).ready(function(){	
 	listado();
+	$('#cve_elector').mask('SSSSSS00000000Z000', {translation:  {'Z': {pattern: /[H,M]/, optional: false}}});
 });
 
 function listado(){
@@ -25,7 +26,7 @@ function listado(){
 	       			var cons = i+1;
 	       			if(cons<10){cons = '0'+cons;}
 	       			var tipo  =valor.tipo.substr(0,3);
-      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l">'+cons+'.- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">RTF</span></td></tr>');
+      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l">'+cons+'.- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><!--span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span--><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">Descargar</span></td></tr>');
       				$("#tbl_resultados tbody tr:even").css("background-color", "#EEE");
 					$("#tbl_resultados tbody tr:odd").css("background-color", "#FFF");
       			});		      
@@ -136,9 +137,9 @@ function validar(){
         alert("Debe ingresar el apellido Paterno");
         paterno.focus();
         return false;
-    }
-    if(cve_elector==''){
-        alert("Debe ingresar la Clave de elector");
+    }    
+    if(cve_elector=='' || cve_elector.length!=18){
+        alert("Debe ingresar la Clave de elector y debe contener exactamente de 18 digitos");
         cve_elector.focus();
         return false;
     }

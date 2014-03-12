@@ -9,6 +9,7 @@ $dto=$dis;
 <head>
 	<title>::IFE-VNM2014-Impresión de gafetes</title>
 	<script type="text/javascript" src="common/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="common/js/jquery.mask.min.js"></script>
 	<script type="text/javascript" src="common/js/o3m_functions.js"></script>
 	<script type="text/javascript" src="common/js/javascript.js"></script>
 	<link href="common/css/estilo.css" rel="stylesheet" type="text/css" />
@@ -57,25 +58,25 @@ $dto=$dis;
 				<tr>
 					<td class="table-label">Nombre(s): &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="nombre" name="nombre" size="20" maxlength="32" onkeyup="mayusc(this)" />
+						<input type="text" id="nombre" name="nombre" size="25" maxlength="32" onkeyup="mayusc(this)" />
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Apellido Paterno: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="paterno" name="paterno" size="20" maxlength="32" onkeyup="mayusc(this)" />
+						<input type="text" id="paterno" name="paterno" size="25" maxlength="32" onkeyup="mayusc(this)" />
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Apellido Materno: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="materno" name="materno" size="20" maxlength="32" onkeyup="mayusc(this)"/>
+						<input type="text" id="materno" name="materno" size="25" maxlength="32" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Clave de elector: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="cve_elector" name="cve_elector" size="20" maxlength="18"  onkeyup="mayusc(this)"/>
+						<input type="text" id="cve_elector" name="cve_elector" size="25" maxlength="18"  onkeyup="mayusc(this)"/>
 					</td>
 				</tr>				
 				<tr>
