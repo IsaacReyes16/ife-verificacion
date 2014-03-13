@@ -29,6 +29,8 @@ function listado(){
       				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l"><a href="#tabla-ingreso"><span id="editar" name="editar" class="enlace" onclick="editar('+valor.id_gafete+')"><img src="common/img/edit.png" valign="middle" border="0" title="Editar"></span></a> '+cons+'- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><!--span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span--><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">Descargar</span></td></tr>');
       				$("#tbl_resultados tbody tr:even").css("background-color", "#EEE");
 					$("#tbl_resultados tbody tr:odd").css("background-color", "#FFF");
+					$("#vocal_nombre").val(valor.vocal_nombre);
+					$("#vocal_puesto").val(valor.vocal_puesto);
       			});		      
 	      }else{
 	          // alert("Sin datos.");
