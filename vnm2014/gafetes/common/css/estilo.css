@@ -106,6 +106,15 @@ input:focus, textarea:focus, select:focus{
 	clear: both;
 	z-index: 4;
 }
+#btnActualizar{
+	display:inline-block;
+	width: 80px;
+	height: 17px;
+	vertical-align: middle;
+	margin: 0 auto 0 auto;
+	clear: both;
+	z-index: 4;
+}
 .Tabla{
 	font-family:Arial, Helvetica, sans-serif;
 	color:#333;
@@ -136,4 +145,8 @@ input:focus, textarea:focus, select:focus{
 	color:#FFF;
 	font-weight:bold;
 	font-size: 1.2em;
+}
+.enlace:hover {
+	cursor: pointer; 
+	cursor: hand;
 }

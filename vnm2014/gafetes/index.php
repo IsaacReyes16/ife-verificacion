@@ -48,11 +48,12 @@ $dto=$dis;
 						<select id="puesto" name="puesto">
 							<option value="">--Seleccione--</option>
 							<option value="VALIDADOR">VALIDADOR</option>
-							<option value="VISITADOR">VISITADOR DOMICILIARIO</option>
+							<option value="VISITADOR DOMICILIARIO">VISITADOR DOMICILIARIO</option>
 							<option value="SUPERVISOR DE CAMPO">SUPERVISOR DE CAMPO</option>
 							<option value="ENUMERADOR">ENUMERADOR</option>
 							<option value="REVISOR">REVISOR</option>
 						</select>
+						<input type="hidden" id="puesto_old" name="puesto_old" value="" />
 					</td>
 				</tr>
 				<tr>
@@ -91,17 +92,13 @@ $dto=$dis;
 						<input type="text" id="vocal_puesto" name="vocal_puesto" size="30" maxlength="150" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
-				<!-- <tr>
-					<td class="table-label">Clave: &nbsp; </td>
-					<td class="table-field">
-						<input type="text" id="clave" name="clave" size="15" readonly="true" />
-					</td>
-				</tr> -->
 				<tr>
 					<td class="table-label">Vigencia: &nbsp; </td>
 					<td class="table-field">
 						DEL 18 DE MARZO AL 15 DE MAYO DE 2014 
 						<input type="hidden" id="vigencia" name="vigencia" value="DEL 18 DE MARZO AL 15 DE MAYO DE 2014 " />
+						<input type="hidden" id="clave" name="clave" value="" />
+						<input type="hidden" id="id_gafete" name="id_gafete" value="" />
 					</td>
 				</tr>
 				<tr>
@@ -109,7 +106,7 @@ $dto=$dis;
 				</tr>
 			</tbody>
 			<tfoot>
-				<td colspan="2" align="center">
+				<td id="botones" colspan="2" align="center">
 					<div id="btnAgregar" class="btn" onclick="agregar();">:: Agregar ::</div>
 				</td>
 			</tfoot>
