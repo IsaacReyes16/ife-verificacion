@@ -1,5 +1,6 @@
 $(document).ready(function(){	
 	listado();
+	personas();
 	$('#cve_elector').mask('SSSSSS00000000Z000', {translation:  {'Z': {pattern: /[H,M]/, optional: false}}}); 
 });
 
@@ -25,12 +26,15 @@ function listado(){
 	       		$.each(data, function(i, valor){
 	       			var cons = i+1;
 	       			if(cons<10){cons = '0'+cons;}
-	       			var tipo  =valor.tipo.substr(0,3);
-      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l"><a href="#tabla-ingreso"><span id="editar" name="editar" class="enlace" onclick="editar('+valor.id_gafete+')"><img src="common/img/edit.png" valign="middle" border="0" title="Editar"></span></a> '+cons+'- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><!--span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span--><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">Descargar</span></td></tr>');
+	       			var tipo  = '';
+	       			if(valor.tipo==1){tipo='ENU';}
+	       			if(valor.tipo==2){tipo='COB';}
+	       			if(valor.tipo==3){tipo='ACT';}
+      				$('#tbl_resultados > tbody:last').append('<tr><td class="table-label-l"><a href="#tabla-ingreso"><span id="editar" name="editar" class="enlace" onclick="editar('+valor.id_gafete+',1)"><img src="common/img/edit.png" valign="middle" border="0" title="Editar"></span></a> '+cons+'- '+tipo+' | '+valor.clave+' - '+valor.nombre_completo+'</td><td class="table-label-c"><!--span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'PDF'"+');">PDF</span--><span class="btn"  onclick="imprimir('+valor.id_gafete+','+"'RTF'"+');">Descargar</span></td></tr>');
       				$("#tbl_resultados tbody tr:even").css("background-color", "#EEE");
 					$("#tbl_resultados tbody tr:odd").css("background-color", "#FFF");
-					$("#vocal_nombre").val(valor.vocal_nombre);
-					$("#vocal_puesto").val(valor.vocal_puesto);
+					// $("#vocal_nombre").val(valor.vocal_nombre);
+					// $("#vocal_puesto").val(valor.vocal_puesto);
       			});		      
 	      }else{
 	          // alert("Sin datos.");
@@ -41,34 +45,38 @@ function listado(){
 }
 
 function imprimir(id,t){ 
-	$("#divResultado").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
-	var ajax_url = "imp_gafete.php";
-	var t = t;
-	var ent = $("#ent").val();
-    var dto = $("#dto").val();
-	var id = id;	
-	$.ajax({
-	    type: 'POST',
-	    url: ajax_url,
-	    dataType: "json",
-	    data: {
-	    	auth : 1,
-	    	t : t,
-	    	ent : ent,
-	    	dto : dto,
-	    	id : id      		
-	    },
-	    success: function(data){ 
-	      if(data != 0){    
-	      	// if(data[0]=='pdf'){
-	        	// $("#divResultado").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar'><br/><img src='common/img/pdf.gif' border='0' valing='middle'>"+data[2]+"</a>"); 
-	        	window.open(data[1]+data[2],'_self');
-	       	// }
-	      }else{
-	          alert("Error al generar archivo.");
-	      }
-	    }  
-	});
+	if(id){
+		$("#divResultado").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
+		var ajax_url = "imp_gafete.php";
+		var t = t;
+		var ent = $("#ent").val();
+	    var dto = $("#dto").val();
+		var id = id;	
+		$.ajax({
+		    type: 'POST',
+		    url: ajax_url,
+		    dataType: "json",
+		    data: {
+		    	auth : 1,
+		    	t : t,
+		    	ent : ent,
+		    	dto : dto,
+		    	id : id      		
+		    },
+		    success: function(data){ 
+		      if(data != 0){    
+		      	// if(data[0]=='pdf'){
+		        	// $("#divResultado").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar'><br/><img src='common/img/pdf.gif' border='0' valing='middle'>"+data[2]+"</a>"); 
+		        	window.open(data[1]+data[2],'_self');
+		       	// }
+		      }else{
+		          alert("Error al generar archivo.");
+		      }
+		    }  
+		});
+	}else{
+		alert('Debe seleccionar una persona.');
+	}
 }
 
 function agregar(){ 
@@ -119,7 +127,7 @@ if(confirm("Se guardarán los datos con el tipo: "+$("#tipo").val()+" \r\n¿Dese
 	}
 }
 
-function editar(id){
+function editar(id, modo){
 	var ajax_url = "imp_gafete.php";
 	var t = "editar";
 	var ent = $("#ent").val();
@@ -136,7 +144,7 @@ function editar(id){
 	    	dto : dto,
 	    	id : id      		
 	    },
-	    success: function(data){ 
+	    success: function(data){ 		        	
 	      if(data != 0){    
 	      		$.each(data, function(i, valor){
 	      			$("#id_gafete").val(valor.id_gafete);
@@ -150,12 +158,14 @@ function editar(id){
 	      			$("#vocal_nombre").val(valor.vocal_nombre);
 	      			$("#vocal_puesto").val(valor.vocal_puesto);
 	      			$("#clave").val(valor.clave);
-	      			$("#vigencia").val(valor.vigencia);
-	      			$('#botones').html('<div id="btnActualizar" class="btn" onclick="actualizar();">:: Actualizar ::</div>&nbsp;<div id="btnActualizar" class="btn" onclick="recargar();">:: Cancelar ::</div>');
+	      			$("#vigencia").val(valor.vigencia);	      			
 	      		});
+	      		if(modo){
+	      			$('#botones').html('<div id="btnActualizar" class="btn" onclick="actualizar();">:: Actualizar ::</div>&nbsp;<div id="btnActualizar" class="btn" onclick="recargar();">:: Cancelar ::</div>');
+	      		}
 	      }else{
 	          alert("Error accesar a la información.");
-	      }
+	      }		    
 	    }  
 	});
 }
@@ -224,6 +234,7 @@ function validar(){
     var paterno = $("#paterno").val();	
     var cve_elector = $("#cve_elector").val();
     var vocal_nombre = $("#vocal_nombre").val();
+    var vocal_puesto = $("#vocal_puesto").val();
     if(puesto==''){
         alert("Debe seleccionar un Puesto");
         puesto.focus();
@@ -245,8 +256,43 @@ function validar(){
         return false;
     }
     if(vocal_nombre==''){
-        alert("Debe ingresar el nombre completo del Vocal Ejecutivo de VD");
+        alert("Debe ingresar el nombre completo del Vocal");
         vocal_nombre.focus();
         return false;
     }    
+    if(vocal_puesto==''){
+        alert("Debe ingresar el puesto del Vocal");
+        vocal_puesto.focus();
+        return false;
+    } 
+}
+
+function hrefNuevo(){
+	location.href='gafete_nuevo.php';
+}
+function hrefInicio(){
+	location.href='index.php';
+}
+
+function personas(){ 
+	var ajax_url = "common/php/build_inputs.php";	
+	$.ajax({
+	    type: 'POST',
+	    url: ajax_url,
+	    dataType: "json",
+	    data: {
+			input : 'personas'
+		},
+	    success: function(data){ 
+	      if(data != 0){
+	      	$.each(data, function(i, valor){
+	      		var id = valor[0];
+	      		var nombre = valor[1];
+  				$('#personas').append('<option value="'+id+'">'+nombre+'</option>');
+  			});	
+	      }else{
+	          alert("Error al recibir datos.");
+	      }
+	    }  
+	});
 }

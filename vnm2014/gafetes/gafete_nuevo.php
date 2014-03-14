@@ -19,19 +19,11 @@ $dto=$dis;
 	<div id="tabla-ingreso" class="Tabla">
 		<div class="tabla-top">Impresión de Gafete</div>
 		<table border="0" width="100%">
-			<tbody>		
-				<tr>
-					<td class="table-label">Personas: &nbsp; </td>
-					<td class="table-field">
-						<select id="personas" name="personas" onchange="editar(this.value,0);">
-							<option value='' selected="true">--Seleccione--</option>
-						</select>
-					</td>
-				</tr>		
+			<tbody>				
 				<tr>
 					<td class="table-label">Tipo: &nbsp; </td>
 					<td class="table-field">
-						<select id="tipo" name="tipo" readonly="true">
+						<select id="tipo" name="tipo">
 							<option value="1" selected="selected">ENUMERACION</option>
 							<option value="2">COBERTURA</option>
 							<option value="3">ACTUALIZACION</option>
@@ -53,7 +45,7 @@ $dto=$dis;
 				<tr>
 					<td class="table-label">Puesto: &nbsp; </td>
 					<td class="table-field">
-						<select id="puesto" name="puesto" readonly="true">
+						<select id="puesto" name="puesto">
 							<option value="">--Seleccione--</option>
 							<option value="4">VALIDADOR</option>
 							<option value="3">VISITADOR DOMICILIARIO</option>
@@ -67,37 +59,37 @@ $dto=$dis;
 				<tr>
 					<td class="table-label">Nombre(s): &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="nombre" name="nombre" size="25" maxlength="32" onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="nombre" name="nombre" size="25" maxlength="32" onkeyup="mayusc(this)" />
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Apellido Paterno: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="paterno" name="paterno" size="25" maxlength="32" onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="paterno" name="paterno" size="25" maxlength="32" onkeyup="mayusc(this)" />
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Apellido Materno: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="materno" name="materno" size="25" maxlength="32" onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="materno" name="materno" size="25" maxlength="32" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Clave de elector: &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="cve_elector" name="cve_elector" size="25" maxlength="18"  onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="cve_elector" name="cve_elector" size="25" maxlength="18"  onkeyup="mayusc(this)"/>
 					</td>
 				</tr>				
 				<tr>
 					<td class="table-label">Nombre <br/>(Vocal): &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="vocal_nombre" name="vocal_nombre" size="30" maxlength="150" onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="vocal_nombre" name="vocal_nombre" size="30" maxlength="150" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="table-label">Puesto <br/>(Vocal): &nbsp; </td>
 					<td class="table-field">
-						<input type="text" id="vocal_puesto" name="vocal_puesto" size="30" maxlength="150" onkeyup="mayusc(this)" readonly="true"/>
+						<input type="text" id="vocal_puesto" name="vocal_puesto" size="30" maxlength="150" onkeyup="mayusc(this)"/>
 					</td>
 				</tr>
 				<tr>
@@ -115,12 +107,33 @@ $dto=$dis;
 			</tbody>
 			<tfoot>
 				<td id="botones" colspan="2" align="center">
-					<div id="btnAgregar" class="btn" onclick="imprimir(id_gafete.value,'RTF');">:: Imprimir ::</div>
+					<div id="btnAgregar" class="btn" onclick="agregar();">:: Agregar ::</div>
 					&nbsp;&nbsp;
-					<div id="btnAgregar" class="btn" onclick="hrefNuevo();">:: Nuevo ::</div>
+					<div id="btnAgregar" class="btn" onclick="hrefInicio();">:: Cancelar ::</div>
 				</td>
 			</tfoot>
 		</table>
+	</div>
+	<div id="tabla-ingreso">&nbsp;</div>
+	<div id="tabla-resultados" class="Tabla">
+		<div class="tabla-top">Listado de Gafetes</div>
+		<table id="tbl_resultados" border="0" width="100%" cellpadding="3" cellspacing="0">
+			<thead>
+				<tr>
+					<td colspan="2">
+						Para realizar la impresión correctamente, debe configurarse el tamaño de papel a 10.4cm x 12.8cm
+					</td>
+				</tr>	
+			</thead>
+			<tbody>					
+			<!--Dinamico-->
+			</tbody>
+			<tfoot>
+				<td colspan="2" align="center">
+					<div id="divResultado"></div>
+				</td>				
+			</tfoot>
+		</table>		
 	</div>
 </div>
 </body>
