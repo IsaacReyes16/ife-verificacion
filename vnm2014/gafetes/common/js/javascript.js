@@ -158,11 +158,34 @@ function editar(id, modo){
 	      			$("#vocal_nombre").val(valor.vocal_nombre);
 	      			$("#vocal_puesto").val(valor.vocal_puesto);
 	      			$("#clave").val(valor.clave);
-	      			$("#vigencia").val(valor.vigencia);	      			
+	      			$("#vigencia").val(valor.vigencia);	 
+
+	      			if(modo==false){
+		      			var tipo  = '';
+		       			if(valor.tipo==1){tipo='ENUMERACION';}
+		       			if(valor.tipo==2){tipo='COBERTURA';}
+		       			if(valor.tipo==3){tipo='ACTUALIZACION';}
+		       			$("#tipotxt").html(tipo); 
+		       			var puesto  = '';
+		       			if(valor.puesto==1){puesto='ENUMERADOR';}
+		       			if(valor.puesto==2){puesto='REVISOR';}
+		       			if(valor.puesto==3){puesto='VISITADOR DOMICILIARIO';}
+		       			if(valor.puesto==4){puesto='VALIDADOR';}
+		       			if(valor.puesto==6){puesto='SUPERVISOR DE CAMPO';}
+		       			$("#puestotxt").html(puesto);
+
+
+		       			if(valor.clave==''){
+		       				$('#botones').html('<div id="btnActualizar" class="btn" onclick="hrefNuevo();">:: Actualizar ::</div>');
+		       			}else{
+		       				$('#botones').html('<div id="btnAgregar" class="btn" onclick="imprimir(id_gafete.value,\'RTF\');">:: Imprimir ::</div>&nbsp;&nbsp;<div id="btnAgregar" class="btn" onclick="hrefNuevo();">:: Nuevo ::</div>');
+		       			}
+		      		}
 	      		});
-	      		if(modo){
+	      		if(modo){	      			
 	      			$('#botones').html('<div id="btnActualizar" class="btn" onclick="actualizar();">:: Actualizar ::</div>&nbsp;<div id="btnActualizar" class="btn" onclick="recargar();">:: Cancelar ::</div>');
 	      		}
+	      		
 	      }else{
 	          alert("Error accesar a la información.");
 	      }		    
@@ -276,12 +299,17 @@ function hrefInicio(){
 
 function personas(){ 
 	var ajax_url = "common/php/build_inputs.php";	
+	var ent = $("#ent").val();
+	var dto = $("#dto").val();
 	$.ajax({
 	    type: 'POST',
 	    url: ajax_url,
 	    dataType: "json",
 	    data: {
-			input : 'personas'
+			input : 'personas',
+			ent : ent,
+			dto : dto,
+			filtroCargo : 1
 		},
 	    success: function(data){ 
 	      if(data != 0){

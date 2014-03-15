@@ -29,13 +29,10 @@ $dto=$dis;
 					</td>
 				</tr>		
 				<tr>
-					<td class="table-label">Tipo: &nbsp; </td>
+					<td class="table-label">Operativo: &nbsp; </td>
 					<td class="table-field">
-						<select id="tipo" name="tipo" readonly="true">
-							<option value="1" selected="selected">ENUMERACION</option>
-							<option value="2">COBERTURA</option>
-							<option value="3">ACTUALIZACION</option>
-						</select>
+						<span id="tipotxt"></span>
+						<input type="hidden" id="tipo" name="tipo" value="" />
 					</td>
 				</tr>
 				<tr>
@@ -53,14 +50,8 @@ $dto=$dis;
 				<tr>
 					<td class="table-label">Puesto: &nbsp; </td>
 					<td class="table-field">
-						<select id="puesto" name="puesto" readonly="true">
-							<option value="">--Seleccione--</option>
-							<option value="4">VALIDADOR</option>
-							<option value="3">VISITADOR DOMICILIARIO</option>
-							<option value="6">SUPERVISOR DE CAMPO</option>
-							<option value="1">ENUMERADOR</option>
-							<option value="2">REVISOR</option>
-						</select>
+						<span id="puestotxt"></span>
+						<input type="hidden" id="puesto" name="puesto" value="" />
 						<input type="hidden" id="puesto_old" name="puesto_old" value="" />
 					</td>
 				</tr>

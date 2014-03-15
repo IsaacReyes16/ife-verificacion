@@ -21,7 +21,7 @@ $dto=$dis;
 		<table border="0" width="100%">
 			<tbody>				
 				<tr>
-					<td class="table-label">Tipo: &nbsp; </td>
+					<td class="table-label">Operativo: &nbsp; </td>
 					<td class="table-field">
 						<select id="tipo" name="tipo">
 							<option value="1" selected="selected">ENUMERACION</option>
@@ -109,7 +109,7 @@ $dto=$dis;
 				<td id="botones" colspan="2" align="center">
 					<div id="btnAgregar" class="btn" onclick="agregar();">:: Agregar ::</div>
 					&nbsp;&nbsp;
-					<div id="btnAgregar" class="btn" onclick="hrefInicio();">:: Cancelar ::</div>
+					<div id="btnAgregar" class="btn" onclick="hrefInicio();">:: Regresar ::</div>
 				</td>
 			</tfoot>
 		</table>
