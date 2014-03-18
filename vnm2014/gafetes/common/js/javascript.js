@@ -5,6 +5,55 @@ $(document).ready(function(){
 	$('#cve_elector').mask('SSSSSS00000000Z000', {translation:  {'Z': {pattern: /[H,M]/, optional: false}}}); 
 });
 
+function hrefNuevo(){
+	location.href='gafete_nuevo.php';
+}
+function hrefInicio(){
+	location.href='index.php';
+}
+function recargar(){
+	location.reload(true);
+}
+
+function validar(){
+    var puesto = $("#puesto").val();
+    var nombre = $("#nombre").val();
+    var paterno = $("#paterno").val();	
+    var cve_elector = $("#cve_elector").val();
+    var vocal_nombre = $("#vocal_nombre").val();
+    var vocal_puesto = $("#vocal_puesto").val();
+    if(puesto==''){
+        alert("Debe seleccionar un Puesto");
+        puesto.focus();
+        return false;
+    }
+	if(nombre==''){
+        alert("Debe ingresar el Nombre");
+        nombre.focus();
+        return false;
+    }
+    if(paterno==''){
+        alert("Debe ingresar el apellido Paterno");
+        paterno.focus();
+        return false;
+    }    
+    if(cve_elector=='' || cve_elector.length!=18){
+        alert("Debe ingresar la Clave de elector y debe contener exactamente de 18 digitos");
+        cve_elector.focus();
+        return false;
+    }
+    if(vocal_nombre==''){
+        alert("Debe ingresar el nombre completo del Vocal");
+        vocal_nombre.focus();
+        return false;
+    }    
+    if(vocal_puesto==''){
+        alert("Debe ingresar el puesto del Vocal");
+        vocal_puesto.focus();
+        return false;
+    } 
+}
+
 function listado(){
 	var ajax_url = "imp_gafete.php";
 	var t = "lista";
@@ -194,10 +243,6 @@ function editar(id, modo){
 	});
 }
 
-function recargar(){
-	location.reload(true);
-}
-
 function actualizar(){
 validar();
 if(confirm("Se actualizaran los datos del registro con clave: "+$("#clave").val()+" \r\n¿Desea continuar?")) {
@@ -249,53 +294,6 @@ if(confirm("Se actualizaran los datos del registro con clave: "+$("#clave").val(
 		    }  
 		});
 	}
-}
-
-
-function validar(){
-    var puesto = $("#puesto").val();
-    var nombre = $("#nombre").val();
-    var paterno = $("#paterno").val();	
-    var cve_elector = $("#cve_elector").val();
-    var vocal_nombre = $("#vocal_nombre").val();
-    var vocal_puesto = $("#vocal_puesto").val();
-    if(puesto==''){
-        alert("Debe seleccionar un Puesto");
-        puesto.focus();
-        return false;
-    }
-	if(nombre==''){
-        alert("Debe ingresar el Nombre");
-        nombre.focus();
-        return false;
-    }
-    if(paterno==''){
-        alert("Debe ingresar el apellido Paterno");
-        paterno.focus();
-        return false;
-    }    
-    if(cve_elector=='' || cve_elector.length!=18){
-        alert("Debe ingresar la Clave de elector y debe contener exactamente de 18 digitos");
-        cve_elector.focus();
-        return false;
-    }
-    if(vocal_nombre==''){
-        alert("Debe ingresar el nombre completo del Vocal");
-        vocal_nombre.focus();
-        return false;
-    }    
-    if(vocal_puesto==''){
-        alert("Debe ingresar el puesto del Vocal");
-        vocal_puesto.focus();
-        return false;
-    } 
-}
-
-function hrefNuevo(){
-	location.href='gafete_nuevo.php';
-}
-function hrefInicio(){
-	location.href='index.php';
 }
 
 function personas(){ 
