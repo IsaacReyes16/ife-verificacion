@@ -11,7 +11,7 @@ $dto=$dis;
 	<script type="text/javascript" src="common/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="common/js/jquery.mask.min.js"></script>
 	<script type="text/javascript" src="common/js/o3m_functions.js"></script>
-	<script type="text/javascript" src="common/js/javascript.js"></script>
+	<script type="text/javascript" src="common/js/gafetes.js"></script>
 	<link href="common/css/estilo.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
