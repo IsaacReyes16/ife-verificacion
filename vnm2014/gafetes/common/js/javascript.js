@@ -1,4 +1,5 @@
 $(document).ready(function(){	
+	leerJson();
 	listado();
 	personas();
 	$('#cve_elector').mask('SSSSSS00000000Z000', {translation:  {'Z': {pattern: /[H,M]/, optional: false}}}); 
@@ -176,9 +177,9 @@ function editar(id, modo){
 
 
 		       			if(valor.clave==''){
-		       				$('#botones').html('<div id="btnActualizar" class="btn" onclick="hrefNuevo();">:: Actualizar ::</div>');
+		       				$('#botones').html('<div id="btnActualizar" class="btn" onclick="crearJson('+valor.id_gafete+');">:: Actualizar ::</div>');
 		       			}else{
-		       				$('#botones').html('<div id="btnAgregar" class="btn" onclick="imprimir(id_gafete.value,\'RTF\');">:: Imprimir ::</div>&nbsp;&nbsp;<div id="btnAgregar" class="btn" onclick="hrefNuevo();">:: Nuevo ::</div>');
+		       				$('#botones').html('<div id="btnAgregar" class="btn" onclick="imprimir(id_gafete.value,\'RTF\');">:: Imprimir ::</div>&nbsp;<div id="btnAgregar" class="btn" onclick="crearJson('+valor.id_gafete+');">:: Actualizar ::</div>&nbsp;<div id="btnAgregar" class="btn" onclick="hrefNuevo();">:: Nuevo ::</div>');
 		       			}
 		      		}
 	      		});
@@ -323,4 +324,62 @@ function personas(){
 	      }
 	    }  
 	});
+}
+
+function crearJson(id){ 
+	var ajax_url = "imp_gafete.php";
+	var t = 'crearjson';
+	var ent = $("#ent").val();
+    var dto = $("#dto").val();
+	var id = id;	
+	$.ajax({
+	    type: 'POST',
+	    url: ajax_url,
+	    dataType: "json",
+	    data: {
+	    	auth : 1,
+	    	t : t,
+	    	ent : ent,
+	    	dto : dto,
+	    	id : id      		
+	    },
+	    success: function(data){ 
+	      if(data != 0){ 
+	      		// alert("Archivo JSON creado");
+	      		hrefNuevo();
+	      }else{
+	          alert("Error al crear archivo JSON.");
+	      }
+	    }  
+	});
+}
+
+function leerJson(){
+	$.getJSON("tmp/tmp.json", function(data) {
+        $.each(data, function(i,valor) {
+            editar(valor.id_gafete, 1);
+        });
+    });
+    borrarJson();
+}
+
+function borrarJson(){
+	var ajax_url = "imp_gafete.php";
+	var t = 'borrarjson';
+	$.ajax({
+	    type: 'POST',
+	    url: ajax_url,
+	    dataType: "json",
+	    data: {
+	    	auth : 1,
+	    	t : t   		
+	    },
+	    success: function(data){ 
+	      if(data != 0){ 
+	      		// alert("Archivo JSON borrado.");
+	      }else{
+	          alert("Error al borrar archivo JSON.");
+	      }
+	    }  
+	});	
 }

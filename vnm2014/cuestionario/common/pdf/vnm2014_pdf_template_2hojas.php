@@ -1255,8 +1255,8 @@ class PDF extends FPDF
     function PrintDatos($Valores){
         $this->AddPage();
         $this->Hoja1($Valores);
-        // $this->AddPage();
-        // $this->Hoja2();
+        $this->AddPage();
+        $this->Hoja2();
     }
     ##FIN template PDF
 }

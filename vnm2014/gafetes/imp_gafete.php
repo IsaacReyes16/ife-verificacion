@@ -9,6 +9,7 @@ $id_usuario=$_SESSION['id'];
 limpiar_tmp('tmp/','pdf',5);
 limpiar_tmp('tmp/','zip',5);
 limpiar_tmp('tmp/','rtf',5);
+limpiar_tmp('tmp/','json',5);
 ##Business
 extract($_GET, EXTR_PREFIX_ALL, "v");
 extract($_POST, EXTR_PREFIX_ALL, "v");
@@ -75,14 +76,14 @@ if($v_auth && $v_t && strtolower($v_t)!='add' && strtolower($v_t)!='update'){
 	$fDto = ceros($v_dto,2);
 	$nuevoDoc='GAFETE_E'.$fEnt.'_D'.$fDto.'['.$pClave.']_'.date('Ymd-His');
 	if(strtolower($v_t)=='rtf'){
-	##RTF
+	##RTF => Crear archivo RTF
 		$docRFT=$nuevoDoc.'.rtf';
 		$plantillaRTF="gafete_template.rtf";
 		$plantilla='common/rtf/'.$plantillaRTF;	
 		$archivo=Plantilla_RTF1($plantilla,$ruta,$docRFT,$Variables,"\$",'',$Valores); 
 		$Result = array($v_t, $rutaDocs, $docRFT);
 	}elseif(strtolower($v_t)=='pdf'){
-	##PDF
+	##PDF => Crea archivo PDF
 		$pdf=new PDF('P','mm','gafete');
 	    $title="COORDINACIÓN DE OPERACIÓN EN CAMPO";
 	    $pdf->SetTitle($title);
@@ -95,7 +96,7 @@ if($v_auth && $v_t && strtolower($v_t)!='add' && strtolower($v_t)!='update'){
 	    @$pdf->Output($rutaDocs.$docPDF);
 	    $Result = array($v_t, $rutaDocs, $docPDF);
 	    if($debug_pdf){	
-	    	//Debug
+	    	//ToDebug
 	    	echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
 		}
 	}elseif(strtolower($v_t)=='lista'){
@@ -115,6 +116,22 @@ if($v_auth && $v_t && strtolower($v_t)!='add' && strtolower($v_t)!='update'){
 				$Result [] = $Row;
 		    } 
 		}	
+	}elseif(strtolower($v_t)=='crearjson'){
+	##VER-DATOS => Crea archivo json con datos seleccionados
+		if($Registros>0){
+			foreach($Valores as $Line){
+		    	$Row = array_combine($Variables, $Line);
+				$Result [] = $Row;
+		    } 
+		    json(json_encode($Result));
+		}	
+	}elseif(strtolower($v_t)=='borrarjson'){
+	##BORRAR-JSON => Elimina archivo temporal json
+		if(unlink('tmp/tmp.json')){
+			$Result = true;
+		}else{
+			$Result = false;
+		}
 	}
 	##Print Result
 	echo json_encode($Result);
@@ -198,6 +215,12 @@ if($v_auth && $v_t && strtolower($v_t)!='add' && strtolower($v_t)!='update'){
 
 function txt($contenido,$ruta='tmp/'){
 	$archivo=$ruta.'tmp_'.date('Ymd-His').'.txt';
+	$fp=fopen($archivo,'a');
+	fwrite($fp,$contenido);
+	fclose($fp);
+}
+function json($contenido,$ruta='tmp/'){
+	$archivo=$ruta.'tmp.json';
 	$fp=fopen($archivo,'a');
 	fwrite($fp,$contenido);
 	fclose($fp);

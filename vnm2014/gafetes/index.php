@@ -106,8 +106,6 @@ $dto=$dis;
 			</tbody>
 			<tfoot>
 				<td id="botones" colspan="2" align="center">
-					<div id="btnAgregar" class="btn" onclick="imprimir(id_gafete.value,'RTF');">:: Imprimir ::</div>
-					&nbsp;&nbsp;
 					<div id="btnAgregar" class="btn" onclick="hrefNuevo();">:: Nuevo ::</div>
 				</td>
 			</tfoot>
