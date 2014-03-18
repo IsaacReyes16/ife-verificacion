@@ -355,7 +355,8 @@ function crearJson(id){
 }
 
 function leerJson(){
-	$.getJSON("tmp/tmp.json", function(data) {
+	var json_url = "tmp/tmp.json";
+	$.getJSON(json_url, function(data) {
         $.each(data, function(i,valor) {
             editar(valor.id_gafete, 1);
         });
