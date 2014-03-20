@@ -1,4 +1,4 @@
-<?php $debug_pdf = true;
+<?php $debug_pdf = false;
 ##Includes
 $raiz = "";
 require_once($raiz.'common/php/class.pdo.php');

@@ -543,7 +543,6 @@ class PDF extends FPDF
             $ent = utf8_decode($in['ent']);
             $entidad = utf8_decode($in['entidad']);        
             $dto = utf8_decode($in['dto']);
-            $this->Text($x[14],$y,utf8_decode($entidad));
         }
         $TotHojas = ceil($Totales[0]/$RegsHoja);
         $Hoja = $this->hoja + 1;
@@ -791,11 +790,11 @@ class PDF extends FPDF
             $this->SetFont($fuente,'B',$ft3); 
             // $this->Text($x[2]+1,$y,utf8_decode($ContRegs)); //Borrar
             $this->Text($x[6]+1,$y,utf8_decode($mpio));
-            $this->Text($x[10]+1,$y,utf8_decode($municipio));
+            $this->Text($x[10]+1,$y,utf8_decode(substr($municipio,0,21)));
             $this->Text($x[24]+1,$y,utf8_decode($seccion));
             $this->Text($x[29]+2,$y,utf8_decode($tipo));
             $this->Text($x[34],$y,utf8_decode($loc));
-            $this->Text($x[38]+1,$y,utf8_decode($localidad));
+            $this->Text($x[38]+1,$y,utf8_decode(substr($localidad,0,21)));
             $this->Text($x[54],$y,utf8_decode($manzana));
             $y-=3;  
             $SubTotal = $ContRegs;             
