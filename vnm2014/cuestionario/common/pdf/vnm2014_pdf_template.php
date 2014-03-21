@@ -516,16 +516,16 @@ class PDF extends FPDF
         //Variables con datos
         $folio = utf8_decode($in['folio']);
         $consecutivo = utf8_decode($in['consecutivo']);
-        $entidad = utf8_decode($in['entidad']);
+        $entidad = $in['entidad'];
         $distrito = utf8_decode(ceros($in['distrito'],2));
         $seccion = utf8_decode(ceros($in['seccion'],4));
         $manzana = utf8_decode(ceros($in['manzana'],4));
-        $municipio = utf8_decode($in['municipio']);
-        $localidad = utf8_decode($in['localidad']);
-        $calle = utf8_decode($in['calle']);
+        $municipio = ($in['municipio']);
+        $localidad = ($in['localidad']);
+        $calle = ($in['calle']);
         $num_ext = utf8_decode($in['num_ext']);
         $num_int = utf8_decode($in['num_int']);
-        $colonia = utf8_decode($in['colonia']);
+        $colonia = ($in['colonia']);
         $reemplazo = utf8_decode($in['reemplazo']);  
         $hojas = '';   
 
@@ -614,7 +614,7 @@ class PDF extends FPDF
         $this->Text($x[5],$y,$entidad);
         $this->Text($x[41]+1,$y,$distrito);
         $this->Text($x[60]+2,$y,$seccion);
-        $this->Text($x[86]+1,$y,$manazana);
+        $this->Text($x[86]+1,$y,$manzana);
         //salto de linea 
         $y = $y + $salto+1;           
         $this->SetFont($fuente,'',$ft3);

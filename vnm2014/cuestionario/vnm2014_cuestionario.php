@@ -1,6 +1,7 @@
-<?php
+<?php $debug_pdf = false;
 ##Includes
-require_once('common/php/conex.php');
+// require_once('common/php/conex.php');
+require_once('common/php/class.pdo.php');
 require_once('common/php/pdf/fpdf.php');
 require_once('common/pdf/vnm2014_pdf_template.php');
 ##Delete tmp folder
@@ -12,30 +13,33 @@ extract($_GET, EXTR_PREFIX_ALL, "v");
 extract($_POST, EXTR_PREFIX_ALL, "v");
 if($v_auth && $v_ent && $v_dto && $v_t){	
 	##SQL	 
-	if($v_ent){$Filtro .= " and id_ent='$v_ent'";}
-	if($v_dto){$Filtro .= " and id_dis='$v_dto'";}
-	if($v_folio){$Filtro .= " and folio='$v_folio'";}
-	if($v_consecutivo){$Filtro .= " and consecutivo='$v_consecutivo'";}
-	if($v_seccion){$Filtro .= " and seccion='$v_seccion'";}
-	if($v_manzana){$Filtro .= " and manzana='$v_manzana'";}
-	$sql = "SELECT 
-			 folio
-			,consecutivo
-			,CONCAT(id_ent,' ',estado) as entidad
-			,id_dis as dto
-			,seccion 
-			,manzana
-			,CONCAT(id_mun,' ',municipio) as municipio
-			,CONCAT(id_loc,' ',localidad) as localidad
-			,calle
-			,exterior
-			,interior
-			,colonia
-			,es_remplazo as reemplazo
-			FROM viviendas_seleccionadas
-			WHERE 1 $Filtro";
-	$Rows=SQLQuery($sql);
-	$Registros = count($rows)-1;
+	if($v_ent){$Filtro .= " and a.id_ent='$v_ent'";}
+	if($v_dto){$Filtro .= " and a.id_dis='$v_dto'";}
+	if($v_folio){$Filtro .= " and a.folio='$v_folio'";}
+	if($v_consecutivo){$Filtro .= " and a.consecutivo='$v_consecutivo'";}
+	if($v_seccion){$Filtro .= " and a.seccion='$v_seccion'";}
+	if($v_manzana){$Filtro .= " and a.manzana='$v_manzana'";}
+	$sql = "SELECT
+		    a.folio
+		   ,a.consecutivo
+		   ,CONCAT(a.id_ent,' ',a.estado) as entidad
+		   ,a.id_dis as distrito
+		   ,a.seccion 
+		   ,a.manzana
+		   ,CONCAT(a.id_mun,' ',a.municipio) as municipio
+		   ,CONCAT(a.id_loc,' ',a.localidad) as localidad
+		   ,a.calle
+		   ,a.exterior as num_ext
+		   ,a.interior as num_int
+		   ,IF(b.colonia='-', CONCAT('LOC. ',b.localidad),CONCAT('COL. ', b.colonia)) as colonia
+		   ,a.es_remplazo as reemplazo
+		   FROM viviendas_seleccionadas a
+		   LEFT JOIN cedula b ON a.id_ent = b.estado AND a.id_dis = b.distrito AND a.manzana = b.manzana AND a.seccion = b.seccion
+		   WHERE 1 $Filtro ;";
+	// $Rows=SQLQuery($sql);
+	$db = new db();
+	$Rows = $db->SQLQuery($sql);
+	$Registros = count($Rows)-1;
 	##Vars
 	$Variables = array(
 				 'folio'
@@ -55,7 +59,7 @@ if($v_auth && $v_ent && $v_dto && $v_t){
 		++$n;
 		if($n>1){
 			$Valores[$n-1] = $Row;
-			$Valores[$n-1][12] = ($Row[12]==1)?'VIVIENDA DE REEMPLAZO':'';
+			$Valores[$n-1][reemplazo] = ($Row[reemplazo]==1)?'VIVIENDA DE REEMPLAZO':'';			
 		}
 	}	
 	$rutaDocs='tmp/';
@@ -81,21 +85,26 @@ if($v_auth && $v_ent && $v_dto && $v_t){
 	    $pdf->SetTitle($title);
 	    $pdf->SetAuthor('IFE - DDVC');	    
 	    foreach($Valores as $Line){
-	    	$Line  = array_combine($Variables, $Line);
+	    	// $Line  = array_combine($Variables, $Line);
 	    	@$pdf->PrintDatos($Line);
 	    }    
 	    $docPDF=$nuevoDoc.'.pdf';
 	    @$pdf->Output($rutaDocs.$docPDF);
 	    $Result = array($v_t, $rutaDocs, $docPDF);	
-	    //Temporal
-	    // echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
+	    if($debug_pdf){	
+	    	//ToDebug
+	    	//echo "<html><head><script>document.location='".$rutaDocs.$docPDF."';</script></head></html>"; 
+		}
 	}else{
 	##NON
 		$Result = array(0, $rutaDocs, "No se selecciono Tipo");
 	}
 	##Print Result
 	echo json_encode($Result);
+}elseif($debug_pdf){
+	#debug
+	$url = "vnm2014_cuestionario.php?auth=1&t=pdf&ent=24&dto=2";
+	echo "<a href='".$url."' target='blank'>".$url."</a>";
 }else{echo false;}
-// }else{echo "<a href='http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_cuestionario.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_' target='blank'>http://localhost/ife/verificacion/vnm2014/cuestionario/vnm2014_pdf.php?auth=1&t=pdf&ent=2&dto=3&seccion=132&manzana=8&folio=0203105_</a>";}
 /*O3M*/
 ?>

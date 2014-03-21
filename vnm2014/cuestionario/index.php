@@ -1,4 +1,4 @@
-<?php $noment='BAJA CALIFORNIA'; $txtEnt=2; $dis=3; ?>
+<?php $noment='SAN LUIS POTOSÍ'; $txtEnt=24; $dis=2; ?>
 <?php require_once('common/php/build_select.php'); 
 $ent=$txtEnt; 
 $dto=$dis;
@@ -241,7 +241,7 @@ input:focus, textarea:focus, select:focus{
 					<td colspan="2">Seleccione el criterio:</td>
 				</tr>
 				<tr>
-					<td class="table-label"><?php echo $noment ?>&nbsp;</td>
+					<td class="table-label"><?php echo utf8_decode($noment) ?>&nbsp;</td>
 					<td class="table-label">Dtto:&nbsp;<?php echo $dis ?></td>
 				</tr>
 				<tr>
