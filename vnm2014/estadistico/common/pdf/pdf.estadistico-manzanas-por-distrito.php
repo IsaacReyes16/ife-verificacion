@@ -541,7 +541,7 @@ class PDF extends FPDF
         foreach($Valores as $in){
             //Variables con datos
             $ent = utf8_decode($in['ent']);
-            $entidad = utf8_decode($in['entidad']);        
+            $entidad = utf8_encode($in['entidad']);        
             $dto = utf8_decode($in['dto']);
         }
         $TotHojas = ceil($Totales[0]/$RegsHoja);
@@ -762,7 +762,7 @@ class PDF extends FPDF
                 $f=true;
             }else{$f=false;}      
             $ent = ceros(utf8_decode($Valores[$i]['ent']),2);
-            $entidad = utf8_decode($Valores[$i]['entidad']);        
+            $entidad = ($Valores[$i]['entidad']);        
             $dto = ceros(utf8_decode($Valores[$i]['dto']),2);
             $mpio = ceros(utf8_decode($Valores[$i]['mpio']),4);
             $municipio = utf8_decode($Valores[$i]['municipio']); 

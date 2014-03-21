@@ -1,4 +1,4 @@
-<?php $noment='BAJA CALIFORNIA'; $txtEnt=2; $dis=1; ?>
+<?php $noment='BAJA CALIFORNIA'; $txtEnt=15; $dis=13; ?>
 <?php 
 require_once('common/php/conex.php');
 $ent=$txtEnt; 
