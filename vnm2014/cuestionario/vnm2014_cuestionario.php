@@ -58,8 +58,8 @@ if($v_auth && $v_ent && $v_dto && $v_t){
 	foreach($Rows as $Row){
 		++$n;
 		// if($n>1){
-			$Valores[$n-1] = $Row;
-			$Valores[$n-1][reemplazo] = ($Row[reemplazo]==1)?'VIVIENDA DE REEMPLAZO':'';			
+			$Valores[$n] = $Row;
+			$Valores[$n][reemplazo] = ($Row[reemplazo]==1)?'VIVIENDA DE REEMPLAZO':'';			
 		// }
 	}	
 	$rutaDocs='tmp/';
