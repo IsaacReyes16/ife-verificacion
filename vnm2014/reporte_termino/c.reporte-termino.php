@@ -88,7 +88,7 @@ if($v_auth && $v_t && !in_array($Action,$actionList)){
 			$pdf=new PDF('L','mm','letter');
 		    $title="COORDINACIÓN DE OPERACIÓN EN CAMPO";
 		    $pdf->SetTitle($title);
-		    $pdf->SetAuthor('IFE - DDVC'); 
+		    $pdf->SetAuthor('INE - DDVC'); 
 		    $pdf->AliasNbPages('TotalPages');
 		    @$pdf->PrintDatos($Rows,$Totales);
 		    @$pdf->Output($rutaDocs.$docPDF);
