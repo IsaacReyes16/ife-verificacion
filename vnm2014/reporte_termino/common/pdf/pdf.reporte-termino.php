@@ -502,9 +502,9 @@ class PDF extends FPDF
     
     ##INICIA template de PDF
     function Header() {
-         ##Recuperación de arrays con datos        
-        $Totales = $this->totales;
+         ##Recuperación de arrays con datos   
         $Valores = $this->valores;
+        $termino = $this->termino;
         $RegsHoja = $this->regsPorHoja;
 
         //Variables layout        
@@ -512,7 +512,7 @@ class PDF extends FPDF
         $h=4;       //alto de fila
         $y=10;      //Espacio Superior de linea inicial
         $x[1]=5;        //posicion x - margen izquierdo
-        $largo = 260;   //Espacio de trabajo - Largo
+        $largo = 203;   //Espacio de trabajo - Largo
         $celdas =100;   //Número de celdas a crear
         $celda = $largo/$celdas;    //Largo de cada celda
         for($a=2; $a<=$celdas; $a++){
@@ -521,7 +521,7 @@ class PDF extends FPDF
         $fuente='Arial';    //Fuente
         $ft0=16;        //tamaño de fuente
         $ft1=12;        //tamaño de fuente
-        $ft2=10;     //tamaño de fuente
+        $ft2=8;     //tamaño de fuente
         $ft3=7;     //tamaño de fuente
         $ft4=6;     //tamaño de fuente
         $ft5=4;     //tamaño de fuente
@@ -540,27 +540,24 @@ class PDF extends FPDF
         //Vars        
         foreach($Valores as $in){
             //Variables con datos
-            $ent = utf8_decode($in['ent']);
+            $ent = utf8_decode($in['id_ent']);
             $entidad = utf8_decode($in['entidad']);        
-            $dto = utf8_decode($in['dto']);
-            $mpio = utf8_decode($in['mpio']);
-            $municipio = utf8_decode($in['municipio']); 
-            $seccion = utf8_decode($in['seccion']); 
-            $tipo = utf8_decode($in['seccion_tipo']);
+            $dto = utf8_decode($in['id_dis']);
+            // $termino = utf8_decode($in['termino']);
         }
         $TotHojas = ceil($Totales[0]/$RegsHoja);
         $Hoja = $this->hoja + 1;
 
         //Header
-        $this->Image('common/img/logo.jpg',15,7,60);
+        $this->Image('common/img/logo.jpg',15,7,40);
         $this->SetFont('Arial','B',$ft0);
         $this->SetTextColor($color1);
-        $this->Text($x[40],$y,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
-        $y = $y + $salto + $salto; 
+        $this->Text($x[30],$y,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
+        $y = $y + $salto + 2; 
         $this->SetFont('Arial','B',$ft1);
-        $this->Text($x[40]+1,$y,utf8_decode("LISTADO DE VIVIENDAS SELECCIONADAS POR SECCIÓN"));
-        $y = $y + $salto + $salto; 
-        $this->Text($x[56],$y,utf8_decode("ZONA URBANA"));
+        $this->Text($x[40]+1,$y,utf8_decode("LISTADO DE VIVIENDAS CONCLUIDAS"));
+        $y = $y + $salto + 2; 
+        $this->Text($x[53],$y,utf8_decode("ZONA URBANA"));
 
         //Salto        
         $y = $y + $salto + 8;
@@ -576,129 +573,75 @@ class PDF extends FPDF
         $this->Text($x[32],$y,utf8_decode('DISTRITO:'));
         $this->Rect($x[39],$y-4.5,$x[2],5,'B');
         $this->Rect($x[39]-1,$y-6,$x[3],2,'F');
-        $this->Text($x[43],$y,utf8_decode('MUNICIPIO:'));
-        $this->Line($x[51],$y+.5,$x[74],$y+.5);
-        $this->Rect($x[74],$y-4.5,$x[3],5,'B');
-        $this->Rect($x[74]-1,$y-6,$x[4],2,'F');
-        $this->Text($x[79],$y,utf8_decode('SECCIÓN:'));
-        $this->Rect($x[86],$y-4.5,$x[5],5,'B');
-        $this->Rect($x[86]-1,$y-6,$x[6],2,'F');
-        $this->Text($x[93],$y,utf8_decode('TIPO:'));
-        $this->Rect($x[97],$y-4.5,$x[3],5,'B');
-        $this->Rect($x[97]-1,$y-6,$x[4],2,'F');
+        $this->Text($x[79],$y,utf8_decode('TÉRMINO:'));
+        $this->Rect($x[86],$y-4.5,$x[14],5,'B');
+        $this->Rect($x[86]-1,$y-6,$x[16],2,'F');
         //Datos        
         $this->SetFont($fuente,'B',$ft2);
         $this->Text($x[12],$y,$entidad);
         $this->Text($x[28]+2,$y,ceros($ent,2));
         $this->Text($x[40]-1,$y,ceros($dto,2));
-        $this->Text($x[51]+1,$y,$municipio);
-        $this->Text($x[75],$y,ceros($mpio,3));
-        $this->Text($x[88]-1,$y,ceros($seccion,4));
-        $this->Text($x[98]+1,$y,$tipo);
+        $this->Text($x[88]-1,$y,$termino);
 
-        ##Titulos
-        //salto de linea 
-        $y = $y + $salto + 1;           
-        $this->SetFont($fuente,'',$ft3);
-        $this->SetTextColor($color1);
+        ##Titulos   
+        //Cuadro base 
+        $y = $y + $salto + 1; 
         $this->SetDrawColor($color1);
-        $this->SetFillColor($color2);
+        $this->SetFillColor($color1);
         $this->SetLineWidth(0.1);
-        //Cuadro base
-        $this->SetFillColor($color3);
-        $this->SetLineWidth(0.1);
-        $this->Rect($x[5],$y,$x[95],20,'FD');        
-        //Linea 1
-        $y = $y;
         
-        $this->SetFillColor($color2);   
-        $this->Rect($x[5],$y,$x[6],10,'B');    
-        $this->Rect($x[12]-.2,$y,$x[5],10,'B');
-        $this->Rect($x[18]-.4,$y,$x[13],10,'B');
-        $this->Rect($x[32]-.6,$y,$x[20],10,'B');
-        $this->Rect($x[53]-.8,$y,$x[34]-.4,10,'B');
-        $this->Rect($x[88]-1.4,$y,$x[6],20,'B');
-        $this->Rect($x[95]-1.6,$y,$x[6]-1,20,'B');
-        $y = $y + $salto + 2;
-        $this->SetFont($fuente,'B',$ft2); 
-        $this->Ln(33);   
-        $this->WriteTag($x[5]+1,15,5,'<b>'.utf8_decode("LOCALI                 DAD").'</b>',0,"C",0,0);
-        $this->Ln(-10);
-        $this->WriteTag($x[12],15,5,'<b>'.utf8_decode("MANZA                 NA").'</b>',0,"C",0,0);
-        $this->Ln(-10);
-        $this->WriteTag($x[18],35,5,'<b>'.utf8_decode("VIVIENDAS                 SELECCIONADAS").'</b>',0,"C",0,0);
-        $this->Text($x[37],$y,utf8_decode('ENTREGADO A:'));
-        $this->Text($x[60],$y,utf8_decode('RESULTADO DE LA VALIDACIÓN'));
-        $this->SetFont($fuente,'B',$ft3);
-        $this->Text($x[89]-1,$y+$salto,utf8_decode('CAPTURA'));
-        $this->Ln(-6);
-        $this->WriteTag($x[95]-2,20,4,'<b>'.utf8_decode("ENVÍO A                 VOCALÍA                 LOCAL").'</b>',0,"C",0,0);
-        
+        $this->Rect($x[30],$y,$x[51],12,'B'); 
+        // Linea 1        
+        $this->SetFont($fuente,'B',$ft3); 
+        $this->SetTextColor($color2);
+        $this->SetDrawColor($color2);
+        $this->SetFillColor($color1);
+        $this->SetLineWidth(0.1);       
+        $this->Rect($x[30],$y,$x[6],6,'FD');    
+        $this->Rect($x[38]-1,$y,$x[8],6,'FD');
+        $this->Rect($x[47],$y,$x[7],6,'FD');
+        $this->Rect($x[56]-1,$y,$x[25]+1,6,'FD');  
+        $y += $salto;     
+        $this->Text($x[31],$y,utf8_decode('SECCIÓN'));
+        $this->Text($x[39],$y,utf8_decode('LOCALIDAD'));
+        $this->Text($x[48],$y,utf8_decode('MANZANA'));
+        $this->Text($x[60],$y,utf8_decode('VIVENDAS SELECCIONADAS'));
         //Linea 2
-        $y = $y + 4;
-        $this->Rect($x[5],$y,$x[6],10,'B');
-        $this->Rect($x[12]-.2,$y,$x[5],10,'B');
-        $this->Rect($x[18]-.4,$y,$x[5],10,'B');
-        $this->Rect($x[24]-.6,$y,$x[7]+.2,10,'B');
-        $this->Rect($x[32]-.6,$y,$x[20],10,'B');
-        $this->Rect($x[53]-.8,$y,$x[6],10,'B');
-        $this->Rect($x[60]-1,$y,$x[20],10,'B');
-        $this->Rect($x[81]-1.2,$y,$x[6],10,'B');
-        // $this->Rect($x[88]-1.4,$y,$x[6],10,'B'); //
-        // $this->Rect($x[95]-1.6,$y,$x[6]-1,10,'B'); //
-        $y = $y + $salto + 2;
-        $this->SetFont($fuente,'B',$ft3);
-        $this->Text($x[7],$y,utf8_decode('CLAVE'));
-        $this->Text($x[13]+1,$y,utf8_decode('CLAVE'));
-        $this->Ln(-5);   
-        $this->WriteTag($x[18],15,3,'<b>'.utf8_decode("FOLIO                 CAPTURA").'</b>',0,"C",0,0);
-        $this->Ln(-6);  
-        $this->WriteTag($x[24],20,3,'<b>'.utf8_decode("CONSECUTIVO DE VIVIENDA").'</b>',0,"C",0,0);
-        $this->Text($x[36],$y,utf8_decode('NOMBRE DEL VISITADOR'));
-        $this->Ln(-6);  
-        $this->WriteTag($x[53],15,3,'<b>'.utf8_decode("RECON-                 SULTA").'</b>',0,"C",0,0);
-        $this->Text($x[64],$y,utf8_decode('MOTIVO DE LA RECONSULTA'));
-        $this->Ln(-6);  
-        $this->WriteTag($x[81],15,3,'<b>'.utf8_decode("CORREC-                 TA").'</b>',0,"C",0,0);
-        
-        //Indices
-        $y = $y + $salto;  
-        $alto = 4;
-        $this->Rect($x[5],$y,$x[6],$alto,'B');
-        $this->Rect($x[12]-.2,$y,$x[5],$alto,'B');
-        $this->Rect($x[18]-.4,$y,$x[5],$alto,'B');
-        $this->Rect($x[24]-.6,$y,$x[7]+.2,$alto,'B');
-        $this->Rect($x[32]-.6,$y,$x[20],$alto,'B');
-        $this->Rect($x[53]-.8,$y,$x[6],$alto,'B');
-        $this->Rect($x[60]-1,$y,$x[20],$alto,'B');
-        $this->Rect($x[81]-1.2,$y,$x[6],$alto,'B');
-        $this->Rect($x[88]-1.4,$y,$x[6],$alto,'B'); //
-        $this->Rect($x[95]-1.6,$y,$x[6]-1,$alto,'B'); //
-        $y = $y + $salto-1; 
-        $this->SetFont($fuente,'',$ft4);
-        $this->Text($x[7],$y,utf8_decode('(1)'));
-        $this->Text($x[14]+2,$y,utf8_decode('(2)'));
-        $this->Text($x[20],$y,utf8_decode('(3)'));
-        $this->Text($x[27],$y,utf8_decode('(4)'));
-        $this->Text($x[42],$y,utf8_decode('(5)'));
-        $this->Text($x[56],$y,utf8_decode('(6)'));
-        $this->Text($x[70],$y,utf8_decode('(7)'));
-        $this->Text($x[84]-1,$y,utf8_decode('(8)'));
-        $this->Text($x[91],$y,utf8_decode('(9)'));
-        $this->Text($x[97],$y,utf8_decode('(10)'));
-        $y-=3;             
+        $y = $y + $salto -2;
+        $this->Rect($x[30],$y,$x[6],6,'FD');    
+        $this->Rect($x[38]-1,$y,$x[8],6,'FD');
+        $this->Rect($x[47],$y,$x[7],6,'FD');
+        $this->Rect($x[56]-1,$y,$x[9],6,'FD');
+        $this->Rect($x[66],$y,$x[15],6,'FD');  
+        $y += $salto;     
+        $this->SetFont($fuente,'B',$ft4);
+        $this->Text($x[32],$y,utf8_decode('CVE'));
+        $this->Text($x[41]+1,$y,utf8_decode('CVE'));
+        $this->Text($x[50],$y,utf8_decode('CVE'));
+        $this->Text($x[57]-1,$y,utf8_decode('FOLIO CAPTURA'));
+        $this->Text($x[67],$y,utf8_decode('CONSECUTIVO DE VIVIENDA'));
+          
     }
 
     function Footer()   {
-      $this->SetY(-15);
-      $this->SetFont('Arial','I',8);
-      $this->SetTextColor(128);
-      $this->Cell(0,10,$this->PageNo().' de '.'TotalPages',0,0,'R');
+        $colo1="0,0,0"; // color de relleno de celda
+        $color2="255,255,255";
+        $color3="180,180,180";
+        $this->SetY(-15);        
+        $this->SetDrawColor($color1);
+        $this->SetFillColor($color2);
+        $this->SetLineWidth(0.1);
+        $this->Rect(80,245,70,5,'B');
+        $this->Rect(78,243,90,4,'F');
+        $this->SetFont('Arial','',8);
+        $this->Text(99,254,utf8_decode('FIRMA VOCAL DISTRITAL'));
+        $this->SetFont('Arial','I',8);
+        $this->SetTextColor(128);
+        $this->Cell(0,10,$this->PageNo().' de '.'TotalPages',0,0,'R');
     }
 
     function Hoja1(){     
-        ##Recuperación de arrays con datos        
-        $Totales = $this->totales;
+        ##Recuperación de arrays con datos   
         $Valores = $this->valores;
         $RegsHoja = $this->regsPorHoja;
 
@@ -708,7 +651,7 @@ class PDF extends FPDF
         $i=42;      // Inicio superior de tabla
         $y=10;      //separacion de linea inicial
         $x[1]=5;        //posicion x - margen izquierdo
-        $largo = 260;   //Espacio de trabajo - Largo
+        $largo = 203;   //Espacio de trabajo - Largo
         $celdas =100;   //Número de celdas a crear
         $celda = $largo/$celdas;    //Largo de cada celda
         for($a=2; $a<=$celdas; $a++){
@@ -734,83 +677,77 @@ class PDF extends FPDF
         $this->SetStyle("cur","arial","I",0,$color1);
 
         ##Inicio Nominativo     
-        $y = $y + $salto + 49;   
+        $y = $y + $salto + 33;   
         
         ##DATOS
         $Hoja = 1;
         $ContRegs=0;
         $this->SetFont($fuente,'B',$ft3);  
         foreach($Valores as $in){
-            $Reg = $i+1;               
+            $Reg++;         
             $ContRegs++;
             $this->hoja = $Hoja;         
             if($ContRegs==$RegsHoja+1){ 
                 ##TOTALES                
                 $ContRegs=1;
                 $Hoja++;
-                $y = $y + $salto + 4;
-                // $this->SetFont($fuente,'B',$ft2);
-                // $this->Rect($x[12]-.2,$y,$x[5],$alto,'B');
-                // $this->Rect($x[18]-.4,$y,$x[5],$alto,'B');                
-                // $this->Text($x[6],$y+$salto,utf8_decode('TOTAL'));
-                // $this->Text($x[14],$y+$salto,utf8_decode($Totales[0]));
-                // $this->Text($x[20],$y+$salto,utf8_decode($Totales[1]));                
                 $this->AddPage();
-                $y = 63;
+                $y = 47;
                 $f=true;
             }else{$f=false;} 
             //Variables con datos
-            $loc = ceros($in['loc'],4);  
+            $seccion = ceros($in['seccion'],4);
+            $localidad = ceros($in['id_loc'],4);  
             $manzana = ceros($in['manzana'],2);  
             $folio = ceros($in['folio'],4);  
             $consecutivo = ceros($in['consecutivo'],4); 
 
             $y = $y + $salto;     
             $alto = 6;            
-            $this->Rect($x[5],$y,$x[6],$alto,'B');
-            $this->Rect($x[12]-.2,$y,$x[5],$alto,'B');
-            $this->Rect($x[18]-.4,$y,$x[5],$alto,'B');
-            $this->Rect($x[24]-.6,$y,$x[7]+.2,$alto,'B');
-            $this->Rect($x[32]-.6,$y,$x[20],$alto,'B');
-            $this->Rect($x[53]-.8,$y,$x[6],$alto,'B');
-            $this->Rect($x[60]-1,$y,$x[20],$alto,'B');
-            $this->Rect($x[81]-1.2,$y,$x[6],$alto,'B');
-            $this->Rect($x[88]-1.4,$y,$x[6],$alto,'B'); //
-            $this->Rect($x[95]-1.6,$y,$x[6]-1,$alto,'B'); //
+            $this->Rect($x[30],$y,$x[6],6,'B');    
+            $this->Rect($x[38]-1,$y,$x[8],6,'B');
+            $this->Rect($x[47],$y,$x[7],6,'B');
+            $this->Rect($x[56]-1,$y,$x[9],6,'B');
+            $this->Rect($x[66],$y,$x[15],6,'B');
             $y = $y + $salto; 
+            $this->SetFont($fuente,'I',$ft4);
+            $this->Text($x[28],$y,$Reg);
             $this->SetFont($fuente,'B',$ft3);
-            // $this->Text($x[2]+1,$y,utf8_decode($ContRegs)); //
-            $this->Text($x[6],$y,$loc);
-            $this->Text($x[14],$y,$manzana);
-            $this->Text($x[19]+1,$y,$folio);
-            $this->Text($x[26]+1,$y,$consecutivo);           
-            $y-=2;  
+            $this->Text($x[32],$y,$seccion);
+            $this->Text($x[41]+1,$y,$localidad);
+            $this->Text($x[50],$y,$manzana);
+            $this->Text($x[59],$y,$folio);
+            $this->Text($x[71],$y,$consecutivo);          
+                $y-=2;  
             $SubTotal = $ContRegs;
         }
         if(!$f){
             ##TOTALES
-            $y = $y + $salto + 4;
-            $this->SetFont($fuente,'B',$ft2);
-            $this->Rect($x[12]-.2,$y,$x[5],$alto,'B');
-            $this->Rect($x[18]-.4,$y,$x[5],$alto,'B');                
-            $this->Text($x[6],$y+$salto,utf8_decode('TOTAL'));
-            $this->Text($x[14],$y+$salto,utf8_decode($Totales[0]));
-            $this->Text($x[20],$y+$salto,utf8_decode($Totales[1])); 
+            $y = $y + $salto;
+            $this->SetDrawColor($color2);
+            $this->SetFillColor($color1);
+            $this->SetLineWidth(0.1);
+            $this->Rect($x[30],$y,$x[51],6,'FD'); 
+            $this->SetTextColor($color2);
+            $this->SetFont($fuente,'B',$ft2);               
+            $this->Rect($x[66],$y,$x[15],6,'B');
+            $this->Text($x[50],$y+$salto,utf8_decode('TOTAL'));
+            $this->Text($x[72],$y+$salto,utf8_decode($Reg)); 
+            $this->SetTextColor($color1);
         }          
     }
 
-    function PrintDatos($Valores, $Totales){ 
-        $this->regsPorHoja = 20; //Registros por Hoja
-        $this->setValores($Valores,$Totales);       
+    function PrintDatos($Valores, $termino){ 
+        $this->regsPorHoja = 30; //Registros por Hoja
+        $this->setValores($Valores, $termino);       
         $this->AddPage();
         $this->Hoja1();        
     }
 
-    function setValores($Valores, $Totales){
+    function setValores($Valores, $termino){
         reset($Valores);
         $this->valores = $Valores;
-        reset($Totales);
-        $this->totales = $Totales;
+        $this->termino = $termino[0][termino];
     }
     ##FIN template PDF
 }

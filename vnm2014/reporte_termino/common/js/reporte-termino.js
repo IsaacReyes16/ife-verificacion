@@ -43,15 +43,16 @@ function grupoTitulos(){
 	      auth : 1,
 	      t : t,
 	      ent : ent,
-	      dto : dto
+	      dto : dto,
+	      soloPendientes : 1
       },
 	    success: function(data){ 
 	      $('#tabla-detalle > thead').empty();
 	      var tableName = $('#tabla-detalle > tbody:last');	 
 	      var claseLinea = 'class="grupo-label"';   
 	      var claseLinea2 = 'class="grupo-titulo"';  
-	      var claseValor = 'class="grupo-field"';	      
-	      if(data!=null){
+	      var claseValor = 'class="grupo-field"';
+	      if(data!=null && data[0]!='CERO'){
 	      	$.each(data, function(i, valor){	
 	      		var enlace = 'class="link" onclick="desplegar(\''+valor.seccion+'-'+valor.manzana+'\')"';
 	       		var rowTitles = 
@@ -86,8 +87,12 @@ function grupoTitulos(){
 						+'<span id="div_'+valor.seccion+'-'+valor.manzana+'"><table id="tbl_'+valor.seccion+'-'+valor.manzana+'" width="100%"><tbody>'
 						+'</tbody></table></span></form></td></tr>';      	
 				tableName.append(rowTitles);
-				grupoDetalle(ent, dto, valor.seccion, valor.manzana);	
+				grupoDetalle(ent, dto, valor.seccion, valor.manzana, valor.ReemplazoUsado);	
   			});		      
+	      }else if(data[0]=='CERO'){
+	      	mostrardiv('btnGenerar');
+	      	ocultardiv('tabla-detalle');
+	      	
 	      }else{
 	          alert("Error al crear grupos de tabla.");
 	      }
@@ -96,7 +101,7 @@ function grupoTitulos(){
 	});
 }
 
-function grupoDetalle(ent, dto, secc, mza){
+function grupoDetalle(ent, dto, secc, mza, reemplazo){
 	var ajax_url = "c.reporte-termino.php";
     var t = 'grupo-detalle';
     var ent = ent;
@@ -115,21 +120,26 @@ function grupoDetalle(ent, dto, secc, mza){
 	      ent : ent,
 	      dto : dto,
 	      secc : secc,
-	      mza : mza
+	      mza : mza,
+	      soloPendientes : 1
       },
 	    success: function(data){ 
 	      var tableName = $('#tbl_'+secc+'-'+mza+' > tbody:last');	 
 	      var claseLinea = 'class="grupo-detalle"';   
 	      var claseValor = 'class="folio"';
+	      var reemplazoField = "";
 	      if(data!=null){
 	      	$.each(data, function(i, valor){	
+	      		if(reemplazo==0){
+		      		reemplazoField = 'Si<input id="reemplazo-si" name="reemplazo_'+valor.folio+'" type="radio" value="1" onfocus="pintaFilaON(this.id, '+valor.folio+')" onclick="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')"> No<input id="reemplazo-no" name="reemplazo_'+valor.folio+'" type="radio" value="0" onfocus="pintaFilaON(this.id, '+valor.folio+')" onclick="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')">';
+		      	}else{reemplazoField = '<label '+claseValor+' style="font-size:9px;">Fué utilizado en otro folio</label><input id="reemplazo-no" name="reemplazo_'+valor.folio+'" type="radio" value="0" checked>';}
 	       		var rowData = '<tr id="tr_'+valor.folio+'" class="grupo-detalle">'
 								+'	<td '+claseLinea+' width="30">&nbsp;</td>'
 								+'	<td '+claseLinea+'>Folio:&nbsp;<label '+claseValor+'>'+valor.folio+'</label><input type="hidden" id="folio" name="folio" value="'+valor.folio+'"></td>'
-								+'	<td '+claseLinea+' >Usó reemplazo?<br/> Si<input id="reemplazo-si" name="reemplazo_'+valor.folio+'" type="radio" value="1" onfocus="pintaFilaON(this.id, '+valor.folio+')" onclick="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')"> No<input id="reemplazo-no" name="reemplazo_'+valor.folio+'" type="radio" value="0" onfocus="pintaFilaON(this.id, '+valor.folio+')" onclick="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')"></td>'
+								+'	<td '+claseLinea+' >Usó reemplazo?<br/>'+reemplazoField+'</td>'
 								+'	<td '+claseLinea+' >Justificación:<br/> <textarea id="justificacion_'+valor.folio+'" name="justificacion_'+valor.folio+'" size="20" rows="2" onkeyup="mayusc(this)" onfocus="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')"></textarea></td>'
 								+'	<td '+claseLinea+' >Documento:<br/> <input type="file" id="doc_'+valor.folio+'" name="doc_'+valor.folio+'" onclick="pintaFilaON(this.id, '+valor.folio+')" onfocus="pintaFilaON(this.id, '+valor.folio+')" onblur="pintaFilaOFF(this.id, '+valor.folio+')"> </td>'
-								+'	<td '+claseLinea+' align="center" valign="middle"><div id="ok_'+valor.folio+'" width="15" style="display:none;"><img src="common/img/ok.png" valign="middle" align="center" title="Guardada"></div><div id="btn_'+valor.folio+'" class="btn" onclick="verificaArchivo('+valor.folio+',\''+valor.seccion+'-'+valor.manzana+'\'); pintaFilaON(this.id, '+valor.folio+');" onblur="pintaFilaOFF(this.id, '+valor.folio+')">Guardar</span></td>'
+								+'	<td '+claseLinea+' align="center" valign="middle"><div id="ok_'+valor.folio+'" width="15" style="display:none;"><img src="common/img/ok.png" valign="middle" align="center" title="Guardada"></div><div id="btn_'+valor.folio+'" class="btn" onclick="verificaArchivo('+valor.folio+',\''+valor.seccion+'-'+valor.manzana+'\', '+ent+', '+dto+', '+secc+', '+mza+'); pintaFilaON(this.id, '+valor.folio+');" onblur="pintaFilaOFF(this.id, '+valor.folio+')">Guardar</span></td>'
 								+'  <td>&nbsp;</td>'
 								+'</tr>';      	
 				tableName.append(rowData);
@@ -142,44 +152,48 @@ function grupoDetalle(ent, dto, secc, mza){
 	});
 }
 
-// function generaArchivo(){	
-// 	$("#tabla-resultados").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
-// 	var ajax_url = "c.listado-viviendas-por-seccion.php";
-//     var t = 'pdf';
-//     var ent = $("#ent").val();
-//     var dto = $("#dto").val();
-//     var municipio = $("#municipio").val();
-//     var seccion = $("#seccion").val();
-//     var tipo = $("#tipo").val();
-//     $.ajax({
-//       type: 'POST',
-//       url: ajax_url,
-//       dataType: "json",
-//       data: {      
-// 	      auth : 1,
-// 	      t : t,
-// 	      ent : ent,
-// 	      dto : dto,
-// 	      municipio : municipio,
-// 	      seccion : seccion,
-// 	      tipo : tipo
-//       },
-//       success: function(data){                           
-//       	if(data != 0){  
-// 			if(data[0]=='pdf'){  
-// 				$("#tabla-resultados").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar' target='_blank'><br/><img src='common/img/pdf.gif' border='0' valing='middle'>"+data[2]+"</a>");
-// 			}else if(data[0]=='ERROR'){ 
-// 				$("#tabla-resultados").html(''); 
-// 				alert(data[1]);
-// 			}else{
-// 				$("#tabla-resultados").html("Error al generar archivo. "+data);
-// 			}			
-//       	}else{
-// 			alert("Error al envíar datos"); 
-// 		}  
-// 	  }
-//     });
-// }
+function generaArchivo(){	
+	// $("#tabla-resultados").html("<img src='common/img/wait.gif' valign='middle'> Generando archivo.<br/>Este proceso puede tardar varios minutos, por favor espere...");
+	var ajax_url = "c.reporte-termino.php";
+    var t = 'pdf';
+    var ent = $("#ent").val();
+    var dto = $("#dto").val();
+    $.ajax({
+      type: 'POST',
+      url: ajax_url,
+      dataType: "json",
+      data: {      
+	      auth : 1,
+	      t : t,
+	      ent : ent,
+	      dto : dto,
+	      soloPendientes : 0
+      },
+      beforeSend: function(){    
+			txt = "Generando documento, por favor espere...";
+	        message = $("<span class='before'><img src='common/img/loader2.gif' valign='middle' align='center'>&nbsp "+txt+"</span>");
+	        showMessage(message);      
+	    },
+      success: function(data){                           
+      	if(data != 0){	
+			if(data[0]=='pdf'){        			
+    			txt = "Archivo generado correctamente.";
+	            message = $("<span class='success'><img src='common/img/yes.png' width='30' valign='middle' align='center'>&nbsp "+txt+"</span>");
+	            $("#tabla-resultados").html("Archivo Generado. <a href='"+data[1]+data[2]+"' title='Descargar' target='_blank'><br/><img src='common/img/pdf.gif' border='0' valing='middle'>"+data[2]+"</a>");
+	        }else if(data[0]=='ERROR'){ 
+	        	txt = data[1];
+	        	message = $("<span class='error'><img src='common/img/no.png' width='30' valign='middle' align='center'>&nbsp "+txt+"</span>");
+	    	}else{
+	    		txt = "Error al generar archivo. "+data;
+	        	message = $("<span class='error'><img src='common/img/no.png' width='30' valign='middle' align='center'>&nbsp "+"Ha ocurrido un error al guardar los datos.</span>");
+	        }
+	        showMessage(message); 	
+      	}else{
+			alert("Error al envíar datos"); 
+		}  
+	  }
+    });
+}
 
 function desplegar(id){   
     $('#tabla-detalle > tbody span').hide();
@@ -196,7 +210,7 @@ function pintaFilaOFF(inputField, folio){
 // #############################
 // Funciones para subir archivo
 // #############################
-function verificaArchivo(folio, id){    
+function verificaArchivo(folio, id, ent, dto, secc, mza){    
     var fileExtension = "";
 	var inputFile = '#doc_'+folio;
 	var archivo = 0;
@@ -223,20 +237,26 @@ function verificaArchivo(folio, id){
 	    	archivo=1;
 	    }	    	
     	if(!alto){
-    		enviaFormulario(id, folio, archivo);
+    		enviaFormulario(id, folio, archivo, ent, dto, secc, mza);
     	}
 
     }
 }
 
-function enviaFormulario(id, folio, archivo){	
+function enviaFormulario(id, folio, archivo, ent, dto, secc, mza){	
     //campos de formulario
     var alerta = "Folio: "+folio+" - ";
     var ajax_url = "c.reporte-termino.php";
     var formData = new FormData($('#frm_'+id)[0]);    
     formData.append("auth", 1);
-    formData.append("t", "save");    
+    formData.append("t", "save");
+    formData.append("ent", ent);
+    formData.append("dto", dto);
+    formData.append("secc", secc);
+    formData.append("mza", mza);    
     formData.append("archivo", archivo);
+    formData.append("tipo", 'CAPTURA'); 
+    formData.append("zona", 'URBANA'); 
     formData.append("folio", folio);    
     formData.append("reemplazo", $('input:radio[name=reemplazo_'+folio+']:checked').val());
     formData.append("justificacion", $("#justificacion_"+folio).val());
@@ -258,19 +278,23 @@ function enviaFormulario(id, folio, archivo){
             showMessage(message);      
         },
         success: function(data){
-        	if(data){
+        	if(data==1){
         		if(archivo){
         			txt = "El archivo y los datos se han guardado correctamente.";
         		}else{
         			txt = "Los datos se han guardado correctamente.";
         		}
-	            message = $("<span class='success'><img src='common/img/yes.png' width='30' valign='middle' align='center'>&nbsp "+alerta+txt+"</span>");	                       
-	        }else{
+	            message = $("<span class='success'><img src='common/img/yes.png' width='30' valign='middle' align='center'>&nbsp "+alerta+txt+"</span>");
+	        }else if(data=='duplicado'){
+	        	txt = "Este folio ya se capturó anteriormente.";
+	        	message = $("<span class='error'><img src='common/img/no.png' width='30' valign='middle' align='center'>&nbsp "+alerta+txt+"</span>");
+	    	}else{
 	        	message = $("<span class='error'><img src='common/img/no.png' width='30' valign='middle' align='center'>&nbsp "+alerta+"Ha ocurrido un error al guardar los datos.</span>");
 	        }
 	        showMessage(message); 
 	         $("#btn_"+folio).hide();
 	         $("#ok_"+folio).show();
+	         setTimeout(function(){	location.reload(true);}, 3000);
         },
         error: function(){
             message = $("<span class='error'><img src='common/img/no.png' width='30' valign='middle' align='center'>&nbsp "+alerta+"Ha ocurrido un error al subir el archivo.</span>");
@@ -283,6 +307,7 @@ function showMessage(message){
 	$("#popup_modal").show();
     $(".messages").show();
     $(".messages").html(message);
+    setTimeout(function(){	hideMessage();}, 5000);
 }
 
 function hideMessage(){

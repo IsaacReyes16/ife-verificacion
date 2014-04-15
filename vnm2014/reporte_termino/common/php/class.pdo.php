@@ -44,14 +44,15 @@ class db {
 	    }
 	}
 
-	private function resultadoSQL($SQL){
+	private function resultadoSQL($SQL, $TipoSQL){
 	//Ejecuta query SQL
 		try{
 	    	$this->SQLConn(); //Llama conexión
 	    	// $Result = $this->link->query($SQL); //Ejecuta query
 	    	$query = $this->link->prepare($SQL); //Prepara query
 			$query->execute(); //Ejecuta query
-			$Result = $query->fetchAll(); //Regresa resultados de query en un array
+			$Result = ($TipoSQL=='SELECT')? $query->fetchAll() : 1; //Regresa resultados de query en un array
+			// $Result = $query->fetchAll(); //Regresa resultados de query en un array
 	    	$this->cierraConexion(); //Cierra conexión (destruye objeto)  	
 	    	return $Result;
 	    }catch(PDOException $e){
@@ -69,8 +70,9 @@ class db {
 	//Ejecuta consultas de extracción
 		$Cmd=array('SELECT');
 		$vSql=explode(' ',$SQL);
-		if(in_array(strtoupper(trim($vSql[0])),$Cmd)){
-	    	$Result = $this->resultadoSQL($SQL);
+		$vSQL=strtoupper(trim($vSql[0]));
+		if(in_array($vSQL,$Cmd)){
+	    	$Result = $this->resultadoSQL($SQL, $vSQL);
 	    	return $Result;
 		}else{
 			echo "ERROR: La consulta es erronea.";
@@ -82,8 +84,9 @@ class db {
 	//Ejecuta consultas de modificación
 		$Cmd=array('INSERT', 'UPDATE', 'DELETE');
 		$vSql=explode(' ',$SQL);
-		if(in_array(strtoupper(trim($vSql[0])),$Cmd)){
-	    	$Result = $this->resultadoSQL($SQL);  	
+		$vSQL=strtoupper(trim($vSql[0]));
+		if(in_array($vSQL,$Cmd)){
+	    	$Result = $this->resultadoSQL($SQL, $vSQL);  	
 	    	return true;
 		}else{
 			echo "ERROR: La consulta es erronea.";

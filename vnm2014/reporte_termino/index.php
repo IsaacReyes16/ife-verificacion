@@ -42,6 +42,7 @@ $dto=$dis;
 			</table>
 		</div>
 	</div>
+	<div id="tabla-resultados"></div>
 	<!--Detalle-->	
 	<div id="tabla-detalle" class="Tabla">
 		<div class="tabla-top">Capturas Pendientes</div>
