@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>:: Instituto Federal Electoral ::</title>
+
+<link href="./css/estilos.css" rel="stylesheet" type="text/css" />  
+
+<script language="javascript" type="text/javascript">
+    javascript:window.history.forward(1);
+</script>
+
+<script language="javascript" src="scripts/siredu_estilos.js"></script>
+<script type="text/javascript" src="../inc/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/fun.js"></script>
+<script type="text/javascript" src="../pekeUpload-master/js/pekeUpload.js"></script>
+
+</head>
+
+<body bottommargin="0">
+<table id="container" border="0" align="center" cellpadding="0" cellspacing="0">
+<!-- INCLUDE sdir_encabezado.html -->
+<tr>
+    <td colspan="2" id="content"><h3>Formato de análisis registral</h3>
+	  <form name="form1" method="get" action="">
+        <table id="login" width="78%" border="0" align="center" cellpadding="0" cellspacing="0" >
+          <tr>
+            <td width="10"><img src="img/tops/rosa_2_01.gif" /></td>
+            <td colspan="4" class="f_rosa">Seleccionar la opción deseada</td>
+            <td width="10"><img src="img/tops/rosa_2_03.gif" /></td>
+          </tr>
+          <tr align="center" class="marca1">
+           <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" colspan="4" bgcolor="#EFF1F3">&nbsp;</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+		<tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="50%" bgcolor="#EFF1F3" align="right">Realizar la carga de un archivo .xls&nbsp;&nbsp;&nbsp;<div class="pekecontainer"></div></td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left"><input type="file" id="file" name="file" /></td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+          <tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" bgcolor="#EFF1F3" align="right">Entidad:&nbsp;&nbsp;&nbsp;</td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left">
+              <select name="slc_entidad" id="slc_entidad"><option value="0">Seleccionar</option></select>			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+		  <tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" bgcolor="#EFF1F3" align="right">Distrito:&nbsp;&nbsp;&nbsp;</td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left">
+              <select name="slc_distrito" id="slc_distrito" disabled="disabled"><option value="0">Seleccionar</option></select>			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+		  <tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" bgcolor="#EFF1F3" align="right">Municipio:&nbsp;&nbsp;&nbsp;</td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left">
+              <select name="slc_municipio" id="slc_municipio" disabled="disabled"><option value="0">Seleccionar</option></select>			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+       <tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" bgcolor="#EFF1F3" align="right">Estatus:&nbsp;&nbsp;&nbsp;</td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left">
+              <select name="slc_estatus" id="slc_estatus">
+                  <option value="0">TODOS</option>
+                  <option value="1">REGULAR</option>
+                  <option value="2">IRREGULAR</option>
+
+                </select>     </td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+		  <tr align="center" class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" bgcolor="#EFF1F3" align="right">Folio:&nbsp;&nbsp;&nbsp;</td>
+            <td colspan="3" bgcolor="#EFF1F3" align="left">
+              <input type="text" name="txt_folio" id="txt_folio" />			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+          <tr class="marca1">
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" colspan="4" align="center" bgcolor="#EFF1F3">&nbsp;</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+ 		<tr>
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td colspan="4" bgcolor="#EFF1F3">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				  <tr>
+					<td align="right" bgcolor="#EFF1F3" width="5%"><img src="img/boton/boton_01.gif" width="11" height="25"></td>
+					<td align="right" bgcolor="#EFF1F3" width="20%"class="boton"><a name="btn_precarga" id="btn_precarga" style="cursor:pointer" >Validar Archivo</a></td>
+					<td align="left" bgcolor="#EFF1F3"  width="5%"><img src="img/boton/boton_03.gif" width="11" height="25"></td>
+					<td align="right" bgcolor="#EFF1F3" width="5%"><img src="img/boton/boton_01.gif" width="11" height="25"></td>
+					<td align="right" bgcolor="#EFF1F3" width="20%" class="boton"><a name="btn_generar" id="btn_generar" style="cursor:pointer">Generar PDF y XLS</a></td>
+					<td align="left" bgcolor="#EFF1F3" width="5%"><img src="img/boton/boton_03.gif" width="11" height="25"></td>
+					<td align="right" bgcolor="#EFF1F3" width="5%"><img src="img/boton/boton_01.gif" width="11" height="25"></td>
+					<td align="right" bgcolor="#EFF1F3" width="20%" class="boton"><a name="limpiar" id="limpiar" style="cursor:pointer">Limpiar</a></td>
+					<td align="left" bgcolor="#EFF1F3" width="5%"><img src="img/boton/boton_03.gif" width="11" height="25"></td>
+				  </tr>
+				</table>
+			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+		  <tr>
+            <td background="img/marco/marco_04.gif">&nbsp;</td>
+            <td height="100%" colspan="4" align="center" bgcolor="#EFF1F3">
+				<div id="div_mensajes">&nbsp;</div>
+			</td>
+            <td background="img/marco/marco_06.gif">&nbsp;</td>
+          </tr>
+          <tr>
+            <td><img src="img/marco/marco_07.gif" alt="" /></td>
+            <td colspan="4" background="img/marco/marco_08.gif"><img src="img/marco/marco_08.gif"/></td>
+            <td><img src="img/marco/marco_09.gif" alt="" /></td>
+          </tr>
+        </table>
+      </form>
+	</td>
+</tr>
+<!-- INCLUDE sdir_pie.html -->
+</table>
+</body>
+</html>
