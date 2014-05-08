@@ -8,11 +8,18 @@ $user = "root";
 $pass = "ife";
 $db = "obs_ln2014_1428";
 */
+/*LOCAL*/
+// $host = "localhost";
+// $user = "root";
+// $pass = "";
+// $db = "ife_dom_irre_20140506_1";
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "ife_dom_irre_20140506_1";
+/*PRODUCCION*/
+$host = "verificacion.derfe.ife.org.mx";
+$user = "Oscar";
+$pass = "Oscar445.";
+$db = "obs_ln2014_148";
+/**/
 
 $conn = mysql_pconnect($host, $user, $pass) or die("Error de conexión con servidor ".mysql_error());
 mysql_select_db($db, $conn);

@@ -591,6 +591,8 @@ if($num_rows != 0){
 		}
 
 		/** Query con variable igual al nombre de la tabla*/
+		/*En caso de no tener info en lis_cuestionario_aclara_cua_vig, tomar datos de lis_acta_adm_vig*/
+		/*
 		$lis_cuestionario_aclara_cua_vig = "select DATE_FORMAT(fec_entrevista_cua, '%d/%m/%Y') as fec_entrevista_cua_vig,
 												   case
 													 when comprobante_dom_cua = 't' then
@@ -606,7 +608,19 @@ if($num_rows != 0){
 												   end comprobante_dom_cua_vig
 											  from lis_cuestionario_aclara_cua_vig
 											 where consec_ciu = ".$folio;
-			
+		*/
+		$lis_cuestionario_aclara_cua_vig = "select DATE_FORMAT(fec_entrevista_cua, '%d/%m/%Y') as fec_entrevista_cua_vig,
+												   IF(fec_entrevista_cua IS NOT NULL
+														,'SE REALIZÓ ENTREVISTA CON EL CIUDADANO'
+														,'NO SE PRESENTÓ EL CIUDADANO'
+													) AS resultado_entrevista_vig
+													,IF(comprobante_dom_cua = 't'
+														,concat_ws(' ', 'ACREDITÓ DOMICILIO', txt_comprobante_dom_cua)
+														,'NO ACREDITÓ DOMICILIO'
+													) AS comprobante_dom_cua_vig
+											  from lis_cuestionario_aclara_cua_vig
+											 where consec_ciu = ".$folio;
+
 		$qry9 = mysql_query($lis_cuestionario_aclara_cua_vig, $conn);
 		$num_rows2 = mysql_num_rows($qry9);
 		
@@ -624,7 +638,7 @@ if($num_rows != 0){
 			
 			/** Query con variable igual al nombre de la tabla*/
 			$lis_acta_adm_vig = "select 'NO SE PRESENTÓ EL CIUDADANO, SE LEVANTÓ ACTA ADMINISTRATIVA.' as resultado_entrevista_vig,
-										DATE_FORMAT(fecha_inicio_adm, '%d/%m/%Y') as fec_entrevista_cua_vig,
+										DATE_FORMAT(STR_TO_DATE(fec_cap_acta_adm, '%d/%m/%Y'), '%d/%m/%Y') as fec_entrevista_cua_vig,
 										'NO ACREDITÓ DOMICILIO' as comprobante_dom_cua_vig
 								  from lis_acta_adm_vig
 								 where consec_ciu = ".$folio;		
