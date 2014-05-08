@@ -12,7 +12,7 @@ $db = "obs_ln2014_1428";
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db = "ife_dom_irre_2014v2";
+$db = "ife_dom_irre_20140506_1";
 
 $conn = mysql_pconnect($host, $user, $pass) or die("Error de conexión con servidor ".mysql_error());
 mysql_select_db($db, $conn);
