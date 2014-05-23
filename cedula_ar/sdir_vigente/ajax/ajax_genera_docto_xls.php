@@ -331,73 +331,111 @@ if($num_rows != 0){
 		$fecha_cmv = 		(!empty($fecha_cmv)) ? $fecha_cmv : $no_aplica;
 
 		/** Query con variable igual al nombre de la tabla*/
-		$lis_cedula_di_cdi_vig = "select case
-										 when v3_fecha_cdi = '0000-00-00' then
-										  case
-											when v2_fecha_cdi = '0000-00-00' then
-											 case
-											   when v1_fecha_cdi = '0000-00-00' then
-												'No hay fecha'
-											   else
-												DATE_FORMAT(v1_fecha_cdi, '%d/%m/%Y')
-											 end
-											else
-											 DATE_FORMAT(v2_fecha_cdi, '%d/%m/%Y')
-										  end
-										 else
-										  DATE_FORMAT(v3_fecha_cdi, '%d/%m/%Y')
-									   end as fecha_cdcv,
-									   case
-										 when local_dom_cdi = 't' then
-										  'DOMICILIO LOCALIZADO'
-										 else
-										  case
-											when local_dom_cdi = 'f' then
-											 'DOMICILIO NO LOCALIZADO'
-											else
-											 case
-											   when local_dom_cdi is null then
-												(select desripcion_ccn
-												   from cat_ced_nofif_ccn
-												  where id_ccn = (select id_ccd
-																	from lis_cedula_notif_cdn_vig
-																   where consec_ciu = ".$folio."))
-											 end
-										  end
-									   end as local_dom_cdi,
-									   case
-										 when reconoce_ciu_cdi = 't' then
-										  'CUIDADANO RECONOCIDO'
-										 else
-										  case
-											when reconoce_ciu_cdi = 'f' then
-											 'CUIDADANO NO RECONOCIDO'
-											else
-											 case
-											   when reconoce_ciu_cdi is null then
-												case
-												  when reconoce_ciu_dom_cdi = 't' then
-												   'CUIDADANO RECONOCIDO'
-												  else
-												   case
-													 when reconoce_ciu_dom_cdi = 'f' then
-													  'CUIDADANO NO RECONOCIDO'
-												   end
-												end
-											 end
-										  end
-									   end reconoce_ciu_cdi,
-									   case
-										 when vive_ciu_dom_cdi = 't' then
-										  'VIVE EN EL DOMICILIO'
-										 else
-										  case
-											when vive_ciu_dom_cdi = 'f' then
-											 'NO VIVE EN EL DOMICILIO'
-										  end
-									   end vive_ciu_dom_cdi
-								  from lis_cedula_di_cdi_vig
-								 where consec_ciu = ".$folio;
+		// $lis_cedula_di_cdi_vig = "select case
+		// 								 when v3_fecha_cdi = '0000-00-00' then
+		// 								  case
+		// 									when v2_fecha_cdi = '0000-00-00' then
+		// 									 case
+		// 									   when v1_fecha_cdi = '0000-00-00' then
+		// 										'No hay fecha'
+		// 									   else
+		// 										DATE_FORMAT(v1_fecha_cdi, '%d/%m/%Y')
+		// 									 end
+		// 									else
+		// 									 DATE_FORMAT(v2_fecha_cdi, '%d/%m/%Y')
+		// 								  end
+		// 								 else
+		// 								  DATE_FORMAT(v3_fecha_cdi, '%d/%m/%Y')
+		// 							   end as fecha_cdcv,
+		// 							   case
+		// 								 when local_dom_cdi = 't' then
+		// 								  'DOMICILIO LOCALIZADO'
+		// 								 else
+		// 								  case
+		// 									when local_dom_cdi = 'f' then
+		// 									 'DOMICILIO NO LOCALIZADO'
+		// 									else
+		// 									 case
+		// 									   when local_dom_cdi is null then
+		// 										(select desripcion_ccn
+		// 										   from cat_ced_nofif_ccn
+		// 										  where id_ccn = (select id_ccd
+		// 															from lis_cedula_notif_cdn_vig
+		// 														   where consec_ciu = ".$folio."))
+		// 									 end
+		// 								  end
+		// 							   end as local_dom_cdi,
+		// 							   case
+		// 								 when reconoce_ciu_cdi = 't' then
+		// 								  'CUIDADANO RECONOCIDO'
+		// 								 else
+		// 								  case
+		// 									when reconoce_ciu_cdi = 'f' then
+		// 									 'CUIDADANO NO RECONOCIDO'
+		// 									else
+		// 									 case
+		// 									   when reconoce_ciu_cdi is null then
+		// 										case
+		// 										  when reconoce_ciu_dom_cdi = 't' then
+		// 										   'CUIDADANO RECONOCIDO'
+		// 										  else
+		// 										   case
+		// 											 when reconoce_ciu_dom_cdi = 'f' then
+		// 											  'CUIDADANO NO RECONOCIDO'
+		// 										   end
+		// 										end
+		// 									 end
+		// 								  end
+		// 							   end reconoce_ciu_cdi,
+		// 							   case
+		// 								 when vive_ciu_dom_cdi = 't' then
+		// 								  'VIVE EN EL DOMICILIO'
+		// 								 else
+		// 								  case
+		// 									when vive_ciu_dom_cdi = 'f' then
+		// 									 'NO VIVE EN EL DOMICILIO'
+		// 								  end
+		// 							   end vive_ciu_dom_cdi
+		// 						  from lis_cedula_di_cdi_vig
+		// 						 where consec_ciu = ".$folio;
+
+		$lis_cedula_di_cdi_vig = "SELECT
+									IF(v3_fecha_cdi = '0000-00-00',
+											IF(v2_fecha_cdi = '0000-00-00',
+													IF(v1_fecha_cdi = '0000-00-00'
+														,'No hay fecha'
+														,DATE_FORMAT(v1_fecha_cdi, '%d/%m/%Y')
+													)
+													,DATE_FORMAT(v2_fecha_cdi, '%d/%m/%Y')
+											),DATE_FORMAT(v3_fecha_cdi, '%d/%m/%Y')
+									) AS fecha_cdcv
+									,
+									CASE IFNULL(local_dom_cdi,'null')
+										WHEN 't' THEN 'DOMICILIO LOCALIZADO'
+										WHEN 'f' THEN 'DOMICILIO NO LOCALIZADO'
+										WHEN 'null' THEN   ####### 
+											(select desripcion_ccn
+												 from cat_ced_nofif_ccn
+												where id_ccn = (select id_ccd
+																from lis_cedula_notif_cdn_vig
+																 where consec_ciu = ".$folio."))
+									END	AS local_dom_cdi
+									,
+									CASE IFNULL(reconoce_ciu_cdi,'null')
+										WHEN 't' THEN 'CUIDADANO RECONOCIDO'
+										WHEN 'f' THEN 'CUIDADANO NO RECONOCIDO'
+										WHEN 'null' THEN 
+											CASE reconoce_ciu_dom_cdi 
+												WHEN 1 THEN 'CUIDADANO RECONOCIDO'
+												WHEN 2 THEN 'CUIDADANO NO RECONOCIDO'
+												WHEN 3 THEN 'AUSENCIA DE OCUPANTES'
+												WHEN 4 THEN 'RECHAZO'
+											END
+									END AS reconoce_ciu_cdi
+									,
+									IF(vive_ciu_dom_cdi = 't', 'VIVE EN EL DOMICILIO', 'NO VIVE EN EL DOMICILIO') AS vive_ciu_dom_cdi
+								FROM lis_cedula_di_cdi_vig
+								WHERE  consec_ciu = '$folio';";
 		
 		$qry3 = mysql_query($lis_cedula_di_cdi_vig, $conn);
 	

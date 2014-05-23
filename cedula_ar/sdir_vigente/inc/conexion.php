@@ -1,6 +1,6 @@
 <?php session_start();
 
-if (!isset($_SESSION['id_usu'])) { header("Location: ../../sdir_obsln_ver/index.php"); exit; }
+// if (!isset($_SESSION['id_usu'])) { header("Location: ../../sdir_obsln_ver/index.php"); exit; }
 
 /*
 $host = "localhost";
@@ -19,6 +19,7 @@ $host = "verificacion.derfe.ife.org.mx";
 $user = "Oscar";
 $pass = "Oscar445.";
 $db = "obs_ln2014_148";
+// $db = "dom_irre_2014";
 /**/
 
 $conn = mysql_pconnect($host, $user, $pass) or die("Error de conexión con servidor ".mysql_error());
