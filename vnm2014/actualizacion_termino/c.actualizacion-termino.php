@@ -38,14 +38,11 @@ if($v_auth && $v_t && !in_array($Action,$actionList)){
 				,'Date' AS termino
 				,IF(tmp_captura.consecutivo IS NOT NULL OR c.consecutivo IS NOT NULL,1,0) AS capturada
 				,tmp_captura.nombre_ciudadano
-				,tmp_captura.tbl
+				,'captura_actualizacion' AS tbl
 				,'' AS reemplazo
 				,'' AS id_remplaza_a
 				FROM actualizacion AS a
-				LEFT JOIN (
-					SELECT consecutivo, id_estado AS entidad, id_dtto AS distrito, nombre_ciudadano, 'captura_actualizacion' AS tbl
-					FROM captura_actualizacion
-				) AS tmp_captura ON a.consecutivo=tmp_captura.consecutivo
+				LEFT JOIN captura_actualizacion AS tmp_captura ON a.consecutivo=tmp_captura.consecutivo
 				LEFT JOIN rep_termino_act AS c ON a.consecutivo=c.consecutivo
 				WHERE 1 $Filtro
 				$soloPendientes
@@ -72,10 +69,7 @@ if($v_auth && $v_t && !in_array($Action,$actionList)){
 				,SUM(IF(tmp_captura.consecutivo IS NOT NULL  OR c.consecutivo IS NOT NULL,1,0)) AS TotCapturas
 				,(COUNT(*) - IFNULL(SUM(IF(tmp_captura.consecutivo IS NOT NULL  OR c.consecutivo IS NOT NULL,1,0)),0)) AS TotPendientes
 				FROM actualizacion AS a
-				LEFT JOIN (
-					SELECT consecutivo, id_estado AS entidad, id_dtto AS distrito, nombre_ciudadano, 'captura_actualizacion' AS tbl
-					FROM captura_actualizacion
-				) AS tmp_captura ON a.consecutivo=tmp_captura.consecutivo
+				LEFT JOIN captura_actualizacion AS tmp_captura ON a.consecutivo=tmp_captura.consecutivo
 				LEFT JOIN rep_termino_act AS c ON a.consecutivo=c.consecutivo
 				WHERE 1 $Filtro
 				GROUP BY  a.id_edo, a.id_dtto, a.seccion, a.mz ASC				

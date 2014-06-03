@@ -555,9 +555,9 @@ class PDF extends FPDF
         $this->Text($x[30],$y,utf8_decode("VERIFICACIÓN NACIONAL MUESTRAL, 2014"));
         $y = $y + $salto + 2; 
         $this->SetFont('Arial','B',$ft1);
-        $this->Text($x[39],$y,utf8_decode("LISTADO DE ACTUALIZACIÓN DE DATOS"));
+        $this->Text($x[39],$y,utf8_decode("LISTADO DE CÉDULAS TRABAJADAS"));
         $y = $y + $salto + 2; 
-        $this->Text($x[53],$y,utf8_decode("ZONA URBANA"));
+        $this->Text($x[42],$y,utf8_decode("ENCUESTA DE ACTUALIZACIÓN"));
 
         //Salto        
         $y = $y + $salto + 8;
@@ -605,7 +605,7 @@ class PDF extends FPDF
         $this->Text($x[31],$y,utf8_decode('SECCIÓN'));
         $this->Text($x[39],$y,utf8_decode('LOCALIDAD'));
         $this->Text($x[48],$y,utf8_decode('MANZANA'));
-        $this->Text($x[60],$y,utf8_decode('VIVENDAS SELECCIONADAS'));
+        $this->Text($x[60],$y,utf8_decode('CIUDADANOS SELECCIONADOS'));
         //Linea 2
         $y = $y + $salto -2;
         $this->Rect($x[30],$y,$x[6],6,'FD');    
@@ -619,7 +619,7 @@ class PDF extends FPDF
         $this->Text($x[41]+1,$y,utf8_decode('CVE'));
         $this->Text($x[50],$y,utf8_decode('CVE'));
         // $this->Text($x[57]-1,$y,utf8_decode('FOLIO CAPTURA'));
-        $this->Text($x[63],$y,utf8_decode('CONSECUTIVO DE VIVIENDA'));
+        $this->Text($x[66],$y,utf8_decode('No. DE CÉDULA'));
           
     }
 
