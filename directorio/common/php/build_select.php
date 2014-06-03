@@ -160,10 +160,11 @@ function radio_sexo($value=''){
 
 function radio_firma($value=''){
 	$name="firma";
-	$keys = array('S','N');
+	$keys = array('S');
 	foreach($keys as $key){
 		$valueTxt = ($key=='S')?"Si":"No";
-		$sel = ($value==$key)?"checked":"";
+		#$sel = ($value==$key)?"checked='checked'":"";
+		$sel = "checked='checked'";
 		$options.="<input type='radio' name='$name' value='$key' $sel>".$valueTxt.'&nbsp;';		
 	}	
 	return $options;

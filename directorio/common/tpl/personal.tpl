@@ -51,11 +51,11 @@ function validar(f,accion){
         return false;
     }
 
-    if($('input:radio[name=firma]:checked').length==''){
-        alert("Seleccione si el funcionario firma oficios.");
-        f.firma.focus();
-        return false;
-    }
+    // if($('input:radio[name=firma]:checked').length==''){
+    //     alert("Seleccione si el funcionario firma oficios.");
+    //     f.firma.focus();
+    //     return false;
+    // }
     save(accion);
 }
 function save(accion){
