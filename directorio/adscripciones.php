@@ -46,6 +46,7 @@ $sql="SELECT
 	,b.area
 	,b.organo
 	,c.ent_mayusc as entidad
+	,a.horario
 	FROM tbl_adscripciones a
 	LEFT JOIN cat_areas b using(id_area)
 	LEFT JOIN cat_entidades c on a.ent=c.id_entidad
@@ -116,6 +117,7 @@ $html->set('num_ext', $Row['num_ext']);
 $html->set('num_int', $Row['num_int']);
 $html->set('colonia', $Row['colonia']);
 $html->set('mpio_desc', $Row['mpio_desc']);
+$html->set('horario', $Row['horario']);
 #$html->set('mpio', $Row['mpio']);
 $html->set('cp', $Row['cp']);
 $html->set('lada', $Row['lada']);

@@ -29,6 +29,11 @@ function validar(f,accion){
         f.cp.focus();
         return false;
     }
+    if(fulltrim($("#horario").val())==''){
+        alert("Debe ingresar el Horario de atención del la Vocalía RFE.");
+        f.horario.focus();
+        return false;
+    }
     save(accion);
 }
 function save(accion){
@@ -49,6 +54,7 @@ function save(accion){
     var lada = $("#lada").val();
     var telefono = $("#telefono").val();
     var fax = $("#fax").val();
+    var horario = $("#horario").val();
     $.ajax({
       type: 'POST',
       url: ajax_url,
@@ -68,7 +74,8 @@ function save(accion){
       cp : cp,
       lada : lada,
       telefono : telefono,
-      fax : fax
+      fax : fax,
+      horario : horario
       },
       success: function(data){    
           if(data !=''){                                    
@@ -149,6 +156,10 @@ function cancelar(){
       	<td class='table-label'>Fax:&nbsp;</td>	
           <td class='table-field' ><input type="text" name='fax' id='fax' size='10' maxlength='10' value='[@fax]' onkeypress="return solo_num(event)"/></td>		
   	</tr>
+     <tr>
+        <td class='table-label'><span class="label-required">*</span>Horario Atención Vocalia RFE:&nbsp;</td>  
+          <td class='table-field' colspan="3"><input type="text" name='horario' id='horario' size='50' maxlength='120' value='[@horario]' onkeyup="mayusc(this)" ></td>    
+    </tr>
       <!-- 
       <tr>
       	<td class='table-label'>Activo:&nbsp;</td>	
