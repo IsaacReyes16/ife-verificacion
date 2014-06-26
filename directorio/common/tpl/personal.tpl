@@ -86,6 +86,7 @@ function save(accion){
     var num_int = $("#num_int").val();
     var colonia = $("#colonia").val();
     var mpio_desc = $("#mpio_desc").val();
+    var horario = $("#horario").val();
     var cp = $("#cp").val();
     $.ajax({
       type: 'POST',
@@ -115,7 +116,8 @@ function save(accion){
       num_int : num_int,
       colonia : colonia,
       mpio_desc : mpio_desc,
-      cp : cp
+      cp : cp,
+      horario : horario
       },
       success: function(data){
           if(data !=''){                      
@@ -143,6 +145,7 @@ function cancelar(){
        <tr>
           <td class='table-label'>Adscripción:&nbsp;</td> 
           <td class='table-field' colspan="3">[@adscripcion]
+          <input type="text" name='horario' id='horario' value='[@horario]' >
           </td>       
       </tr>
       <tr>
@@ -160,6 +163,12 @@ function cancelar(){
           <td class='table-field' >[@entidad]<input type='hidden' name='ent' id='ent' value='[@id_ent]' /></td>   
           <td class='table-label'>Dtto:&nbsp;</td>    
           <td class='table-field' >[@dto]<input type='hidden' name='dto' id='dto' value='[@id_dto]' /></td>       
+      </tr>
+      <tr>
+        <td class='table-label'>Horario Atención Vocalia RFE:&nbsp;</td>  
+          <td class='table-field' colspan="3">[@horario]
+            <input type="hidden" name='horario' id='horario' value='[@horario]' >
+          </td>    
       </tr>
       <!-- Form -->
       <tr>

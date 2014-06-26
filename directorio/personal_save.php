@@ -54,7 +54,8 @@ if(!empty($in['id_adscripcion'])){
 					telefono1_vd='$in[telefono]',
 					telefono2_vd='$in[telefono2]',
 					correo_elec_vd='$in[correo]',
-					es_titular_vd='$titular'
+					es_titular_vd='$titular',
+					horario_vd='$in[horario]'
 					WHERE id_personal='$in[id_personal]';";
 			$sql=SQLExec($sql);
 		}
@@ -167,7 +168,8 @@ if(!empty($in['id_adscripcion'])){
 					num_int_vd='$Row_adsc[num_int]',
 					colonia_vd='$Row_adsc[colonia]',
 					municipio_vd='$Row_adsc[mpio_desc]',
-					cp_vd='$Row_adsc[cp]';";
+					cp_vd='$Row_adsc[cp]',
+					horario_vd='$in[horario]';";
 			$sql=SQLExec($sql);
 		}
 		$exito=true;	

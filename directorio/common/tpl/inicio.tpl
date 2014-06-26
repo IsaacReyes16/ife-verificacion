@@ -80,7 +80,11 @@ function save_direccion(accion, id_adscripcion){
         <tr>
             <td class='table-label'>Siglas:&nbsp;</td>  
             <td class='table-field' colspan="3">[@corto]</td>   
-        </tr>    
+        </tr>
+        <tr>
+            <td class='table-label'>Horario Atención:&nbsp;</td>  
+            <td class='table-field' colspan="3">[@horario]</td>   
+        </tr>  
         <tr>
             <td class='table-label'>Organo:&nbsp;</td>  
             <td class='table-field' >[@organo]</td>     

@@ -59,6 +59,7 @@ $sql="SELECT
 	,d.adscripcion
 	,d.corto
 	,e.cargo
+	,d.horario
 	,f.tratamiento
 	FROM tbl_personal a
 	LEFT JOIN tbl_adscripciones d USING(id_adscripcion)
@@ -108,6 +109,7 @@ $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
+$html->set('horario', $Row['horario']);
 //-- Form
 $html->set('select_direccion', $select_direccion);
 $html->set('id_personal', $Row['id_personal']);

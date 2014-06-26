@@ -3,8 +3,8 @@
 * Variables para debugear el sistema
 */
 // $Usuario['id']=2015;
-// $Usuario['nivel']=2;
-// $Usuario['ent']=9;
-// $Usuario['dto']=5;
+// $Usuario['nivel']=3;
+// $Usuario['ent']=32;
+// $Usuario['dto']=3;
 //$v_id=180;
 ?>

@@ -54,6 +54,7 @@ $sql="SELECT
 	,a.id_usuario
 	,b.area
 	,b.organo
+	,a.horario
 	,c.ent_mayusc as entidad
 	FROM tbl_adscripciones a
 	LEFT JOIN cat_areas b using(id_area)
@@ -64,6 +65,8 @@ $sql="SELECT
 $Row = SQLQuery($sql,1);
 #Distrito
 $Dtto=($Row['dto']==0)?'N/A':$Row['dto'];
+#Direccion
+$select_direccion = select_direccion($Row['id_adscripcion'],$Row['ent'],$Row['dto']);
 #Puesto
 $select_cargo = select_cargo('',$Row['id_area']);
 #Tratamientos
@@ -97,7 +100,9 @@ $html->set('dto', $Dtto);
 $html->set('id_area', $Row['id_area']);
 $html->set('area', $Row['area']);
 $html->set('organo', $Row['organo']);
+$html->set('horario', $Row['horario']);
 //-- Form
+$html->set('select_direccion', $select_direccion);
 $html->set('id_personal', $Row['id_personal']);
 $html->set('select_cargo', $select_cargo);
 $html->set('cargo', $Row['cargo']);

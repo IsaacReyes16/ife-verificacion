@@ -43,8 +43,9 @@ $sql="SELECT
 	,a.actualizado
 	,a.id_usuario
 	,b.area
-	,b.organo
+	,b.organo	
 	,c.ent_mayusc as entidad
+	,a.horario
 	FROM tbl_adscripciones a
 	LEFT JOIN cat_areas b using(id_area)
 	LEFT JOIN cat_entidades c on a.ent=c.id_entidad
@@ -129,6 +130,7 @@ $html->set('dto', $Dtto);
 $html->set('id_area', $Row[1][5]);
 $html->set('area', $Row[1][19]);
 $html->set('organo', $Row[1][20]);
+$html->set('horario', $Row[1][22]);
 $html->set('direccionOk', $direccionOk);
 $html->set('icoOK', $iOk);
 $html->set('icoNotOK', $iNotOk);
