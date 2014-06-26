@@ -9,12 +9,12 @@ $v_ent = $Usuario['ent'];
 $v_dto = $Usuario['dto'];
 ##Output
 $htmlTpl = 'index.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
-$html->set('ImgPath', $Path['img']);
+$html->set('ImgPath', $Ruta['img']);
 $html->set('fecha_hoy', fecha_larga_hoy());
 #--
 $html->set('Titulo', 'ACTUALIZACIÓN DE DIRECTORIO');

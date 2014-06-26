@@ -77,11 +77,11 @@ $Ent=($Row[1][3]==0)?'N/A':$Row[1][21];
 #Distrito
 $Dtto=($Row[1][4]==0)?'N/A':$Row[1][4];
 #Usuario
-$vUsuario = SQLUser($Row[1][18], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
+$vUsuario = SQLUser($Row[1][18], $db_domirreg, 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 #Icono OK & Not OK
-$iOk = "<img src='".$Path['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Actualizado'>";
-$iNotOk = "<img src='".$Path['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Actualizar Datos'>";
+$iOk = "<img src='".$Ruta['img'].'ok.png'."' border='0' alt='Actualizado' valign='middle' title='Actualizado'>";
+$iNotOk = "<img src='".$Ruta['img'].'not.png'."' border='0' alt='Revisar' valign='middle' title='Actualizar Datos'>";
 #Direccion
 $TotalDirs = count($Row);
 for($i=1; $i<=$TotalDirs-1; $i++){
@@ -112,12 +112,12 @@ for($i=1; $i<=$Total-1; $i++){
 $divSearch=($Usuario['nivel']==1)?'block':'none';
 ##Output
 $htmlTpl = 'inicio.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
-$html->set('ImgPath', $Path['img']);
+$html->set('ImgPath', $Ruta['img']);
 #--
 $html->set('id_adscripcion', $Row[1][0]);
 $html->set('adscripcion', $Row[1][1]);

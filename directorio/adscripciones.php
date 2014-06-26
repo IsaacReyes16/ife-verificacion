@@ -95,7 +95,7 @@ for($i=1; $i<=$Total-1; $i++){
 }
 ##Output
 $htmlTpl = 'adscripciones.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);

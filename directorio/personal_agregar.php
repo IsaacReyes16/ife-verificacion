@@ -75,12 +75,12 @@ $radio_firma = radio_firma();
 #Activo
 $select_activo=select_activo(1);
 #Usuario
-$vUsuario = SQLUser($id_usuario, 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
+$vUsuario = SQLUser($id_usuario, $db_domirreg, 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 
 ##Output
 $htmlTpl = 'personal.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);

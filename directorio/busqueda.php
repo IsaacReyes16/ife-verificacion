@@ -8,12 +8,12 @@ if($Usuario['nivel']!=1){
 }
 ##Output
 $htmlTpl = 'busqueda.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
 $html->set('CSS_estilos', $Css);
-$html->set('ImgPath', $Path['img']);
+$html->set('ImgPath', $Ruta['img']);
 #--
 $html->set('select_ent', select_ent());
 $html->set('select_dto', select_dto());

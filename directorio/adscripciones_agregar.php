@@ -57,11 +57,11 @@ $Dtto=($Row['dto']==0)?'N/A':$Row['dto'];
 #Activo
 $select_activo=select_activo($Row['activo']);
 #Usuario
-$vUsuario = SQLUser($Row['id_usuario'], 'ife_dom_irre', 'cat_usuarios_usu', 'id_usu');
+$vUsuario = SQLUser($Row['id_usuario'], $db_domirreg, 'cat_usuarios_usu', 'id_usu');
 $UsuarioNombre = $vUsuario['nombre_usu'].' '.$vUsuario['paterno_usu'].' '.$vUsuario['materno_usu'];
 ##Output
 $htmlTpl = 'adscripciones.tpl';
-$html = new Template($Path['tpl'].$htmlTpl);
+$html = new Template($Ruta['tpl'].$htmlTpl);
 $html->set('HtmlHead', $HtmlHead);
 $html->set('jQuery', $jQueryPlugins);
 $html->set('Javascript', $Javascript);
